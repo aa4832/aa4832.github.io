@@ -6,3 +6,21 @@ body {
     background: black;
     color: white;
   }
+
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 1em;
+    color: #ffffff; /* explicitly white */
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+}
+
+body.dark-mode .button {
+    background-color: #3399ff;
+    color: #fff;
+}
