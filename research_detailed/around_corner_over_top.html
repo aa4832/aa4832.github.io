@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mmWave Propagation Modeling</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .project-details {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .project-details h1 {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .project-details p, .project-details ul {
+            font-size: 1em;
+            color: #555;
+        }
+        .project-details ul {
+            margin-left: 20px;
+        }
+        .project-details a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .project-details a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        body.dark-mode .project-details {
+            background: #444;
+            border-color: #666;
+        }
+        body.dark-mode .project-details h1 {
+            color: #fff;
+        }
+        body.dark-mode .project-details p,
+        body.dark-mode .project-details ul {
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p><a href="../../research.html">← Back to Research</a></p>
+        <div class="project-details">
+            <h1>Around-Corner and Over-Top 28 GHz Propagation in Manhattan</h1>
+            <p>This work presents a detailed 28 GHz measurement campaign in West Harlem, Manhattan, to characterize challenging urban Non-Line-of-Sight (NLOS) mmWave propagation paths. We propose two novel empirical models: the <strong>Street-Clutter-NLOS</strong> and <strong>Over-Top-NLOS</strong> models, tailored for next-generation base station placement and MU-MIMO system design.</p>
+
+            <p><strong>Key Contributions:</strong></p>
+            <ul>
+                <li><strong>New Propagation Models:</strong> The Street-Clutter-NLOS model captures path loss through near-corner obstructions like fences, trash bins, poles, and vehicles. The Over-Top-NLOS model captures elevated reflections over rooftops.</li>
+                <li><strong>High Accuracy:</strong> Street-Clutter-NLOS achieves 6.4 dB RMSE, outperforming the 3GPP UMi-NLOS model by over 5 dB. Over-Top-NLOS achieves sub-4 dB RMSE using building height, width, and separation as predictors.</li>
+                <li><strong>Dense Urban Validation:</strong> Measurements span 10 transmitter locations and over 300 receiver positions in highly cluttered urban blocks, using 28 GHz directional horn antennas and motorized rotation to capture AoA and path loss.</li>
+                <li><strong>Implications for MU-MIMO:</strong> AoA diversity persists even in deep NLOS; spatial orthogonality is often preserved beyond corners or rooftops, supporting viable user separation for future 5G and 6G systems.</li>
+                <li><strong>Design Insight:</strong> Models suggest when and where to expect multi-user viability, spatial decorrelation, and link blockage—critical for real-world mmWave network deployment.</li>
+            </ul>
+
+            <p><strong>Measurement Setup:</strong></p>
+            <ul>
+                <li>Tx height: 3.4 m (urban lamppost simulation)</li>
+                <li>Rx: 24 dBi rotating horn antenna capturing full angular scans</li>
+                <li>Measurement area: 2.5 city blocks in NYC</li>
+                <li>Tx-Rx distances: up to 300 m in NLOS scenarios</li>
+            </ul>
+
+            <p><strong>Conclusion:</strong> These results provide a new blueprint for mmWave network designers, especially for NLOS-heavy dense urban regions. Our models enable accurate prediction of both path loss and spatial angle spread, improving both link budget planning and multi-user beamforming performance in challenging 28 GHz deployments.</p>
+
+            <p><strong>Presentation & Access:</strong></p>
+            <ul>
+                <li><a href="https://wimnet.ee.columbia.edu/wp-content/uploads/2025/01/infocom25_Around_Corner_and_Over_Top_28_GHz_Measurement_in_Manhattan_Path_Loss_and_AoA_for-MU_MIMO.pdf" target="_blank">Presentation PDF (INFOCOM 2025)</a></li>
+            </ul>
+
+            <a class="button" href="/assets/nlos_INFOCOM25.pdf" download>Download PDF</a>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
