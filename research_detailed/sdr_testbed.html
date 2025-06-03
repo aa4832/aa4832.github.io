@@ -53,7 +53,19 @@
         <p><a href="../../research.html">← Back to Research</a></p>
         <div class="project-details">
             <h1>Software-Defined Radar Testbed for Multi-Target Tracking</h1>
-            <p>Developed an SDR-based radar testbed for multi-target tracking using Joint Probabilistic Data Association (JPDA) filtering. Evaluated over-the-air (OTA) and emulated scenarios for automotive radar at sub-6 GHz and 28 GHz. Demonstrated capabilities on the Ben Franklin Bridge scenario, enabling rapid prototyping and testing of radar systems with customizable waveforms, tracking filters, and site-specific channel emulation.</p>
+            <p>This work introduces a flexible, software-defined radio (SDR)-based radar testbed for developing and testing multi-target tracking (MTT) applications. It combines over-the-air (OTA) testing and electromagnetic ray tracing-based channel emulation to evaluate radar systems across a range of real-world and emulated environments. Key contributions include support for sub-6 GHz and 28 GHz mmWave operation, custom waveform generation, and the use of Joint Probabilistic Data Association (JPDA) filtering for tracking multiple targets.</p>
+            <p>The system is implemented using Ettus X310 SDRs with GNU Radio and the <code>gr-radar</code> library. OTA experiments were conducted in lab environments with horn antennas and moving copper plates to simulate pedestrians. The radar successfully tracked two moving targets using JPDA filtering at both sub-6 GHz and 28 GHz, demonstrating the ability to retain track identity even through trajectory intersections.</p>
+            <p>To extend capabilities beyond physical experiments, the testbed integrates Wireless InSite ray tracing with the Echo Ridge DYnamic Spectrum Environment Emulator (DYSE). This allows evaluation of radar scenes like a real-world 3D model of the Ben Franklin Bridge, supporting prototyping in environments that are difficult or dangerous to recreate in reality. Results show JPDA filtering successfully tracking intersecting trajectories and maintaining identity through clutter and signal variation, validating the emulation approach.</p>
+            <p>The modularity of this platform allows researchers to fully control radar waveform design, environmental conditions, and tracking algorithm configuration, offering significant advantages over fixed-hardware commercial radar simulators. The testbed enables rapid prototyping, real-time evaluation, and reproducible experimentation for automotive, surveillance, and robotics radar applications.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>Flexible SDR radar operation at sub-6 GHz and mmWave (28 GHz)</li>
+                <li>Custom waveform support using GNU Radio and <code>gr-radar</code></li>
+                <li>JPDA multi-target tracking with cluttered, noisy measurements</li>
+                <li>Channel emulation via Wireless InSite and DYSE for site-specific realism</li>
+                <li>Validation on both real and emulated pedestrian and vehicular scenarios</li>
+            </ul>
+            <p><strong>Conclusion:</strong> This testbed enables a fully reconfigurable radar research environment that bridges the gap between theoretical tracking filters and real-world system implementation. By integrating OTA experiments with site-specific emulation and SDR customization, it represents a step toward scalable, reproducible radar experimentation and development.</p>
             <p><a href="2021_IEEE_SDR_Radar_Conference_Paper.pdf">View PDF</a></p>
         </div>
     </div>
