@@ -1,33 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <script>
-        if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.classList.add('dark');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
         }
-        </script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-        tailwind.config = {
-            darkMode: 'class'
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .research-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            background: #fff;
+        }
+        .research-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .research-box img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .research-box .description {
+            padding: 15px;
+            text-align: center;
+        }
+        .research-box .description h3 {
+            margin: 0 0 10px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .research-box .description p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .research-details {
+            margin-top: 40px;
+        }
+        .research-details section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .research-details h2 {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .research-details p {
+            font-size: 1em;
+            color: #555;
+        }
+        .research-details a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .research-details a:hover {
+            text-decoration: underline;
+        }
+        body.dark-mode .research-box {
+            background: #333;
+            border-color: #555;
+        }
+        body.dark-mode .research-box .description h3 {
+            color: #fff;
+        }
+        body.dark-mode .research-box .description p {
+            color: #ccc;
+        }
+        body.dark-mode .research-details section {
+            background: #444;
+            border-color: #666;
+        }
+        body.dark-mode .research-details h2 {
+            color: #fff;
+        }
+        body.dark-mode .research-details p {
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p><a href="index.html">← Home</a></p>
+        <h1>Research</h1>
+
+        <!-- Research Grid with Hoverable Boxes -->
+        <div class="research-grid">
+            <div class="research-box" onclick="scrollToSection('mmwave-propagation')">
+                <img src="placeholder-mmwave.jpg" alt="[Figure: Map of Manhattan with 28 GHz measurement paths]">
+                <div class="description">
+                    <h3>mmWave Propagation Modeling</h3>
+                    <p>Developed around-corner and over-the-top models for 28 GHz urban scenarios in Manhattan (MobiHoc '22, Infocom '25).</p>
+                </div>
+            </div>
+            <div class="research-box" onclick="scrollToSection('radiometer-interference')">
+                <img src="placeholder-radiometer.jpg" alt="[Figure: Graph of 5G-induced anomalies in brightness temperature at 28 GHz]">
+                <div class="description">
+                    <h3>Radiometer Interference</h3>
+                    <p>Studied 5G-induced anomalies in atmospheric brightness temperature at 28 GHz (MobiCom '24).</p>
+                </div>
+            </div>
+            <div class="research-box" onclick="scrollToSection('backscatter-localization')">
+                <img src="placeholder-backscatter.jpg" alt="[Figure: Diagram of passive mmWave sensing system for indoor tracking]">
+                <div class="description">
+                    <h3>Backscatter Localization</h3>
+                    <p>Designed passive mmWave sensing systems for device-free indoor tracking.</p>
+                </div>
+            </div>
+            <div class="research-box" onclick="scrollToSection('sdr-testbed')">
+                <img src="placeholder-sdr.jpg" alt="[Figure: Setup of SDR radar testbed with Spacek mmWave transceiver]">
+                <div class="description">
+                    <h3>Software-Defined Radar Testbed</h3>
+                    <p>Built an SDR-based radar testbed for multi-target tracking with JPDA filtering.</p>
+                </div>
+            </div>
+            <div class="research-box" onclick="scrollToSection('outdoor-indoor')">
+                <img src="placeholder-outdoor.jpg" alt="[Figure: Path gain model for outdoor-to-indoor 28 GHz measurements]">
+                <div class="description">
+                    <h3>Outdoor-to-Indoor 28 GHz Measurements</h3>
+                    <p>Large-scale O-I measurements in Manhattan, analyzing path loss and environmental effects.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Sections -->
+        <div class="research-details">
+            <section id="mmwave-propagation">
+                <h2>mmWave Propagation Modeling</h2>
+                <p>Developed around-corner and over-the-top channel models for 28 GHz urban scenarios. Conducted extensive measurements in Manhattan, evaluating path loss and angle of arrival (AoA) for multi-user MIMO (MU-MIMO). Achieved 6.4 dB RMSE with the Street-Clutter-NLOS model, outperforming the 3GPP-UMi-NLOS model by 5 dB. Published in MobiHoc '22 and Infocom '25.</p>
+                <p><a href="infocom25_Around_Corner_and_Over_Top_28_GHz_Measurement_in_Manhattan_Path_Loss_and_AoA_for-MU_MIMO.pdf">View PDF</a></p>
+            </section>
+
+            <section id="radiometer-interference">
+                <h2>Radiometer Interference</h2>
+                <p>Studied 5G-induced anomalies in atmospheric brightness temperature at 28 GHz, focusing on the impact of 5G mmWave interference on radiometer systems. Published in MobiCom '24.</p>
+            </section>
+
+            <section id="backscatter-localization">
+                <h2>Backscatter Localization</h2>
+                <p>Designed passive mmWave sensing systems for device-free indoor tracking, leveraging backscatter techniques to localize objects without requiring active devices. This work explores the potential of mmWave for precise indoor sensing applications.</p>
+            </section>
+
+            <section id="sdr-testbed">
+                <h2>Software-Defined Radar Testbed</h2>
+                <p>Built an SDR-based radar testbed for multi-target tracking using Joint Probabilistic Data Association (JPDA) filtering. Evaluated over-the-air (OTA) and emulated scenarios, including automotive radar applications at sub-6 GHz and 28 GHz. Demonstrated the testbed's capabilities on the Ben Franklin Bridge scenario, showcasing its potential for rapid prototyping and testing of radar systems.</p>
+                <p><a href="Software-Defined_Radar_Testbed_for_Multi-Target_Tracking.pdf">View PDF</a></p>
+            </section>
+
+            <section id="outdoor-indoor">
+                <h2>Outdoor-to-Indoor 28 GHz Measurements</h2>
+                <p>Conducted large-scale outdoor-to-indoor (O-I) measurements in Manhattan, analyzing path loss and environmental effects. Developed models showing 20 dB loss from high-loss glass and 5-6 dB from foliage/scaffolding. Achieved 90% coverage with data rates up to 2.8 Gb/s for low-loss glass scenarios, providing insights for mmWave fixed wireless access deployments.</p>
+                <p><a href="OtI_TON.pdf">View PDF</a></p>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Research - Abhi Adhikari</title>
-</head>
-
-<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
-  <div class="max-w-2xl mx-auto p-6">
-    <a href="index.html" class="text-blue-600 hover:underline">← Home</a>
-    <h1 class="text-3xl font-bold mt-4 mb-4">Research</h1>
-    <ul class="list-disc ml-6 space-y-2">
-      <li><strong>mmWave Propagation Modeling:</strong> Developed around-corner and over-the-top channel models for 28 GHz urban scenarios (MobiHoc '22, Infocom '25).</li>
-      <li><strong>Radiometer Interference:</strong> Studied 5G-induced anomalies in atmospheric brightness temperature at 28 GHz (MobiCom '24).</li>
-      <li><strong>Backscatter Localization:</strong> Designed passive mmWave sensing systems for indoor tracking without devices.</li>
-    </ul>
-  </div>
+    <script src="script.js"></script>
 </body>
-
 </html>
