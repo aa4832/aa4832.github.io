@@ -25,9 +25,12 @@
             font-size: 1.5em;
             color: #333;
         }
-        .project-details p {
+        .project-details p, .project-details ul {
             font-size: 1em;
             color: #555;
+        }
+        .project-details ul {
+            margin-left: 20px;
         }
         .project-details a {
             color: #007bff;
@@ -36,6 +39,20 @@
         .project-details a:hover {
             text-decoration: underline;
         }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
         body.dark-mode .project-details {
             background: #444;
             border-color: #666;
@@ -43,7 +60,8 @@
         body.dark-mode .project-details h1 {
             color: #fff;
         }
-        body.dark-mode .project-details p {
+        body.dark-mode .project-details p, 
+        body.dark-mode .project-details ul {
             color: #ddd;
         }
     </style>
@@ -52,9 +70,34 @@
     <div class="container">
         <p><a href="../../research.html">← Back to Research</a></p>
         <div class="project-details">
-            <h1>Outdoor-to-Indoor 28 GHz Measurements</h1>
-            <p>Conducted large-scale outdoor-to-indoor (O-I) measurements in Manhattan, analyzing path loss and environmental effects. Developed models showing 20 dB loss from high-loss glass and 5-6 dB from foliage/scaffolding. Achieved 90% coverage with data rates up to 2.8 Gb/s for low-loss glass scenarios, providing insights for mmWave fixed wireless access deployments.</p>
-            <p><a href="OtI_TON.pdf">View PDF</a></p>
+            <h1>Outdoor-to-Indoor 28 GHz mmWave Measurements in Manhattan</h1>
+            <p>We conducted a large-scale 28 GHz outdoor-to-indoor (O–I) millimeter-wave measurement campaign across seven buildings in West Harlem, NYC. Using a custom 28 GHz channel sounder, we collected over 2,200 link measurements—representing over 32 million individual power readings. Our work provides one of the first statistically significant O–I path loss datasets at mmWave frequencies in dense urban environments, offering insights into wireless planning for 5G fixed wireless access (FWA), scheduling, and beam management.</p>
+
+            <p><strong>Key Findings:</strong></p>
+            <ul>
+                <li><strong>Glass Type Dominates Loss:</strong> High-loss Low-e glass introduces 20 dB more attenuation compared to traditional single-pane glass.</li>
+                <li><strong>Environmental Effects:</strong> Foliage, scaffolding, and elevated subway tracks contribute an additional 5–10 dB loss.</li>
+                <li><strong>Public School Case Study:</strong> Low-loss glass allowed for data rates of up to 2.8 Gb/s at distances up to 133 m, achieving 90% coverage.</li>
+                <li><strong>Multi-User Scenarios:</strong> Median angular interference correlation of 0.79 limits simultaneous beamforming unless the BS has wider angular separation.</li>
+                <li><strong>Path Loss Models:</strong> Our empirical models exceed 30 dB over free-space at 50 m and fill the gap between 3GPP pessimistic and optimistic predictions.</li>
+            </ul>
+
+            <p><strong>Methodology:</strong></p>
+            <ul>
+                <li>Tx: 28 GHz omnidirectional antenna mounted 3.4 m high (simulates BS on lightpole).</li>
+                <li>Rx: 24 dBi rotating horn indoors (emulates user equipment), collecting angular spectra at 740 Hz sample rate.</li>
+                <li>Buildings: Mix of glass, brick, and concrete from 1907 to 2017 construction, including classrooms, labs, and public facilities.</li>
+            </ul>
+
+            <p>We developed per-building and per-glass-type models, evaluated 90% indoor coverage and data rates, and analyzed angular spread and temporal fading. This work lays the foundation for mmWave O–I modeling in dense cities.</p>
+
+            <p><strong>Publication Links:</strong></p>
+            <ul>
+                <li><a href="https://dl.acm.org/doi/10.1145/3492866.3549728" target="_blank">Conference paper (MobiHoc '22)</a></li>
+                <li><a href="https://ieeexplore.ieee.org/document/10415309" target="_blank">Journal version (IEEE/ACM ToN)</a></li>
+            </ul>
+
+            <a class="button" href="/assets/o2i_ToN.pdf" download>Download PDF</a>
         </div>
     </div>
     <script src="script.js"></script>
