@@ -36,6 +36,18 @@
         .project-details a:hover {
             text-decoration: underline;
         }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
         body.dark-mode .project-details {
             background: #444;
             border-color: #666;
@@ -53,7 +65,24 @@
         <p><a href="../../research.html">← Back to Research</a></p>
         <div class="project-details">
             <h1>Backscatter Localization</h1>
-            <p>Designed passive mmWave sensing systems for device-free indoor tracking, leveraging backscatter techniques to localize objects without requiring active devices. This work explores the potential of mmWave for precise indoor sensing applications.</p>
+            <p>
+                This paper presents a measurement-based statistical model for indoor mmWave backscatter clutter at 28 GHz,
+                using a narrowband monostatic radar configuration. A vertically stacked transmitter and spinning directional
+                receiver were deployed in 251 locations across 27 rooms in New York, New Jersey, and Chile. The goal was
+                to quantify azimuthal variability of backscatter power for realistic system-level sensing evaluations.
+            </p>
+            <p>
+                Key findings include: (1) Backscatter variation around the local average follows a lognormal distribution with a
+                standard deviation of 6.8 dB; (2) Cross-correlation between azimuthal spectra drops to 0.3 at displacements of
+                just 10 cm, revealing high spatial sensitivity; and (3) Average clutter power declines with room size and is
+                generally higher in metal-rich environments. The resulting model enables simulation and analysis of
+                device-free localization and indoor RF sensing systems using minimal scene parameters.
+            </p>
+            <p>
+                The work contributes to the broader effort in Integrated Sensing and Communications (ISAC) and informs
+                future 3GPP standardization efforts. The paper will be presented at IEEE APURSI 2025 in Ottawa, CA.
+            </p>
+            <a href="/assets/indoor_backscatter_APURSI25.pdf" class="button">Download PDF</a>
         </div>
     </div>
     <script src="script.js"></script>

@@ -36,6 +36,18 @@
         .project-details a:hover {
             text-decoration: underline;
         }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
         body.dark-mode .project-details {
             background: #444;
             border-color: #666;
@@ -53,7 +65,25 @@
         <p><a href="../../research.html">← Back to Research</a></p>
         <div class="project-details">
             <h1>Radiometer Interference</h1>
-            <p>Studied 5G-induced anomalies in atmospheric brightness temperature at 28 GHz, focusing on the impact of 5G mmWave interference on radiometer systems. Published in MobiCom '24.</p>
+            <p>
+                This project investigates radio frequency interference (RFI) from 5G mmWave systems on NOAA microwave radiometers (MWRs) operating in the 28 GHz band.
+                Using an IBM 28 GHz Phased Array Antenna Module (PAAM), we intentionally transmitted OFDM signals from various azimuth angles toward the NOAA-CESSRST MWR in Manhattan.
+                This setup successfully induced measurable distortions in the MWR’s Level-0 voltage data and final Level-2 weather products, including water vapor profiles.
+            </p>
+            <p>
+                The PAAM was first characterized in an anechoic chamber before field trials, enabling fine-grained transmit power control.
+                The MWR operates using a two-stage pipeline: Level-0 analog voltage → Level-1 brightness temperature → Level-2 neural network-based atmospheric profiles.
+                Our experiments revealed that the MWR is highly sensitive to sub-dB transmit power changes and azimuthal interference, making even short-range emissions disruptive.
+            </p>
+            <p>
+                By rotating the PAAM around the MWR, we estimated a partial 60° antenna pattern and defined an interference threshold based on observed degradation in Level-2 outputs.
+                This work is a stepping stone toward creating a full Spectrum Consumption Model (SCM) for dynamic coexistence of 5G and passive sensing systems in urban settings.
+            </p>
+            <p>
+                Presented as a poster at <strong>ACM MobiCom 2024</strong> in Washington, D.C. 
+                <a href="https://dl.acm.org/doi/10.1145/3636534.3697463" target="_blank">[Official DOI]</a>
+            </p>
+            <a href="/assets/paam_mwr_MobiCom24.pdf" class="button">Download PDF</a>
         </div>
     </div>
     <script src="script.js"></script>

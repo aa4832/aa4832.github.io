@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile PAAM Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .project-details {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .project-details h1 {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .project-details p {
+            font-size: 1em;
+            color: #555;
+        }
+        .project-details a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .project-details a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+        body.dark-mode .project-details {
+            background: #444;
+            border-color: #666;
+        }
+        body.dark-mode .project-details h1 {
+            color: #fff;
+        }
+        body.dark-mode .project-details p {
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p><a href="../../research.html">← Back to Research</a></p>
+        <div class="project-details">
+            <h1>Mobile 28 GHz Phased Array Antenna Modules</h1>
+            <p>
+                This demo showcases real-world experiments using mobile 28 GHz Phased Array Antenna Modules (PAAMs), integrated with USRP-2974 software-defined radios.
+                We demonstrate end-to-end wireless communication, beam steering, and direction-of-arrival estimation between mobile nodes deployed in the COSMOS testbed and field.
+            </p>
+            <p>
+                The mobile PAAMs support flexible beam control, polarization, and modulation, all driven via a custom React-based GUI and REST APIs. 
+                Our system architecture includes a weatherproof PAAM + SDR unit with Wi-Fi hotspot access and local GNURadio support.
+            </p>
+            <p>
+                Key demonstrations include: (1) Establishing an OFDM link between two mobile PAAMs; (2) Beam sweeping at the receiver to identify the strongest angle of arrival; 
+                (3) Visualization of beamforming and EVM metrics using the GUI.
+            </p>
+            <p>
+                This infrastructure provides a powerful, mobile alternative to static mmWave base stations and enables realistic testing of V2X, UE, and 6G concepts with fine-grained mmWave control.
+            </p>
+            <p>
+                Presented as a live demo at <strong>ACM MobiCom 2024</strong> in Washington, D.C.
+                <a href="https://dl.acm.org/doi/10.1145/3636534.3698841" target="_blank">[Official DOI]</a> &nbsp;|&nbsp; 
+                <a href="https://youtu.be/rWhODUxg9fA" target="_blank">Demo Video</a>
+            </p>
+            <a href="/assets/mobile_paam_MobiCom24.pdf" class="button">Download PDF</a>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
