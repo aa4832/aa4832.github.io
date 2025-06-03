@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
     <script>
+        if (localStorage.getItem('theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+    </script>
+    <script>
         tailwind.config = {
             darkMode: 'class'
         }
@@ -25,9 +30,16 @@
       <a href="projects.html" class="text-blue-600 hover:underline">Projects</a>
       <a href="blog.html" class="text-blue-600 hover:underline">Blog</a>
     </nav>
-    <button onclick="document.documentElement.classList.toggle('dark')" 
-        class="mb-4 px-3 py-1 bg-gray-200 dark:bg-gray-700 dark:text-white rounded">
-        Toggle Dark Mode
+    <button onclick="
+    if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    }"
+    class="mb-4 px-3 py-1 bg-gray-200 dark:bg-gray-700 dark:text-white rounded">
+    Toggle Dark Mode
     </button>
     <p>This is my personal website. I hand-coded it to showcase my work and future vision in wireless sensing, mmWave systems, and tech leadership.</p>
   </div>
