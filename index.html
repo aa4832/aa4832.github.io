@@ -12,7 +12,7 @@
   <title>Abhi Adhikari</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-white text-gray-900 font-sans">
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans"></body>
   <div class="max-w-2xl mx-auto p-6">
     <h1 class="text-4xl font-bold mb-4">Abhi Adhikari</h1>
     <p class="mb-6">PhD in Electrical Engineering @ Columbia. I build wireless systems for sensing and security.</p>
@@ -24,6 +24,9 @@
       <a href="research.html" class="text-blue-600 hover:underline">Research</a>
       <a href="projects.html" class="text-blue-600 hover:underline">Projects</a>
     </nav>
+    <button onclick="document.documentElement.classList.toggle('dark')" class="mb-4 px-3 py-1 bg-gray-200 dark:bg-gray-700 dark:text-white rounded">
+        Toggle Dark Mode
+      </button>
     <p>This is my personal website. I hand-coded it to showcase my work and future vision in wireless sensing, mmWave systems, and tech leadership.</p>
   </div>
 </body>
