@@ -6,43 +6,70 @@
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
-        </script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
         tailwind.config = {
             darkMode: 'class'
         }
     </script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Abhi Adhikari</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abhi Adhikari</title>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
-  <div class="max-w-2xl mx-auto p-6">
-    <h1 class="text-4xl font-bold mb-4">Abhi Adhikari</h1>
-    <p class="mb-6">PhD in Electrical Engineering @ Columbia. I build wireless systems for sensing and security.</p>
-    <a href="assets/june3_CV_abhiadhikari.pdf" class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-      Download CV
-    </a>
-    <nav class="space-x-4 mb-6">
-      <a href="about.html" class="text-blue-600 hover:underline">About</a>
-      <a href="research.html" class="text-blue-600 hover:underline">Research</a>
-      <a href="projects.html" class="text-blue-600 hover:underline">Projects</a>
-      <a href="blog.html" class="text-blue-600 hover:underline">Blog</a>
-    </nav>
-    <button onclick="
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-    " class="mb-4 px-3 py-1 bg-gray-200 dark:bg-gray-700 dark:text-white rounded">
-      Toggle Dark Mode
-    </button>
-    <p>Abhi Adhikari received a B.S. in Computer Engineering (Magna Cum Laude) from Drexel University in 2021. His research interests are in software-defined/cognitive radio, 5G/6G networks, mmWave, and radar.</p>
-  </div>
-  <script>
-    // Apply saved theme on load
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.classList.add('dark');
-    }
-  </script>
+    <header class="bg-gray-100 dark:bg-gray-800 py-6">
+        <div class="max-w-4xl mx-auto px-6">
+            <h1 class="text-4xl font-bold mb-2">Abhi Adhikari</h1>
+            <p class="text-lg mb-4">PhD in Electrical Engineering @ Columbia University</p>
+            <nav class="space-x-6">
+                <a href="about.html" class="text-blue-600 dark:text-blue-400 hover:underline">About</a>
+                <a href="research.html" class="text-blue-600 dark:text-blue-400 hover:underline">Research</a>
+                <a href="projects.html" class="text-blue-600 dark:text-blue-400 hover:underline">Projects</a>
+                <a href="blog.html" class="text-blue-600 dark:text-blue-400 hover:underline">Blog</a>
+            </nav>
+        </div>
+    </header>
+    <main class="max-w-4xl mx-auto px-6 py-8">
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Overview</h2>
+            <p class="mb-4">I’m a fifth-year PhD student at Columbia University, focused on building wireless systems for sensing and security, with expertise in mmWave, software-defined radio, and AI integration.</p>
+            <a href="assets/june3_CV_abhiadhikari.pdf" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">
+                Download CV
+            </a>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Research</h2>
+            <p class="mb-2">Investigating mmWave communications and sensing for Beyond-5G systems, including urban propagation models (MobiHoc '22, Infocom '25), interference mitigation for weather instruments (MobiCom '24), and backscatter localization.</p>
+            <a href="research.html" class="text-blue-600 dark:text-blue-400 hover:underline">Read More</a>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Projects</h2>
+            <p class="mb-2">Developed MediaPad for secure, easy device connectivity via NFC/Bluetooth, and a $150 Edge AI Sensing Robot with Raspberry Pi 5 for real-time sensing and autonomous navigation.</p>
+            <a href="projects.html" class="text-blue-600 dark:text-blue-400 hover:underline">Read More</a>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Experience</h2>
+            <p class="mb-2">Collaborated with Nokia Bell Labs, IBM Research, NOAA, and Lockheed Martin on mmWave propagation, software-defined radar, and spectrum security solutions.</p>
+            <a href="about.html" class="text-blue-600 dark:text-blue-400 hover:underline">Read More</a>
+        </section>
+    </main>
+    <footer class="bg-gray-100 dark:bg-gray-800 py-4">
+        <div class="max-w-4xl mx-auto px-6 flex justify-between items-center">
+            <p>&copy; 2025 Abhi Adhikari</p>
+            <button onclick="
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            " class="px-3 py-1 bg-gray-200 dark:bg-gray-700 dark:text-white rounded">
+                Toggle Dark Mode
+            </button>
+        </div>
+    </footer>
+    <script>
+        // Apply saved theme on load
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
 </body>
 </html>
