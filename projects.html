@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <script>
-        if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-        }
-        </script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-        tailwind.config = {
-            darkMode: 'class'
-        }
-    </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects - Abhi Adhikari</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
 </head>
-
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
   <div class="max-w-2xl mx-auto p-6">
     <a href="index.html" class="text-blue-600 hover:underline">← Home</a>
     <h1 class="text-3xl font-bold mt-4 mb-4">Projects</h1>
-    <ul class="list-disc ml-6 space-y-2">
-      <li><strong>SecureWeather:</strong> RF-aware mitigation system to protect radiometers from 5G mmWave interference.</li>
-      <li><strong>Urban Sensing Testbed:</strong> Deployed mmWave SDR and phased array units across NYC intersections for channel mapping.</li>
-      <li><strong>Wireless Startup (Stealth):</strong> Building a sensing + communication stack for smart factories and critical infrastructure.</li>
-    </ul>
+    <div class="space-y-4">
+      <div class="border border-gray-300 dark:border-gray-700 rounded-lg">
+        <input type="checkbox" id="project1" class="peer hidden">
+        <label for="project1" class="block p-4 cursor-pointer">
+          <h2 class="text-2xl font-semibold">MediaPad</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400">June 2025</p>
+          <p class="mt-2">MediaPad uses NFC and Bluetooth to ease connectivity to wireless home devices. It includes built-in data privacy and security functionality to protect user information.</p>
+        </label>
+        <div class="hidden peer-checked:block p-4 bg-gray-50 dark:bg-gray-800">
+          <p>MediaPad is a novel solution designed to simplify connectivity between smart mobile electronic devices and wireless home devices, such as audio speakers, using NFC, Bluetooth, and/or Wi-Fi technologies. With built-in data privacy and security functionality, it ensures secure, quick connections while safeguarding user data against unauthorized access or breaches.</p>
+          <a href="project1.html" class="text-blue-600 hover:underline">Read Full Project</a>
+        </div>
+      </div>
+      <div class="border border-gray-300 dark:border-gray-700 rounded-lg">
+        <input type="checkbox" id="project2" class="peer hidden">
+        <label for="project2" class="block p-4 cursor-pointer">
+          <h2 class="text-2xl font-semibold">Edge AI Sensing Robot</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400">June 2025</p>
+          <p class="mt-2">A $150 mobile testbed for real-world AI sensing, this robot uses a Raspberry Pi 5 and a near-infrared ToF sensor on an RC car chassis. It explores real-time sensing, data logging, and autonomous mobility for robotics and spectrum security.</p>
+        </label>
+        <div class="hidden peer-checked:block p-4 bg-gray-50 dark:bg-gray-800">
+          <p>This robot is a low-cost, mobile platform that brings together ideas from my PhD research into a functional prototype. Built with affordable components—Raspberry Pi 5, NVMe SSD, and a VL53L0X ToF sensor—mounted on an RC car chassis, it demonstrates onboard compute, high-speed local storage, near-infrared obstacle detection, and autonomous navigation in real environments. It supports real-time AI perception pipelines, continuous sensor data logging, and a plug-and-play platform for future mmWave and RF sensing modules, with potential use cases in indoor sensing, robotics prototyping, agricultural robotics, and spectrum security research.</p>
+          <a href="project2.html" class="text-blue-600 hover:underline">Read Full Project</a>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
-
 </html>
