@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <script>
-        if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-        }
-        </script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-        tailwind.config = {
-            darkMode: 'class'
-        }
-    </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog - Abhi Adhikari</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
 </head>
-
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
   <div class="max-w-2xl mx-auto p-6">
     <a href="index.html" class="text-blue-600 hover:underline">← Home</a>
     <h1 class="text-3xl font-bold mt-4 mb-4">Blog</h1>
     <div class="space-y-4">
       <div>
+        <h2 class="text-2xl font-semibold">mmWave Communications, Sensing, and Interference Mitigation</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-400">June 2025</p>
+        <p class="mt-2">This work, to be presented at the Rising Stars Forum in the Proceedings of ACM MobiSys '25, investigates mmWave communications, sensing, and interference mitigation. The 5G mmWave rollout has provided users with a subpar experience in obtaining coverage on their mobile devices. The reason for this is that mmWave operates at a high frequency, where the signal propagation attenuates rapidly. My research focuses on obtaining a real-world understanding of mmWave signal propagation by collecting some of the largest and most diverse real-world urban measurement campaigns to date within the COSMOS FCC Innovation Zone in Manhattan, New York City.</p>
+        <p class="mt-2">I work with Nokia Bell Labs to measure mmWave propagation through glass, around corners, and over tops of buildings. For outdoor-to-indoor scenarios, we collected over 2,000 link measurements across seven buildings, finding that Low-e glass attenuates signals by up to 20 dB, while older buildings support up to 1.4 Gbps at 175 m. For around-corner and over-top, we gathered 1,300 links, improving propagation models by 5 dB RMSE over 3GPP UMi-NLOS standards. I also have started to investigate the future potential of using mmWave backscatter as a form of opportunistic sensing, deploying a quasi-monostatic radar in 251 locations across 27 rooms, revealing a lognormal distribution of backscattered power. Finally, I explore unintended consequences of 5G mmWave on sensitive microwave radiometers, developing a Spectrum Consumption Model with IBM Research to balance communication and interference.</p>
+      </div>
+      <div>
         <h2 class="text-2xl font-semibold">The Vision Behind My Startup</h2>
         <p class="text-sm text-gray-600 dark:text-gray-400">June 2025</p>
         <p class="mt-2">I’ve spent the past five years immersed in millimeter-wave sensing and now I’m taking the leap...</p>
       </div>
-      <!-- Add more blog posts here -->
     </div>
   </div>
 </body>
-
 </html>
