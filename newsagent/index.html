@@ -235,12 +235,45 @@ function render(){
 }
 
 // ── API ──
-async function callGemini(sys,usr,key){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:sys+'\n\n---\n\n'+usr}]}],generationConfig:{temperature:0.7,maxOutputTokens:8192}})});if(!r.ok){const e=await r.text();if(r.status===429)throw new Error('RATE_LIMIT');throw new Error('Gemini error '+r.status+': '+e.slice(0,200));}const d=await r.json();if(d.candidates?.[0]?.content)return d.candidates[0].content.parts.map(p=>p.text||'').join('\n');throw new Error('Unexpected Gemini response');}
-async function callClaude(sys,usr,key){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:8000,system:sys,messages:[{role:'user',content:usr}]})});if(!r.ok){const e=await r.text();if(r.status===429)throw new Error('RATE_LIMIT');if(r.status===401)throw new Error('Invalid key or billing not enabled.');if(r.status===403)throw new Error('Enable "direct browser access" on your key at console.anthropic.com.');throw new Error('Claude error '+r.status+': '+e.slice(0,200));}return(await r.json()).content.map(c=>c.text||'').join('\n');}
+async function callGemini(sys,usr,key){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:sys+'\n\n---\n\n'+usr}]}],generationConfig:{temperature:0.7,maxOutputTokens:16384}})});if(!r.ok){const e=await r.text();if(r.status===429)throw new Error('RATE_LIMIT');throw new Error('Gemini error '+r.status+': '+e.slice(0,200));}const d=await r.json();if(d.candidates?.[0]?.content)return d.candidates[0].content.parts.map(p=>p.text||'').join('\n');throw new Error('Unexpected Gemini response');}
+async function callClaude(sys,usr,key){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:16000,system:sys,messages:[{role:'user',content:usr}]})});if(!r.ok){const e=await r.text();if(r.status===429)throw new Error('RATE_LIMIT');if(r.status===401)throw new Error('Invalid key or billing not enabled.');if(r.status===403)throw new Error('Enable "direct browser access" on your key at console.anthropic.com.');throw new Error('Claude error '+r.status+': '+e.slice(0,200));}return(await r.json()).content.map(c=>c.text||'').join('\n');}
 async function callLLM(sys,usr,key,retries=2){for(let i=0;i<=retries;i++){try{return prov==='gemini'?await callGemini(sys,usr,key):await callClaude(sys,usr,key);}catch(e){if(e.message==='RATE_LIMIT'&&i<retries){setProgressLabel('Rate limited. Waiting '+(LIMITS[prov].wait/1000)+'s... (retry '+(i+2)+')');await sleep(LIMITS[prov].wait);continue;}throw e.message==='RATE_LIMIT'?new Error('Rate limited. Wait a minute and try again.'):e;}}}
-function parseJSON(raw){let j=raw.trim();if(j.startsWith('```'))j=j.replace(/^```(?:json)?\s*\n?/,'').replace(/\n?```\s*$/,'');try{return JSON.parse(j)}catch(e){const m=j.match(/\{[\s\S]*\}/);if(m)return JSON.parse(m[0]);throw new Error('Could not parse response. Try again.');}}
+function parseJSON(raw){
+  let j=raw.trim();
+  if(j.startsWith('```'))j=j.replace(/^```(?:json)?\s*\n?/,'').replace(/\n?```\s*$/,'');
+  // Try direct parse first
+  try{return JSON.parse(j)}catch(e){}
+  // Try extracting JSON object
+  const m=j.match(/\{[\s\S]*\}/);
+  if(m){try{return JSON.parse(m[0])}catch(e){}}
+  // Try to fix truncated JSON by closing open brackets/braces
+  let fixed=j;
+  if(!fixed.startsWith('{')){const idx=fixed.indexOf('{');if(idx>=0)fixed=fixed.slice(idx);}
+  // Count open/close brackets and braces
+  let braces=0,brackets=0,inStr=false,esc=false;
+  for(const c of fixed){if(esc){esc=false;continue;}if(c==='\\'){esc=true;continue;}if(c==='"'){inStr=!inStr;continue;}if(inStr)continue;if(c==='{')braces++;if(c==='}')braces--;if(c==='[')brackets++;if(c===']')brackets--;}
+  // Close any open arrays then objects
+  while(brackets>0){fixed+=']';brackets--;}
+  while(braces>0){fixed+='}';braces--;}
+  // Remove trailing comma before closing bracket/brace
+  fixed=fixed.replace(/,\s*(\]|\})/g,'$1');
+  try{return JSON.parse(fixed)}catch(e){throw new Error('Could not parse AI response as JSON. The output may have been too long. Try with fewer files.');}
+}
 
-const ANALYSIS=`You are a senior intelligence analyst. Analyze news articles and produce a structured briefing. Identify 4-8 macro-themes with 2-3 paragraph analysis, key stats, source attributions, and forward-looking insights. Include 3-5 commonalities, 5-7 watch list items, executive summary, and closing. Respond ONLY with valid JSON, no markdown fences. Schema: {"title":"string","subtitle":"string","date_range":"string","executive_summary":"string","themes":[{"title":"string","analysis":"string","stats":[{"value":"string","label":"string"}],"sources":["string"],"watch_this":"string"}],"commonalities":["string"],"watch_list":[{"item":"string","detail":"string"}],"closing":"string"}`;
+const ANALYSIS=`You are a senior intelligence analyst. Analyze these news articles and produce a structured briefing as JSON.
+
+RULES:
+- Identify 4-6 macro-themes (not more)
+- Each theme analysis: 1 concise paragraph only (3-5 sentences)
+- Stats: max 3 per theme, short labels
+- Watch list: 4-5 items max
+- Executive summary: 1 paragraph
+- Closing: 1 paragraph
+- Keep ALL text concise. Total JSON must be under 12000 characters.
+
+Respond ONLY with valid JSON. No markdown fences, no backticks, no text before or after the JSON.
+
+{"title":"string","subtitle":"string","date_range":"string","executive_summary":"string","themes":[{"title":"string","analysis":"string","stats":[{"value":"string","label":"string"}],"sources":["string"],"watch_this":"string"}],"commonalities":["string - one sentence each"],"watch_list":[{"item":"string","detail":"string - one sentence"}],"closing":"string"}`;
 const SUMMARIZE='Summarize the key themes, data, and insights from this news source. Comprehensive but concise, 500-800 words. Plain text.';
 
 // ── SMART CHUNKED ANALYSIS WITH PROGRESS ──
