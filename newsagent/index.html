@@ -20,8 +20,6 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .subtitle{font-size:16px;color:rgba(255,255,255,.4);line-height:1.6;max-width:600px;margin-bottom:32px}
 .subtitle a{color:#3498db;text-decoration:none}
 .subtitle a:hover{text-decoration:underline}
-
-/* Provider picker */
 .prov-row{display:flex;gap:10px;margin-bottom:20px}
 .prov-btn{flex:1;padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);cursor:pointer;transition:all .25s;text-align:left}
 .prov-btn:hover{border-color:rgba(255,255,255,.15)}
@@ -32,18 +30,15 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .prov-tag{display:inline-block;font-family:'JetBrains Mono';font-size:9px;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
 .tag-free{background:rgba(39,174,96,.12);color:#27ae60}
 .tag-paid{background:rgba(243,156,18,.12);color:#f39c12}
-
 .api-hint{font-size:12px;color:rgba(255,255,255,.2);margin-bottom:8px;line-height:1.5}
 .api-hint a{color:#3498db;text-decoration:none}
 .api-input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:#e8e6e3;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none;transition:border-color .2s;margin-bottom:24px}
 .api-input:focus{border-color:rgba(52,152,219,.4)}
 .api-input::placeholder{color:rgba(255,255,255,.2)}
-
 .dropzone{border:2px dashed rgba(255,255,255,.1);border-radius:16px;padding:48px 32px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(255,255,255,.02);margin-bottom:16px}
 .dropzone:hover,.dropzone.drag-over{border-color:rgba(52,152,219,.4);background:rgba(52,152,219,.04)}
 .dz-formats{margin-top:12px;display:flex;justify-content:center;gap:8px}
 .dz-fmt{font-family:'JetBrains Mono';font-size:11px;padding:3px 10px;border-radius:5px;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.3)}
-
 .file-item{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;margin-bottom:6px}
 .file-info{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
 .file-badge{font-family:'JetBrains Mono';font-size:10px;padding:3px 8px;border-radius:4px;flex-shrink:0}
@@ -54,7 +49,6 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .file-status{font-size:11px;flex-shrink:0;margin-left:6px}
 .file-remove{background:none;border:none;color:rgba(255,255,255,.2);cursor:pointer;font-size:18px;padding:0 4px;flex-shrink:0;margin-left:8px}
 .file-remove:hover{color:rgba(255,255,255,.5)}
-
 .token-bar{padding:12px 16px;border-radius:10px;margin:12px 0 20px;font-size:13px;line-height:1.6}
 .token-bar.ok{background:rgba(52,152,219,.06);border:1px solid rgba(52,152,219,.12);color:rgba(255,255,255,.45)}
 .token-bar.warn{background:rgba(243,156,18,.08);border:1px solid rgba(243,156,18,.15);color:#f39c12}
@@ -62,12 +56,10 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .token-extra{font-size:11px;color:rgba(255,255,255,.2);margin-top:4px}
 .token-meter{height:3px;border-radius:2px;background:rgba(255,255,255,.05);margin-top:8px;overflow:hidden}
 .token-meter-fill{height:100%;border-radius:2px;transition:width .3s}
-
 .btn-primary{width:100%;padding:16px 24px;border-radius:12px;border:none;font-size:16px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .3s}
 .btn-primary.active{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;box-shadow:0 4px 24px rgba(231,76,60,.25)}
 .btn-primary.active:hover{box-shadow:0 6px 32px rgba(231,76,60,.35);transform:translateY(-1px)}
 .btn-primary.disabled{background:rgba(255,255,255,.05);color:rgba(255,255,255,.2);cursor:default}
-
 .processing{text-align:center;padding:60px 0}
 .spinner{width:48px;height:48px;border:3px solid rgba(255,255,255,.08);border-top-color:#3498db;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 24px}
 .proc-title{font-size:18px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:8px}
@@ -75,6 +67,8 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .shimmer-bar{margin:32px auto 0;height:3px;border-radius:2px;background:rgba(255,255,255,.06);max-width:300px;overflow:hidden}
 .shimmer-fill{height:100%;background:linear-gradient(90deg,transparent,#3498db,transparent);background-size:200% 100%;animation:shimmer 1.5s infinite}
 .error-box{padding:14px 18px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2);border-radius:10px;color:#e74c3c;font-size:14px;margin-bottom:20px;line-height:1.5}
+
+/* Results */
 .success-banner{padding:20px 24px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);border-radius:12px;margin-bottom:32px;display:flex;align-items:center;gap:14px}
 .success-title{font-size:16px;font-weight:600;color:#27ae60;margin-bottom:2px}
 .success-sub{font-size:13px;color:rgba(255,255,255,.4)}
@@ -83,22 +77,32 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .theme-card{padding:16px 18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px}
 .theme-card-title{font-size:15px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:4px}
 .theme-card-meta{font-size:12px;color:rgba(255,255,255,.3)}
-.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
-.dl-btn{padding:20px;border-radius:12px;border:1px solid;cursor:pointer;text-align:left;transition:all .3s;background:transparent}
-.dl-btn.docx{border-color:rgba(52,152,219,.3);background:rgba(52,152,219,.08)}
-.dl-btn.docx:hover{background:rgba(52,152,219,.15)}
-.dl-btn.pptx{border-color:rgba(231,76,60,.3);background:rgba(231,76,60,.08)}
-.dl-btn.pptx:hover{background:rgba(231,76,60,.15)}
-.dl-icon{font-size:28px;margin-bottom:8px}.dl-title{font-size:16px;font-weight:600;margin-bottom:4px}.dl-sub{font-size:12px;color:rgba(255,255,255,.3)}
-.btn-reset{width:100%;padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;font-family:'Outfit',sans-serif;transition:background .2s}
+
+/* Download section */
+.dl-section{margin-bottom:24px}
+.dl-btn-big{width:100%;padding:18px 24px;border-radius:12px;border:1px solid rgba(52,152,219,.3);background:rgba(52,152,219,.08);cursor:pointer;transition:all .3s;font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;color:#3498db;display:flex;align-items:center;justify-content:center;gap:10px}
+.dl-btn-big:hover{background:rgba(52,152,219,.15)}
+.dl-btn-big:disabled{opacity:.5;cursor:default}
+.dl-btn-big:disabled:hover{background:rgba(52,152,219,.08)}
+.dl-progress{margin-top:16px}
+.dl-progress-label{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:8px;display:flex;justify-content:space-between}
+.dl-progress-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.06);overflow:hidden}
+.dl-progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#3498db,#2ecc71);transition:width .3s}
+.dl-files{display:flex;gap:10px;margin-top:16px}
+.dl-file-btn{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);text-align:center;font-size:13px;color:rgba(255,255,255,.3);transition:all .2s}
+.dl-file-btn.ready{border-color:rgba(39,174,96,.3);background:rgba(39,174,96,.06);color:#27ae60;cursor:pointer}
+.dl-file-btn.ready:hover{background:rgba(39,174,96,.12)}
+.dl-file-btn .dl-file-icon{font-size:24px;margin-bottom:4px}
+.dl-file-btn .dl-file-name{font-family:'JetBrains Mono';font-size:11px}
+
+.btn-reset{width:100%;padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;font-family:'Outfit',sans-serif;transition:background .2s;margin-top:16px}
 .btn-reset:hover{background:rgba(255,255,255,.06)}
-.progress-text{font-size:13px;color:rgba(255,255,255,.3);text-align:center;margin-bottom:16px}
 .powered-by{margin-top:48px;text-align:center;font-size:12px;color:rgba(255,255,255,.12);padding-bottom:32px}
 .powered-by a{color:rgba(255,255,255,.2);text-decoration:none}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@media(max-width:600px){h1{font-size:30px}.themes-grid,.dl-grid,.prov-row{grid-template-columns:1fr;flex-direction:column}.container{padding:32px 16px}}
+@media(max-width:600px){h1{font-size:30px}.themes-grid,.prov-row{flex-direction:column}.container{padding:32px 16px}.dl-files{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -107,22 +111,15 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
   <a href="/" class="back-link">&#8592; abhiadhikari.com</a>
   <div class="label">NEWS INTELLIGENCE AGENT</div>
   <h1>Upload sources. Get briefings.</h1>
-  <p class="subtitle">Drop your news articles below &mdash; PDFs or text files. The agent reads everything, finds the big themes, and generates a polished briefing document and slide deck.</p>
+  <p class="subtitle">Drop your news articles below &mdash; PDFs or text files. The agent reads everything, finds the big themes, and generates a briefing document and slide deck.</p>
 
   <div id="stage-upload">
     <div class="prov-row">
-      <div class="prov-btn sel" id="provGemini" onclick="setProv('gemini')">
-        <div class="prov-name">Google Gemini<span class="prov-tag tag-free">FREE</span></div>
-        <div class="prov-meta">No credit card needed &middot; Good quality</div>
-      </div>
-      <div class="prov-btn" id="provClaude" onclick="setProv('claude')">
-        <div class="prov-name">Claude<span class="prov-tag tag-paid">PAID</span></div>
-        <div class="prov-meta">Requires billing &middot; Higher quality</div>
-      </div>
+      <div class="prov-btn sel" id="provGemini" onclick="setProv('gemini')"><div class="prov-name">Google Gemini<span class="prov-tag tag-free">FREE</span></div><div class="prov-meta">No credit card &middot; Good quality</div></div>
+      <div class="prov-btn" id="provClaude" onclick="setProv('claude')"><div class="prov-name">Claude<span class="prov-tag tag-paid">PAID</span></div><div class="prov-meta">Requires billing &middot; Higher quality</div></div>
     </div>
     <div class="api-hint" id="apiHint">Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> &mdash; just a Google account.</div>
     <input type="password" id="apiKey" class="api-input" placeholder="Paste your Gemini API key here...">
-
     <div class="dropzone" id="dropzone">
       <div style="font-size:44px;margin-bottom:14px">&#128206;</div>
       <div style="font-size:17px;font-weight:500;color:rgba(255,255,255,.6);margin-bottom:6px">Drop files here or click to browse</div>
@@ -149,11 +146,19 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
     <div class="success-banner"><span style="font-size:28px">&#9989;</span><div><div class="success-title">Analysis complete</div><div class="success-sub" id="resultsMeta"></div></div></div>
     <div class="themes-label">THEMES IDENTIFIED</div>
     <div class="themes-grid" id="themesGrid"></div>
-    <div class="dl-grid">
-      <button class="dl-btn docx" id="dlDocx"><div class="dl-icon">&#128196;</div><div class="dl-title" style="color:#3498db">Download .docx</div><div class="dl-sub">Full briefing + podcast script</div></button>
-      <button class="dl-btn pptx" id="dlPptx"><div class="dl-icon">&#128202;</div><div class="dl-title" style="color:#e74c3c">Download .pptx</div><div class="dl-sub">Slide deck with stats &amp; themes</div></button>
+
+    <div class="dl-section">
+      <button class="dl-btn-big" id="dlAllBtn">&#11015; Download briefing (.docx) and slides (.pptx)</button>
+      <div class="dl-progress" id="dlProgress" style="display:none">
+        <div class="dl-progress-label"><span id="dlLabel">Preparing...</span><span id="dlPct"></span></div>
+        <div class="dl-progress-bar"><div class="dl-progress-fill" id="dlFill" style="width:0%"></div></div>
+      </div>
+      <div class="dl-files" id="dlFiles" style="display:none">
+        <div class="dl-file-btn" id="dlDocxBtn" onclick="dlSaved('docx')"><div class="dl-file-icon">&#128196;</div><div class="dl-file-name">.docx</div></div>
+        <div class="dl-file-btn" id="dlPptxBtn" onclick="dlSaved('pptx')"><div class="dl-file-icon">&#128202;</div><div class="dl-file-name">.pptx</div></div>
+      </div>
     </div>
-    <div class="progress-text" id="dlProgress"></div>
+
     <button class="btn-reset" id="resetBtn">&#8592; Start over with new files</button>
   </div>
   <div class="powered-by">Built by <a href="/">Abhi Adhikari</a></div>
@@ -165,212 +170,168 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 const pdfjsLib=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.9.155/pdf.min.mjs');
 pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.9.155/pdf.worker.min.mjs';
 
-let entries=[],briefing=null,podcastScript=null,prov='gemini';
+let entries=[],briefing=null,prov='gemini',savedBlobs={};
 const $=id=>document.getElementById(id),dz=$('dropzone'),fi=$('fileInput'),fl=$('fileList'),ab=$('analyzeBtn'),eb=$('errorBox'),tb=$('tokenBar');
-const estTok=t=>Math.ceil(t.length/4);
-const fmtTok=n=>n>=1000?(n/1000).toFixed(1)+'K':''+n;
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const estTok=t=>Math.ceil(t.length/4),fmtTok=n=>n>=1000?(n/1000).toFixed(1)+'K':''+n,sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const LIMITS={gemini:{tpm:220000,wait:12000,name:'Gemini'},claude:{tpm:25000,wait:65000,name:'Claude'}};
 
-// Rate limits per provider (tokens per minute safe budget)
-const LIMITS={gemini:{tpm:220000,rpm:10,wait:12000,name:'Gemini'},claude:{tpm:25000,rpm:5,wait:65000,name:'Claude'}};
+window.setProv=function(p){prov=p;$('provGemini').className='prov-btn'+(p==='gemini'?' sel':'');$('provClaude').className='prov-btn'+(p==='claude'?' sel':'');$('apiHint').innerHTML=p==='gemini'?'Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> &mdash; just a Google account.':'Get a key at <a href="https://console.anthropic.com/" target="_blank">console.anthropic.com</a> &mdash; enable billing + direct browser access.';$('apiKey').placeholder=p==='gemini'?'Paste your Gemini API key here...':'sk-ant-... (your Claude API key)';$('apiKey').value='';render();};
 
-// ── PROVIDER ──
-window.setProv=function(p){
-  prov=p;
-  $('provGemini').className='prov-btn'+(p==='gemini'?' sel':'');
-  $('provClaude').className='prov-btn'+(p==='claude'?' sel':'');
-  $('apiHint').innerHTML=p==='gemini'
-    ?'Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> &mdash; just a Google account.'
-    :'Get a key at <a href="https://console.anthropic.com/" target="_blank">console.anthropic.com</a> &mdash; enable billing + direct browser access.';
-  $('apiKey').placeholder=p==='gemini'?'Paste your Gemini API key here...':'sk-ant-... (your Claude API key)';
-  $('apiKey').value='';render();
-};
+async function extractPdf(file){const doc=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;let t='';for(let i=1;i<=doc.numPages;i++){const pg=await doc.getPage(i);const c=await pg.getTextContent();t+=c.items.map(x=>x.str).join(' ')+'\n\n';}return t;}
 
-// ── PDF EXTRACTION ──
-async function extractPdf(file){
-  const doc=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;
-  let t='';
-  for(let i=1;i<=doc.numPages;i++){const pg=await doc.getPage(i);const c=await pg.getTextContent();t+=c.items.map(x=>x.str).join(' ')+'\n\n';}
-  return t;
-}
-
-// ── FILES ──
 dz.addEventListener('click',()=>fi.click());
 dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over')});
 dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
 dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');addFiles(e.dataTransfer.files)});
-fi.addEventListener('change',e=>{addFiles(e.target.files);e.target.value=''});
+fi.addEventListener('change',e=>{addFiles(e.target.files);e.target.value='';});
 $('apiKey').addEventListener('input',render);
 
-async function addFiles(fls){
-  for(const f of fls){const ext=f.name.split('.').pop().toLowerCase();if(ext!=='pdf'&&ext!=='txt')continue;entries.push({name:f.name,type:ext,file:f,text:null,tokens:0,status:'pending'});}
-  render();
-  for(const e of entries){
-    if(e.status!=='pending')continue;
-    try{e.text=e.type==='pdf'?await extractPdf(e.file):await e.file.text();e.tokens=estTok(e.text);e.status='ready';}
-    catch(er){e.status='error';e.text='';e.tokens=0;}
-    render();
-  }
-}
+async function addFiles(fls){for(const f of fls){const ext=f.name.split('.').pop().toLowerCase();if(ext!=='pdf'&&ext!=='txt')continue;entries.push({name:f.name,type:ext,file:f,text:null,tokens:0,status:'pending'});}render();for(const e of entries){if(e.status!=='pending')continue;try{e.text=e.type==='pdf'?await extractPdf(e.file):await e.file.text();e.tokens=estTok(e.text);e.status='ready';}catch(er){e.status='error';e.text='';e.tokens=0;}render();}}
 window.removeFile=function(i){entries.splice(i,1);render();};
 
 function render(){
   const key=$('apiKey').value.trim(),ready=entries.filter(e=>e.status==='ready'),pending=entries.filter(e=>e.status==='pending');
-  fl.innerHTML=entries.map((e,i)=>{
-    const badge=e.type==='pdf'?'<span class="file-badge badge-pdf">.pdf</span>':'<span class="file-badge badge-txt">.txt</span>';
-    const st=e.status==='pending'?'<span class="file-status" style="color:#f39c12">reading...</span>':e.status==='error'?'<span class="file-status" style="color:#e74c3c">error</span>':'<span class="file-tokens">~'+fmtTok(e.tokens)+' tok</span>';
-    return '<div class="file-item"><div class="file-info">'+badge+'<span class="file-name">'+e.name+'</span></div>'+st+'<button class="file-remove" onclick="removeFile('+i+')">&#215;</button></div>';
-  }).join('');
-
-  if(ready.length>0){
-    const total=ready.reduce((s,e)=>s+e.tokens,0)+500;
-    const lim=LIMITS[prov];
-    const needsChunk=total>lim.tpm;
-    const chunks=needsChunk?Math.ceil(total/lim.tpm):1;
-    const estMins=needsChunk?Math.ceil(chunks*lim.wait/60000)+2:2;
-    const costStr=prov==='gemini'?'Free':'~$'+((total/1e6*3+8000/1e6*15)*2).toFixed(2);
-    const cls=needsChunk?'warn':'ok';
-    const color=needsChunk?'#f39c12':'#3498db';
-    let html='<strong>'+fmtTok(total)+'</strong> tokens across '+ready.length+' files';
-    if(needsChunk)html+=' &mdash; will process in '+chunks+' chunks (~'+estMins+' min)';
-    html+='<div class="token-extra">Cost: '+costStr+' &middot; Provider limit: '+fmtTok(lim.tpm)+' tokens/min</div>';
-    html+='<div class="token-meter"><div class="token-meter-fill" style="width:'+Math.min(total/lim.tpm*100,100)+'%;background:'+color+'"></div></div>';
-    tb.innerHTML='<div class="token-bar '+cls+'">'+html+'</div>';
-  } else tb.innerHTML='';
-
+  fl.innerHTML=entries.map((e,i)=>{const badge=e.type==='pdf'?'<span class="file-badge badge-pdf">.pdf</span>':'<span class="file-badge badge-txt">.txt</span>';const st=e.status==='pending'?'<span class="file-status" style="color:#f39c12">reading...</span>':e.status==='error'?'<span class="file-status" style="color:#e74c3c">error</span>':'<span class="file-tokens">~'+fmtTok(e.tokens)+' tok</span>';return '<div class="file-item"><div class="file-info">'+badge+'<span class="file-name">'+e.name+'</span></div>'+st+'<button class="file-remove" onclick="removeFile('+i+')">&#215;</button></div>';}).join('');
+  if(ready.length>0){const total=ready.reduce((s,e)=>s+e.tokens,0)+500;const lim=LIMITS[prov];const needsChunk=total>lim.tpm*0.9;const chunks=needsChunk?Math.ceil(total/(lim.tpm*0.85)):1;const estMins=needsChunk?Math.ceil(chunks*lim.wait/60000)+2:2;const costStr=prov==='gemini'?'Free':'~$'+((total/1e6*3+8000/1e6*15)).toFixed(2);const cls=needsChunk?'warn':'ok';const color=needsChunk?'#f39c12':'#3498db';let html='<strong>'+fmtTok(total)+'</strong> tokens across '+ready.length+' files';if(needsChunk)html+=' &mdash; will process in '+chunks+' chunks (~'+estMins+' min)';html+='<div class="token-extra">Cost: '+costStr+' &middot; Limit: '+fmtTok(lim.tpm)+' tok/min</div>';html+='<div class="token-meter"><div class="token-meter-fill" style="width:'+Math.min(total/lim.tpm*100,100)+'%;background:'+color+'"></div></div>';tb.innerHTML='<div class="token-bar '+cls+'">'+html+'</div>';}else tb.innerHTML='';
   const canGo=ready.length>0&&pending.length===0&&key;
   ab.textContent=!entries.length?'Add files to get started':pending.length>0?'Reading files... ('+pending.length+' left)':!key?'Enter API key above':'Analyze '+ready.length+' file'+(ready.length>1?'s':'')+' with '+LIMITS[prov].name+' \u2192';
   ab.className='btn-primary '+(canGo?'active':'disabled');ab.disabled=!canGo;
 }
 
-// ── API CALLS ──
-async function callGemini(sys,usr,key){
-  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:sys+'\n\n---\n\n'+usr}]}],generationConfig:{temperature:0.7,maxOutputTokens:8192}})});
-  if(!r.ok){const e=await r.text();if(r.status===429)throw new Error('RATE_LIMIT');throw new Error('Gemini error '+r.status+': '+e.slice(0,200));}
-  const d=await r.json();
-  if(d.candidates&&d.candidates[0]&&d.candidates[0].content)return d.candidates[0].content.parts.map(p=>p.text||'').join('\n');
-  throw new Error('Unexpected Gemini response');
-}
+// ── API ──
+async function callGemini(sys,usr,key){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:sys+'\n\n---\n\n'+usr}]}],generationConfig:{temperature:0.7,maxOutputTokens:8192}})});if(!r.ok){const e=await r.text();if(r.status===429)throw new Error('RATE_LIMIT');throw new Error('Gemini error '+r.status+': '+e.slice(0,200));}const d=await r.json();if(d.candidates&&d.candidates[0]&&d.candidates[0].content)return d.candidates[0].content.parts.map(p=>p.text||'').join('\n');throw new Error('Unexpected Gemini response');}
+async function callClaude(sys,usr,key){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:8000,system:sys,messages:[{role:'user',content:usr}]})});if(!r.ok){const e=await r.text();if(r.status===429)throw new Error('RATE_LIMIT');if(r.status===401)throw new Error('Invalid key or billing not enabled.');if(r.status===403)throw new Error('Enable "direct browser access" on your key at console.anthropic.com.');throw new Error('Claude error '+r.status+': '+e.slice(0,200));}return(await r.json()).content.map(c=>c.text||'').join('\n');}
+async function callLLM(sys,usr,key,retries=2){for(let i=0;i<=retries;i++){try{return prov==='gemini'?await callGemini(sys,usr,key):await callClaude(sys,usr,key);}catch(e){if(e.message==='RATE_LIMIT'&&i<retries){const w=LIMITS[prov].wait;$('procSub').textContent='Rate limited. Waiting '+(w/1000)+'s... (retry '+(i+2)+'/'+(retries+1)+')';await sleep(w);continue;}throw e.message==='RATE_LIMIT'?new Error('Rate limited. Wait a minute and try again, or reduce file count.'):e;}}}
+function parseJSON(raw){let j=raw.trim();if(j.startsWith('```'))j=j.replace(/^```(?:json)?\s*\n?/,'').replace(/\n?```\s*$/,'');try{return JSON.parse(j)}catch(e){const m=j.match(/\{[\s\S]*\}/);if(m)return JSON.parse(m[0]);throw new Error('Could not parse response. Please try again.');}}
 
-async function callClaude(sys,usr,key){
-  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:8000,system:sys,messages:[{role:'user',content:usr}]})});
-  if(!r.ok){const e=await r.text();if(r.status===429)throw new Error('RATE_LIMIT');if(r.status===401)throw new Error('Invalid API key or billing not enabled.');if(r.status===403)throw new Error('Enable "direct browser access" on your API key at console.anthropic.com.');throw new Error('Claude error '+r.status+': '+e.slice(0,200));}
-  return(await r.json()).content.map(c=>c.text||'').join('\n');
-}
+const ANALYSIS=`You are a senior intelligence analyst. Analyze news articles and produce a structured briefing. Identify 4-8 macro-themes with 2-3 paragraph analysis, key stats, source attributions, and forward-looking insights. Include 3-5 commonalities, 5-7 watch list items, executive summary, and closing. Respond ONLY with valid JSON, no markdown fences. Schema: {"title":"string","subtitle":"string","date_range":"string","executive_summary":"string","themes":[{"title":"string","analysis":"string","stats":[{"value":"string","label":"string"}],"sources":["string"],"watch_this":"string"}],"commonalities":["string"],"watch_list":[{"item":"string","detail":"string"}],"closing":"string"}`;
+const SUMMARIZE='Summarize the key themes, data, and insights from this news source. Comprehensive but concise, 500-800 words. Plain text.';
 
-// Call with auto-retry on rate limit
-async function callLLM(sys,usr,key,retries=2){
-  for(let i=0;i<=retries;i++){
-    try{return prov==='gemini'?await callGemini(sys,usr,key):await callClaude(sys,usr,key);}
-    catch(e){
-      if(e.message==='RATE_LIMIT'&&i<retries){
-        const w=LIMITS[prov].wait;
-        $('procSub').textContent='Rate limited. Waiting '+(w/1000)+'s before retrying... (attempt '+(i+2)+'/'+(retries+1)+')';
-        await sleep(w);continue;
-      }
-      throw e.message==='RATE_LIMIT'?new Error('Rate limited after '+retries+' retries. Try again in a minute or use fewer/smaller files.'):e;
-    }
-  }
-}
-
-function parseJSON(raw){
-  let j=raw.trim();if(j.startsWith('```'))j=j.replace(/^```(?:json)?\s*\n?/,'').replace(/\n?```\s*$/,'');
-  try{return JSON.parse(j)}catch(e){const m=j.match(/\{[\s\S]*\}/);if(m)return JSON.parse(m[0]);throw new Error('Could not parse response. Please try again.');}
-}
-
-const ANALYSIS=`You are a senior intelligence analyst. Analyze news articles and produce a structured briefing.
-Identify 4-8 macro-themes with 2-3 paragraph analysis, key stats, source attributions, and forward-looking insights.
-Include 3-5 cross-cutting commonalities, 5-7 watch list items, executive summary, and closing synthesis.
-Respond ONLY with valid JSON. No markdown fences, no backticks, no preamble.
-Schema: {"title":"string","subtitle":"string","date_range":"string","executive_summary":"string","themes":[{"title":"string","analysis":"string","stats":[{"value":"string","label":"string"}],"sources":["string"],"watch_this":"string"}],"commonalities":["string"],"watch_list":[{"item":"string","detail":"string"}],"closing":"string"}`;
-const SUMMARIZE='Summarize the key themes, data points, and insights from this news source. Be comprehensive but concise, 500-800 words. Plain text only.';
-const SCRIPT='You are a podcast scriptwriter. Write a 15-20 minute solo podcast script from the briefing JSON. Conversational but authoritative. Cold open with vivid details, one act per theme, transitions, closing that ties feedback loops together. Include [stage directions]. Respond with ONLY the script text.';
-
-// ── SMART CHUNKED ANALYSIS ──
 async function analyze(key){
   const ready=entries.filter(e=>e.status==='ready');
   const texts=ready.map(e=>'===== SOURCE: '+e.name+' =====\n'+e.text.slice(0,100000));
   const totalTok=texts.reduce((s,t)=>s+estTok(t),0)+500;
   const lim=LIMITS[prov];
-
-  if(totalTok<=lim.tpm*0.9){ // fits in one call with margin
+  if(totalTok<=lim.tpm*0.9){
     $('procTitle').textContent='Analyzing '+ready.length+' sources...';
-    $('procSub').textContent=fmtTok(totalTok)+' tokens. This takes 1\u20132 minutes.';
-    return parseJSON(await callLLM(ANALYSIS,'Analyze these '+ready.length+' sources:\n\n'+texts.join('\n\n'),key));
+    $('procSub').textContent=fmtTok(totalTok)+' tokens. Takes 1\u20132 minutes.';
+    return parseJSON(await callLLM(ANALYSIS,'Analyze these sources:\n\n'+texts.join('\n\n'),key));
   }
-
-  // Need to chunk: pack as many files as fit per call, summarize each chunk, then synthesize
-  $('procTitle').textContent='Large input \u2014 processing in chunks...';
-  const summaries=[];
-  let chunk=[],chunkTok=500; // 500 for system prompt overhead
-
+  const summaries=[];let chunk=[],chunkTok=500;
   for(let i=0;i<texts.length;i++){
     const fileTok=estTok(texts[i]);
-    if(chunkTok+fileTok>lim.tpm*0.85 && chunk.length>0){
-      // Process current chunk
-      $('procSub').textContent='Summarizing chunk ('+chunk.length+' files, ~'+fmtTok(chunkTok)+' tokens)...';
+    if(chunkTok+fileTok>lim.tpm*0.85&&chunk.length>0){
+      $('procTitle').textContent='Summarizing chunk '+(summaries.length+1)+'...';$('procSub').textContent=chunk.length+' files, ~'+fmtTok(chunkTok)+' tokens';
       if(summaries.length>0)await sleep(lim.wait);
-      const s=await callLLM(SUMMARIZE,chunk.join('\n\n'),key);
-      summaries.push(s);
-      chunk=[];chunkTok=500;
+      summaries.push(await callLLM(SUMMARIZE,chunk.join('\n\n'),key));chunk=[];chunkTok=500;
     }
-    // If a single file exceeds the limit, truncate it
-    if(fileTok>lim.tpm*0.85){
-      const maxChars=Math.floor(lim.tpm*0.85*4);
-      chunk.push(texts[i].slice(0,maxChars));
-      chunkTok+=Math.ceil(maxChars/4);
-    } else {
-      chunk.push(texts[i]);
-      chunkTok+=fileTok;
-    }
+    const maxC=Math.floor(lim.tpm*0.85*4);
+    chunk.push(fileTok>lim.tpm*0.85?texts[i].slice(0,maxC):texts[i]);
+    chunkTok+=Math.min(fileTok,Math.ceil(maxC/4));
   }
-  // Process remaining chunk
-  if(chunk.length>0){
-    $('procSub').textContent='Summarizing final chunk ('+chunk.length+' files)...';
-    if(summaries.length>0)await sleep(lim.wait);
-    summaries.push(await callLLM(SUMMARIZE,chunk.join('\n\n'),key));
-  }
-
-  // Synthesize all summaries
-  $('procTitle').textContent='Synthesizing across all sources...';
-  $('procSub').textContent='Building final briefing from '+summaries.length+' summaries...';
-  await sleep(lim.wait);
-  const synthInput=summaries.map((s,i)=>'=== Summary '+(i+1)+' ===\n'+s).join('\n\n');
-  return parseJSON(await callLLM(ANALYSIS,'Synthesize these source summaries into the briefing:\n\n'+synthInput,key));
+  if(chunk.length>0){$('procTitle').textContent='Summarizing final chunk...';if(summaries.length>0)await sleep(lim.wait);summaries.push(await callLLM(SUMMARIZE,chunk.join('\n\n'),key));}
+  $('procTitle').textContent='Synthesizing all sources...';await sleep(lim.wait);
+  return parseJSON(await callLLM(ANALYSIS,'Synthesize these summaries:\n\n'+summaries.map((s,i)=>'=== Summary '+(i+1)+' ===\n'+s).join('\n\n'),key));
 }
 
-// ── RUN ──
 ab.addEventListener('click',async()=>{
   const key=$('apiKey').value.trim();if(!key||!entries.filter(e=>e.status==='ready').length)return;
-  showStage('processing');eb.innerHTML='';
+  showStage('processing');eb.innerHTML='';savedBlobs={};
   try{
     briefing=await analyze(key);
-
-    $('procTitle').textContent='Writing podcast script...';$('procSub').textContent='Almost done...';
-    const briefStr=JSON.stringify(briefing,null,2);
-    if(estTok(briefStr)>LIMITS[prov].tpm*0.8)await sleep(LIMITS[prov].wait);
-    podcastScript=(await callLLM(SCRIPT,'Briefing:\n\n'+briefStr,key)).trim();
-    if(podcastScript.startsWith('```'))podcastScript=podcastScript.replace(/^```\w*\s*\n?/,'').replace(/\n?```\s*$/,'');
-
     const colors=['#c0392b','#2980b9','#8e44ad','#16a085','#d35400','#2c3e50','#e67e22','#1abc9c'];
     $('resultsMeta').textContent=(briefing.themes?.length||0)+' themes across '+entries.filter(e=>e.status==='ready').length+' sources';
     $('themesGrid').innerHTML=(briefing.themes||[]).map((t,i)=>'<div class="theme-card" style="border-top:3px solid '+colors[i%8]+'"><div class="theme-card-title">'+t.title+'</div><div class="theme-card-meta">'+(t.stats?.length?t.stats.length+' data points':'')+(t.sources?.length?' &middot; '+t.sources.length+' sources':'')+'</div></div>').join('');
+    $('dlProgress').style.display='none';$('dlFiles').style.display='none';$('dlAllBtn').disabled=false;
     showStage('results');
   }catch(err){eb.innerHTML='<div class="error-box">'+err.message+'</div>';showStage('upload');}
 });
 
-function showStage(s){$('stage-upload').style.display=s==='upload'?'block':'none';$('stage-processing').style.display=s==='processing'?'block':'none';$('stage-results').style.display=s==='results'?'block':'none'}
+function showStage(s){$('stage-upload').style.display=s==='upload'?'block':'none';$('stage-processing').style.display=s==='processing'?'block':'none';$('stage-results').style.display=s==='results'?'block':'none';}
 
-// ── DOCX ── (same as before, compressed)
-$('dlDocx').addEventListener('click',async()=>{if(!briefing)return;$('dlProgress').textContent='Building document...';const{Document,Packer,Paragraph,TextRun,Table,TableRow,TableCell,HeadingLevel,BorderStyle,WidthType,ShadingType,AlignmentType,Header,Footer,PageNumber,PageBreak,LevelFormat}=docx;const a='1B4F72',al='D6EAF8',nb={style:BorderStyle.NONE,size:0},ch=[];ch.push(new Paragraph({spacing:{before:2400,after:80},alignment:AlignmentType.CENTER,children:[new TextRun({text:'NEWS INTELLIGENCE BRIEFING',font:'Arial',size:20,color:'7F8C8D',bold:true})]}));ch.push(new Paragraph({spacing:{after:200},alignment:AlignmentType.CENTER,border:{bottom:{style:BorderStyle.SINGLE,size:6,color:a,space:8}},children:[new TextRun({text:briefing.title||'Analysis',font:'Arial',size:48,color:a,bold:true})]}));ch.push(new Paragraph({spacing:{after:120},alignment:AlignmentType.CENTER,children:[new TextRun({text:briefing.subtitle||'',font:'Arial',size:24,color:'566573'})]}));ch.push(new Paragraph({spacing:{after:600},alignment:AlignmentType.CENTER,children:[new TextRun({text:briefing.date_range||'',font:'Arial',size:20,color:'95A5A6'})]}));ch.push(new Paragraph({children:[new PageBreak()]}));ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'Executive Summary',font:'Arial',size:32,bold:true,color:a})]}));ch.push(new Paragraph({spacing:{after:200,line:276},children:[new TextRun({text:briefing.executive_summary||'',font:'Arial',size:22,color:'2C3E50'})]}));ch.push(new Paragraph({children:[new PageBreak()]}));(briefing.themes||[]).forEach(t=>{ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,spacing:{before:360,after:200},children:[new TextRun({text:t.title,font:'Arial',size:32,bold:true,color:a})]}));ch.push(new Paragraph({spacing:{after:200,line:276},children:[new TextRun({text:t.analysis,font:'Arial',size:22,color:'2C3E50'})]}));if(t.stats&&t.stats.length){const cw=Math.floor(9360/Math.min(t.stats.length,4)),b={style:BorderStyle.SINGLE,size:1,color:'CCCCCC'},bs={top:b,bottom:b,left:b,right:b};ch.push(new Table({width:{size:9360,type:WidthType.DXA},columnWidths:t.stats.slice(0,4).map(()=>cw),rows:[new TableRow({children:t.stats.slice(0,4).map(s=>new TableCell({borders:bs,width:{size:cw,type:WidthType.DXA},shading:{fill:al,type:ShadingType.CLEAR},margins:{top:80,bottom:80,left:120,right:120},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:40},children:[new TextRun({text:s.value,font:'Arial',size:28,color:a,bold:true})]}),new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:0},children:[new TextRun({text:s.label,font:'Arial',size:18,color:'566573'})]})]}))})]
-}));ch.push(new Paragraph({spacing:{after:120},children:[]}));}if(t.watch_this){ch.push(new Table({width:{size:9360,type:WidthType.DXA},columnWidths:[9360],rows:[new TableRow({children:[new TableCell({borders:{top:{style:BorderStyle.SINGLE,size:4,color:'E74C3C'},bottom:{style:BorderStyle.SINGLE,size:4,color:'E74C3C'},left:nb,right:nb},shading:{fill:'FDEDEC',type:ShadingType.CLEAR},margins:{top:100,bottom:100,left:200,right:200},width:{size:9360,type:WidthType.DXA},children:[new Paragraph({spacing:{after:60},children:[new TextRun({text:'WATCH THIS',font:'Arial',size:20,color:'E74C3C',bold:true})]}),new Paragraph({spacing:{after:0,line:260},children:[new TextRun({text:t.watch_this,font:'Arial',size:20,color:'2C3E50'})]})]})]})]
-}));}ch.push(new Paragraph({spacing:{after:160},children:[]}));});ch.push(new Paragraph({children:[new PageBreak()]}));ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'What to Watch',font:'Arial',size:32,bold:true,color:a})]}));(briefing.watch_list||[]).forEach(w=>ch.push(new Paragraph({numbering:{reference:'bul',level:0},spacing:{after:100,line:260},children:[new TextRun({text:w.item+': ',font:'Arial',size:21,color:'2C3E50',bold:true}),new TextRun({text:w.detail,font:'Arial',size:21,color:'2C3E50'})]})));ch.push(new Paragraph({children:[new PageBreak()]}));ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'Closing',font:'Arial',size:32,bold:true,color:a})]}));ch.push(new Paragraph({spacing:{after:200,line:276},children:[new TextRun({text:briefing.closing||'',font:'Arial',size:22,color:'2C3E50'})]}));if(podcastScript){ch.push(new Paragraph({children:[new PageBreak()]}));ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'Podcast Script',font:'Arial',size:32,bold:true,color:a})]}));podcastScript.split('\n').forEach(l=>{const d=l.trim().startsWith('[')&&l.trim().endsWith(']');ch.push(new Paragraph({spacing:{after:d?80:160,line:276},children:[new TextRun({text:l,font:'Arial',size:d?20:22,color:d?'95A5A6':'2C3E50',italics:d})]}));});}const doc=new Document({styles:{default:{document:{run:{font:'Arial',size:22}}},paragraphStyles:[{id:'Heading1',name:'Heading 1',basedOn:'Normal',next:'Normal',quickFormat:true,run:{size:32,bold:true,font:'Arial',color:a},paragraph:{spacing:{before:360,after:200},outlineLevel:0}}]},numbering:{config:[{reference:'bul',levels:[{level:0,format:LevelFormat.BULLET,text:'\u2022',alignment:AlignmentType.LEFT,style:{paragraph:{indent:{left:720,hanging:360}}}}]}]},sections:[{properties:{page:{size:{width:12240,height:15840},margin:{top:1440,right:1440,bottom:1440,left:1440}}},headers:{default:new Header({children:[new Paragraph({spacing:{after:0},border:{bottom:{style:BorderStyle.SINGLE,size:2,color:a,space:4}},children:[new TextRun({text:briefing.title||'Briefing',font:'Arial',size:16,color:'95A5A6',italics:true})]})]})},footers:{default:new Footer({children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:'Page ',font:'Arial',size:16,color:'95A5A6'}),new TextRun({children:[PageNumber.CURRENT],font:'Arial',size:16,color:'95A5A6'})]})]})}
-,children:ch}]});const blob=await Packer.toBlob(doc);const u=URL.createObjectURL(blob),aa=document.createElement('a');aa.href=u;aa.download='News_Intelligence_Briefing.docx';aa.click();URL.revokeObjectURL(u);$('dlProgress').textContent='';});
+// ── DOWNLOAD BOTH WITH PROGRESS ──
+function setDlProgress(label,pct){$('dlProgress').style.display='block';$('dlLabel').textContent=label;$('dlPct').textContent=pct+'%';$('dlFill').style.width=pct+'%';}
 
-// ── PPTX ── (same as before, compressed)
-$('dlPptx').addEventListener('click',()=>{if(!briefing)return;$('dlProgress').textContent='Building slides...';const p=new PptxGenJS();p.layout='LAYOUT_16x9';const B='0B1120',C='172032',BL='3498DB',R='E74C3C',W='F0EDE8',D='8899AA',M='566A7F',cs=['C0392B','2980B9','8E44AD','16A085','D35400','2C3E50','E67E22','1ABC9C'],mk=()=>({type:'outer',color:'000000',blur:8,offset:3,angle:135,opacity:0.25});let s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});s.addText('NEWS INTELLIGENCE BRIEFING',{x:.8,y:1.3,w:8,h:.4,fontFace:'Trebuchet MS',fontSize:13,color:R,charSpacing:6,bold:true,margin:0});s.addText(briefing.title||'Analysis',{x:.8,y:1.8,w:8,h:1.2,fontFace:'Georgia',fontSize:44,color:W,bold:true,margin:0});s.addText(briefing.subtitle||'',{x:.8,y:3.2,w:6,h:.6,fontFace:'Calibri',fontSize:16,color:D,margin:0});s.addText(briefing.date_range||'',{x:.8,y:4.8,w:8,h:.3,fontFace:'Consolas',fontSize:10,color:M,margin:0});s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:BL}});s.addText('EXECUTIVE SUMMARY',{x:.8,y:.4,w:8,h:.3,fontFace:'Consolas',fontSize:10,color:BL,charSpacing:5,margin:0});s.addText((briefing.executive_summary||'').slice(0,800),{x:.8,y:1,w:8.4,h:4,fontFace:'Calibri',fontSize:13,color:D,lineSpacingMultiple:1.5,margin:0});(briefing.themes||[]).forEach((t,i)=>{const c=cs[i%8];s=p.addSlide();s.background={color:B};s.addText('THEME '+(i+1),{x:0,y:2,w:10,h:.4,fontFace:'Consolas',fontSize:12,color:c,align:'center',charSpacing:6,margin:0});s.addText(t.title,{x:1,y:2.5,w:8,h:1.2,fontFace:'Georgia',fontSize:36,color:W,bold:true,align:'center',margin:0});s.addShape(p.shapes.RECTANGLE,{x:4.5,y:4,w:1,h:.04,fill:{color:c}});s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:c}});const hs=t.stats&&t.stats.length>0;s.addText((t.analysis||'').slice(0,600),{x:.8,y:.5,w:hs?5.5:8.4,h:4.5,fontFace:'Calibri',fontSize:13,color:D,lineSpacingMultiple:1.5,margin:0});if(hs)t.stats.slice(0,4).forEach((st,si)=>{const cy=.5+si*1.1;s.addShape(p.shapes.RECTANGLE,{x:6.6,y:cy,w:3,h:.95,fill:{color:C},shadow:mk()});s.addText(st.value,{x:6.8,y:cy+.1,w:1.2,h:.75,fontFace:'Georgia',fontSize:22,color:BL,bold:true,valign:'middle',margin:0});s.addText(st.label,{x:8.05,y:cy+.1,w:1.35,h:.75,fontFace:'Calibri',fontSize:11,color:D,valign:'middle',margin:0});});});s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});s.addText('WHAT TO WATCH',{x:.8,y:.4,w:8,h:.3,fontFace:'Consolas',fontSize:10,color:R,charSpacing:5,margin:0});s.addText('Looking Ahead',{x:.8,y:.8,w:8,h:.5,fontFace:'Georgia',fontSize:28,color:W,bold:true,margin:0});(briefing.watch_list||[]).slice(0,6).forEach((w,i)=>{const cy=1.5+i*.62;s.addShape(p.shapes.RECTANGLE,{x:.8,y:cy,w:8.4,h:.52,fill:{color:i%2===0?C:B}});s.addText(''+(i+1),{x:.9,y:cy,w:.5,h:.52,fontFace:'Georgia',fontSize:16,color:BL,bold:true,valign:'middle',margin:0});s.addText(w.item,{x:1.5,y:cy,w:7.5,h:.52,fontFace:'Calibri',fontSize:13,color:D,valign:'middle',margin:0});});s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});s.addText(briefing.title||'Briefing',{x:0,y:2,w:10,h:.9,fontFace:'Georgia',fontSize:42,color:W,bold:true,align:'center',margin:0});s.addText(briefing.date_range||'',{x:0,y:3,w:10,h:.4,fontFace:'Calibri',fontSize:16,color:D,align:'center',margin:0});p.writeFile({fileName:'News_Intelligence_Briefing.pptx'});$('dlProgress').textContent='';});
+$('dlAllBtn').addEventListener('click',async()=>{
+  if(!briefing)return;
+  $('dlAllBtn').disabled=true;
+  $('dlFiles').style.display='none';
+  savedBlobs={};
 
-$('resetBtn').addEventListener('click',()=>{entries=[];briefing=null;podcastScript=null;fl.innerHTML='';tb.innerHTML='';render();showStage('upload');});
+  // Build DOCX
+  setDlProgress('Building briefing document...',10);
+  await sleep(50); // let UI update
+  try{savedBlobs.docx=await buildDocx();} catch(e){$('dlLabel').textContent='Error building .docx: '+e.message;return;}
+  setDlProgress('Document ready. Building slides...',50);
+  await sleep(50);
+
+  // Build PPTX
+  try{savedBlobs.pptx=await buildPptx();} catch(e){$('dlLabel').textContent='Error building .pptx: '+e.message;return;}
+  setDlProgress('Both files ready!',100);
+
+  // Auto-download both
+  triggerDl(savedBlobs.docx,'News_Intelligence_Briefing.docx');
+  setTimeout(()=>triggerDl(savedBlobs.pptx,'News_Intelligence_Briefing.pptx'),600);
+
+  // Show individual buttons for re-download
+  $('dlFiles').style.display='flex';
+  $('dlDocxBtn').className='dl-file-btn ready';
+  $('dlPptxBtn').className='dl-file-btn ready';
+  $('dlAllBtn').disabled=false;
+});
+
+window.dlSaved=function(type){
+  if(!savedBlobs[type])return;
+  triggerDl(savedBlobs[type],'News_Intelligence_Briefing.'+type);
+};
+
+function triggerDl(blob,name){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u);}
+
+// ── BUILD DOCX ──
+async function buildDocx(){
+  const{Document,Packer,Paragraph,TextRun,Table,TableRow,TableCell,HeadingLevel,BorderStyle,WidthType,ShadingType,AlignmentType,Header,Footer,PageNumber,PageBreak,LevelFormat}=docx;
+  const a='1B4F72',al='D6EAF8',nb={style:BorderStyle.NONE,size:0},ch=[];
+  ch.push(new Paragraph({spacing:{before:2400,after:80},alignment:AlignmentType.CENTER,children:[new TextRun({text:'NEWS INTELLIGENCE BRIEFING',font:'Arial',size:20,color:'7F8C8D',bold:true})]}));
+  ch.push(new Paragraph({spacing:{after:200},alignment:AlignmentType.CENTER,border:{bottom:{style:BorderStyle.SINGLE,size:6,color:a,space:8}},children:[new TextRun({text:briefing.title||'Analysis',font:'Arial',size:48,color:a,bold:true})]}));
+  ch.push(new Paragraph({spacing:{after:120},alignment:AlignmentType.CENTER,children:[new TextRun({text:briefing.subtitle||'',font:'Arial',size:24,color:'566573'})]}));
+  ch.push(new Paragraph({spacing:{after:600},alignment:AlignmentType.CENTER,children:[new TextRun({text:briefing.date_range||'',font:'Arial',size:20,color:'95A5A6'})]}));
+  ch.push(new Paragraph({children:[new PageBreak()]}));
+  ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'Executive Summary',font:'Arial',size:32,bold:true,color:a})]}));
+  ch.push(new Paragraph({spacing:{after:200,line:276},children:[new TextRun({text:briefing.executive_summary||'',font:'Arial',size:22,color:'2C3E50'})]}));
+  ch.push(new Paragraph({children:[new PageBreak()]}));
+  (briefing.themes||[]).forEach(t=>{
+    ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,spacing:{before:360,after:200},children:[new TextRun({text:t.title,font:'Arial',size:32,bold:true,color:a})]}));
+    ch.push(new Paragraph({spacing:{after:200,line:276},children:[new TextRun({text:t.analysis,font:'Arial',size:22,color:'2C3E50'})]}));
+    if(t.stats&&t.stats.length){const cw=Math.floor(9360/Math.min(t.stats.length,4)),b={style:BorderStyle.SINGLE,size:1,color:'CCCCCC'},bs={top:b,bottom:b,left:b,right:b};ch.push(new Table({width:{size:9360,type:WidthType.DXA},columnWidths:t.stats.slice(0,4).map(()=>cw),rows:[new TableRow({children:t.stats.slice(0,4).map(s=>new TableCell({borders:bs,width:{size:cw,type:WidthType.DXA},shading:{fill:al,type:ShadingType.CLEAR},margins:{top:80,bottom:80,left:120,right:120},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:40},children:[new TextRun({text:s.value,font:'Arial',size:28,color:a,bold:true})]}),new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:0},children:[new TextRun({text:s.label,font:'Arial',size:18,color:'566573'})]})]}))})]
+    }));ch.push(new Paragraph({spacing:{after:120},children:[]}));}
+    if(t.watch_this){ch.push(new Table({width:{size:9360,type:WidthType.DXA},columnWidths:[9360],rows:[new TableRow({children:[new TableCell({borders:{top:{style:BorderStyle.SINGLE,size:4,color:'E74C3C'},bottom:{style:BorderStyle.SINGLE,size:4,color:'E74C3C'},left:nb,right:nb},shading:{fill:'FDEDEC',type:ShadingType.CLEAR},margins:{top:100,bottom:100,left:200,right:200},width:{size:9360,type:WidthType.DXA},children:[new Paragraph({spacing:{after:60},children:[new TextRun({text:'WATCH THIS',font:'Arial',size:20,color:'E74C3C',bold:true})]}),new Paragraph({spacing:{after:0,line:260},children:[new TextRun({text:t.watch_this,font:'Arial',size:20,color:'2C3E50'})]})]})]})]
+    }));}ch.push(new Paragraph({spacing:{after:160},children:[]}));
+  });
+  ch.push(new Paragraph({children:[new PageBreak()]}));
+  ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'What to Watch',font:'Arial',size:32,bold:true,color:a})]}));
+  (briefing.watch_list||[]).forEach(w=>ch.push(new Paragraph({numbering:{reference:'bul',level:0},spacing:{after:100,line:260},children:[new TextRun({text:w.item+': ',font:'Arial',size:21,color:'2C3E50',bold:true}),new TextRun({text:w.detail,font:'Arial',size:21,color:'2C3E50'})]})));
+  ch.push(new Paragraph({children:[new PageBreak()]}));
+  ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'Closing',font:'Arial',size:32,bold:true,color:a})]}));
+  ch.push(new Paragraph({spacing:{after:200,line:276},children:[new TextRun({text:briefing.closing||'',font:'Arial',size:22,color:'2C3E50'})]}));
+  const doc=new Document({styles:{default:{document:{run:{font:'Arial',size:22}}},paragraphStyles:[{id:'Heading1',name:'Heading 1',basedOn:'Normal',next:'Normal',quickFormat:true,run:{size:32,bold:true,font:'Arial',color:a},paragraph:{spacing:{before:360,after:200},outlineLevel:0}}]},numbering:{config:[{reference:'bul',levels:[{level:0,format:LevelFormat.BULLET,text:'\u2022',alignment:AlignmentType.LEFT,style:{paragraph:{indent:{left:720,hanging:360}}}}]}]},sections:[{properties:{page:{size:{width:12240,height:15840},margin:{top:1440,right:1440,bottom:1440,left:1440}}},headers:{default:new Header({children:[new Paragraph({spacing:{after:0},border:{bottom:{style:BorderStyle.SINGLE,size:2,color:a,space:4}},children:[new TextRun({text:briefing.title||'Briefing',font:'Arial',size:16,color:'95A5A6',italics:true})]})]})},footers:{default:new Footer({children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:'Page ',font:'Arial',size:16,color:'95A5A6'}),new TextRun({children:[PageNumber.CURRENT],font:'Arial',size:16,color:'95A5A6'})]})]})}
+  ,children:ch}]});
+  return Packer.toBlob(doc);
+}
+
+// ── BUILD PPTX ──
+async function buildPptx(){
+  const p=new PptxGenJS();p.layout='LAYOUT_16x9';
+  const B='0B1120',C='172032',BL='3498DB',R='E74C3C',W='F0EDE8',D='8899AA',M='566A7F',cs=['C0392B','2980B9','8E44AD','16A085','D35400','2C3E50','E67E22','1ABC9C'],mk=()=>({type:'outer',color:'000000',blur:8,offset:3,angle:135,opacity:0.25});
+  let s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});s.addText('NEWS INTELLIGENCE BRIEFING',{x:.8,y:1.3,w:8,h:.4,fontFace:'Trebuchet MS',fontSize:13,color:R,charSpacing:6,bold:true,margin:0});s.addText(briefing.title||'Analysis',{x:.8,y:1.8,w:8,h:1.2,fontFace:'Georgia',fontSize:44,color:W,bold:true,margin:0});s.addText(briefing.subtitle||'',{x:.8,y:3.2,w:6,h:.6,fontFace:'Calibri',fontSize:16,color:D,margin:0});s.addText(briefing.date_range||'',{x:.8,y:4.8,w:8,h:.3,fontFace:'Consolas',fontSize:10,color:M,margin:0});
+  s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:BL}});s.addText('EXECUTIVE SUMMARY',{x:.8,y:.4,w:8,h:.3,fontFace:'Consolas',fontSize:10,color:BL,charSpacing:5,margin:0});s.addText((briefing.executive_summary||'').slice(0,800),{x:.8,y:1,w:8.4,h:4,fontFace:'Calibri',fontSize:13,color:D,lineSpacingMultiple:1.5,margin:0});
+  (briefing.themes||[]).forEach((t,i)=>{const c=cs[i%8];s=p.addSlide();s.background={color:B};s.addText('THEME '+(i+1),{x:0,y:2,w:10,h:.4,fontFace:'Consolas',fontSize:12,color:c,align:'center',charSpacing:6,margin:0});s.addText(t.title,{x:1,y:2.5,w:8,h:1.2,fontFace:'Georgia',fontSize:36,color:W,bold:true,align:'center',margin:0});s.addShape(p.shapes.RECTANGLE,{x:4.5,y:4,w:1,h:.04,fill:{color:c}});s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:c}});const hs=t.stats&&t.stats.length>0;s.addText((t.analysis||'').slice(0,600),{x:.8,y:.5,w:hs?5.5:8.4,h:4.5,fontFace:'Calibri',fontSize:13,color:D,lineSpacingMultiple:1.5,margin:0});if(hs)t.stats.slice(0,4).forEach((st,si)=>{const cy=.5+si*1.1;s.addShape(p.shapes.RECTANGLE,{x:6.6,y:cy,w:3,h:.95,fill:{color:C},shadow:mk()});s.addText(st.value,{x:6.8,y:cy+.1,w:1.2,h:.75,fontFace:'Georgia',fontSize:22,color:BL,bold:true,valign:'middle',margin:0});s.addText(st.label,{x:8.05,y:cy+.1,w:1.35,h:.75,fontFace:'Calibri',fontSize:11,color:D,valign:'middle',margin:0});});});
+  s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});s.addText('WHAT TO WATCH',{x:.8,y:.4,w:8,h:.3,fontFace:'Consolas',fontSize:10,color:R,charSpacing:5,margin:0});s.addText('Looking Ahead',{x:.8,y:.8,w:8,h:.5,fontFace:'Georgia',fontSize:28,color:W,bold:true,margin:0});(briefing.watch_list||[]).slice(0,6).forEach((w,i)=>{const cy=1.5+i*.62;s.addShape(p.shapes.RECTANGLE,{x:.8,y:cy,w:8.4,h:.52,fill:{color:i%2===0?C:B}});s.addText(''+(i+1),{x:.9,y:cy,w:.5,h:.52,fontFace:'Georgia',fontSize:16,color:BL,bold:true,valign:'middle',margin:0});s.addText(w.item,{x:1.5,y:cy,w:7.5,h:.52,fontFace:'Calibri',fontSize:13,color:D,valign:'middle',margin:0});});
+  s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});s.addText(briefing.title||'Briefing',{x:0,y:2,w:10,h:.9,fontFace:'Georgia',fontSize:42,color:W,bold:true,align:'center',margin:0});s.addText(briefing.date_range||'',{x:0,y:3,w:10,h:.4,fontFace:'Calibri',fontSize:16,color:D,align:'center',margin:0});
+  // pptxgenjs writeFile returns a promise, but we need a blob
+  return new Promise((resolve)=>{p.write('blob').then(blob=>resolve(blob));});
+}
+
+$('resetBtn').addEventListener('click',()=>{entries=[];briefing=null;savedBlobs={};fl.innerHTML='';tb.innerHTML='';render();showStage('upload');});
 </script>
 </body>
 </html>
