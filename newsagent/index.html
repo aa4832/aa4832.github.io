@@ -21,12 +21,11 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .api-note{font-size:13px;color:rgba(255,255,255,.25);line-height:1.5;max-width:560px;margin-bottom:32px}
 .api-note a{color:#3498db;text-decoration:none}
 .api-note a:hover{text-decoration:underline}
-.step-badges{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.step-badges{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
 .step-badge{font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.3)}
 .step-badge.active{border-color:rgba(52,152,219,.3);color:#3498db;background:rgba(52,152,219,.08)}
 .step-badge.done{border-color:rgba(39,174,96,.3);color:#27ae60;background:rgba(39,174,96,.08)}
-.api-row{display:flex;gap:10px;margin-bottom:24px}
-.api-input{flex:1;padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:#e8e6e3;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none;transition:border-color .2s}
+.api-input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:#e8e6e3;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none;transition:border-color .2s;margin-bottom:24px}
 .api-input:focus{border-color:rgba(52,152,219,.4)}
 .api-input::placeholder{color:rgba(255,255,255,.2)}
 .dropzone{border:2px dashed rgba(255,255,255,.1);border-radius:16px;padding:48px 32px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(255,255,255,.02);margin-bottom:24px}
@@ -83,12 +82,12 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
   <a href="/" class="back-link">&#8592; abhiadhikari.com</a>
   <div class="label">NEWS INTELLIGENCE AGENT</div>
   <h1>Upload sources. Get briefings.</h1>
-  <p class="subtitle">Drop your .txt news files below. The agent analyzes them with Gemini and generates a comprehensive briefing (.docx) and slide deck (.pptx).</p>
-  <p class="api-note">Requires a free <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio API key</a> &mdash; just a Google account, no credit card.</p>
-  <div class="step-badges"><span class="step-badge active" id="step1">1. ADD KEY</span><span class="step-badge" id="step2">2. UPLOAD</span><span class="step-badge" id="step3">3. ANALYZE</span><span class="step-badge" id="step4">4. DOWNLOAD</span></div>
+  <p class="subtitle">Drop your .txt news files below. Claude analyzes them and generates a comprehensive briefing (.docx) and slide deck (.pptx).</p>
+  <p class="api-note">Requires a <a href="https://console.anthropic.com/" target="_blank">Claude API key</a> with billing enabled and <em>direct browser access</em> turned on.</p>
+  <div class="step-badges"><span class="step-badge active" id="step1">1. API KEY</span><span class="step-badge" id="step2">2. UPLOAD</span><span class="step-badge" id="step3">3. ANALYZE</span><span class="step-badge" id="step4">4. DOWNLOAD</span></div>
 
   <div id="stage-upload">
-    <div class="api-row"><input type="password" id="apiKey" class="api-input" placeholder="Paste your free Gemini API key here..."></div>
+    <input type="password" id="apiKey" class="api-input" placeholder="sk-ant-... (your Claude API key)">
     <div class="dropzone" id="dropzone">
       <div style="font-size:40px;margin-bottom:12px">&#128196;</div>
       <div style="font-size:16px;font-weight:500;color:rgba(255,255,255,.6);margin-bottom:6px">Drop .txt files here or click to browse</div>
@@ -123,78 +122,73 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
     <div class="progress-text" id="dlProgress"></div>
     <button class="btn-reset" id="resetBtn">&#8592; Start over with new files</button>
   </div>
-  <div class="powered-by">Powered by <a href="https://ai.google.dev/" target="_blank">Google Gemini Flash</a> (free tier) &middot; Built by <a href="/">Abhi Adhikari</a></div>
+  <div class="powered-by">Powered by <a href="https://anthropic.com" target="_blank">Claude</a> &middot; Built by <a href="/">Abhi Adhikari</a></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/docx@9.1.1/build/index.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgenjs.bundle.js"></script>
 <script>
 let files=[],briefing=null,podcastScript=null;
-const $=id=>document.getElementById(id),dropzoneEl=$('dropzone'),fileInput=$('fileInput'),fileListEl=$('fileList'),analyzeBtn=$('analyzeBtn'),errorBox=$('errorBox');
+const $=id=>document.getElementById(id),dz=$('dropzone'),fi=$('fileInput'),fl=$('fileList'),ab=$('analyzeBtn'),eb=$('errorBox');
 
-function setStep(n){for(let i=1;i<=4;i++){const el=$('step'+i);el.className='step-badge'+(i<n?' done':i===n?' active':'')}}
+function setStep(n){for(let i=1;i<=4;i++)$('step'+i).className='step-badge'+(i<n?' done':i===n?' active':'')}
+dz.addEventListener('click',()=>fi.click());
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over')});
+dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');addFiles(e.dataTransfer.files)});
+fi.addEventListener('change',e=>{addFiles(e.target.files);e.target.value=''});
+$('apiKey').addEventListener('input',renderFiles);
 
-dropzoneEl.addEventListener('click',()=>fileInput.click());
-dropzoneEl.addEventListener('dragover',e=>{e.preventDefault();dropzoneEl.classList.add('drag-over')});
-dropzoneEl.addEventListener('dragleave',()=>dropzoneEl.classList.remove('drag-over'));
-dropzoneEl.addEventListener('drop',e=>{e.preventDefault();dropzoneEl.classList.remove('drag-over');addFiles(e.dataTransfer.files)});
-fileInput.addEventListener('change',e=>{addFiles(e.target.files);e.target.value=''});
-$('apiKey').addEventListener('input',()=>{renderFiles();setStep($('apiKey').value.trim()?2:1)});
-
-function addFiles(fl){for(const f of fl)if(f.name.endsWith('.txt'))files.push(f);renderFiles();if(files.length>0&&$('apiKey').value.trim())setStep(3);else if(files.length>0)setStep(2)}
+function addFiles(inp){for(const f of inp)if(f.name.endsWith('.txt'))files.push(f);renderFiles()}
 function removeFile(i){files.splice(i,1);renderFiles()}
 function renderFiles(){
-  fileListEl.innerHTML=files.map((f,i)=>'<div class="file-item" style="animation-delay:'+i*.05+'s"><div class="file-info"><span class="file-badge">.txt</span><span class="file-name">'+f.name+'</span><span class="file-size">'+(f.size/1024).toFixed(0)+' KB</span></div><button class="file-remove" onclick="removeFile('+i+')">&#215;</button></div>').join('');
-  const ready=files.length>0&&$('apiKey').value.trim();
-  analyzeBtn.textContent=files.length===0?'Upload files to begin':!$('apiKey').value.trim()?'Enter API key above':'Analyze '+files.length+' source'+(files.length>1?'s':'')+' \u2192';
-  analyzeBtn.className='btn-primary '+(ready?'active':'disabled');analyzeBtn.disabled=!ready;
+  fl.innerHTML=files.map((f,i)=>'<div class="file-item"><div class="file-info"><span class="file-badge">.txt</span><span class="file-name">'+f.name+'</span><span class="file-size">'+(f.size/1024).toFixed(0)+' KB</span></div><button class="file-remove" onclick="removeFile('+i+')">&#215;</button></div>').join('');
+  const k=$('apiKey').value.trim(),ready=files.length>0&&k;
+  if(k&&files.length)setStep(3);else if(k)setStep(2);else setStep(1);
+  ab.textContent=!files.length?'Upload files to begin':!k?'Enter API key above':'Analyze '+files.length+' source'+(files.length>1?'s':'')+' \u2192';
+  ab.className='btn-primary '+(ready?'active':'disabled');ab.disabled=!ready;
 }
 
-async function callGemini(systemPrompt,userPrompt,apiKey){
-  const url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+encodeURIComponent(apiKey);
-  const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:systemPrompt+'\n\n---\n\n'+userPrompt}]}],generationConfig:{temperature:0.7,maxOutputTokens:8192}})});
-  if(!res.ok){const e=await res.text();if(e.includes('API_KEY_INVALID'))throw new Error('Invalid API key. Get a free one at aistudio.google.com/apikey');throw new Error('Gemini API error '+res.status+': '+e.slice(0,200))}
-  const data=await res.json();
-  if(data.candidates&&data.candidates[0]&&data.candidates[0].content)return data.candidates[0].content.parts.map(p=>p.text||'').join('\n');
-  throw new Error('Unexpected Gemini response format');
+async function callClaude(sys,usr,key){
+  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:8000,system:sys,messages:[{role:'user',content:usr}]})});
+  if(!r.ok){const e=await r.text();if(r.status===401)throw new Error('Invalid API key or billing not enabled.');if(r.status===403)throw new Error('Enable "direct browser access" on your API key in the Anthropic Console under API Keys settings.');throw new Error('Claude error '+r.status+': '+e.slice(0,300))}
+  const d=await r.json();return d.content.map(c=>c.text||'').join('\n');
 }
 
-const ANALYSIS_SYSTEM=`You are a senior intelligence analyst. Analyze the provided news articles and produce a structured briefing. Identify 4-8 macro-themes with analysis, stats, sources, and forward-looking insights. Include cross-cutting commonalities, a watch list, source guides, executive summary, and closing synthesis.
+const ANALYSIS=`You are a senior intelligence analyst. Analyze the provided news articles and produce a structured briefing.
+1. Identify 4-8 macro-themes with 2-3 paragraph analysis each, key stats, source attributions, and forward-looking insights
+2. 3-5 cross-cutting commonalities (each a full paragraph)
+3. 5-7 watch list items for the months ahead
+4. Executive summary and closing synthesis
 
-CRITICAL: Respond ONLY with valid JSON. No markdown fences, no backticks, no preamble.
+CRITICAL: Respond ONLY with valid JSON. No markdown, no backticks, no preamble.
+Schema: {"title":"string","subtitle":"string","date_range":"string","executive_summary":"string","themes":[{"title":"string","analysis":"string","stats":[{"value":"string","label":"string"}],"sources":["string"],"watch_this":"string"}],"commonalities":["string"],"watch_list":[{"item":"string","detail":"string"}],"closing":"string"}`;
 
-Schema: {"title":"string","subtitle":"string","date_range":"string","executive_summary":"string","themes":[{"title":"string","analysis":"string","stats":[{"value":"string","label":"string"}],"sources":["string"],"watch_this":"string"}],"commonalities":["string"],"watch_list":[{"item":"string","detail":"string"}],"source_guides":[{"source_name":"string","key_articles":[{"title":"string","description":"string"}]}],"closing":"string"}`;
+const SCRIPT=`You are a podcast scriptwriter. Write a 15-20 minute solo podcast script from the briefing JSON. Conversational but authoritative. Cold open with vivid details, one act per theme, transitions, closing that ties feedback loops together. Include [stage directions]. Respond with ONLY the script text, no JSON.`;
 
-const SCRIPT_SYSTEM=`You are a podcast scriptwriter. Given a JSON briefing, write a 15-20 minute solo podcast script. Conversational but authoritative. Structure: cold open with vivid details, one act per theme, transitions, closing with feedback loops. Include [stage directions]. Respond with ONLY the script text.`;
-
-analyzeBtn.addEventListener('click',async()=>{
-  const apiKey=$('apiKey').value.trim();
-  if(!apiKey||files.length===0)return;
-  showStage('processing');showError('');
+ab.addEventListener('click',async()=>{
+  const key=$('apiKey').value.trim();if(!key||!files.length)return;
+  showStage('processing');eb.innerHTML='';
   try{
-    setProgress('Reading files...','Preparing '+files.length+' sources...');
-    const texts=await Promise.all(files.map(async f=>{const t=await f.text();return'===== SOURCE: '+f.name+' =====\n'+t.slice(0,100000)+'\n'}));
+    $('procTitle').textContent='Reading files...';$('procSub').textContent='';
+    const texts=await Promise.all(files.map(async f=>'===== SOURCE: '+f.name+' =====\n'+(await f.text()).slice(0,100000)+'\n'));
     const combined=texts.join('\n\n');
-    setStep(3);setProgress('Analyzing sources...','Processing '+(combined.length/1000).toFixed(0)+'K chars with Gemini Flash. This takes 1-2 minutes.');
-    const raw=await callGemini(ANALYSIS_SYSTEM,'Analyze these '+files.length+' news source files:\n\n'+combined,apiKey);
+    setStep(3);$('procTitle').textContent='Analyzing with Claude...';$('procSub').textContent=(combined.length/1000).toFixed(0)+'K chars. Takes 1-2 minutes.';
+    const raw=await callClaude(ANALYSIS,'Analyze these '+files.length+' sources:\n\n'+combined,key);
     let j=raw.trim();if(j.startsWith('```'))j=j.replace(/^```(?:json)?\s*\n?/,'').replace(/\n?```\s*$/,'');
     try{briefing=JSON.parse(j)}catch(e){const m=j.match(/\{[\s\S]*\}/);if(m)briefing=JSON.parse(m[0]);else throw new Error('JSON parse failed. Try again.')}
-    setProgress('Generating podcast script...','Almost done...');
-    podcastScript=await callGemini(SCRIPT_SYSTEM,'Briefing:\n\n'+JSON.stringify(briefing,null,2),apiKey);
-    podcastScript=podcastScript.trim();if(podcastScript.startsWith('```'))podcastScript=podcastScript.replace(/^```\w*\s*\n?/,'').replace(/\n?```\s*$/,'');
-    setStep(4);showResults();
-  }catch(err){showError(err.message);showStage('upload')}
+    $('procTitle').textContent='Generating podcast script...';$('procSub').textContent='Almost done...';
+    podcastScript=(await callClaude(SCRIPT,'Briefing:\n\n'+JSON.stringify(briefing,null,2),key)).trim();
+    if(podcastScript.startsWith('```'))podcastScript=podcastScript.replace(/^```\w*\s*\n?/,'').replace(/\n?```\s*$/,'');
+    setStep(4);
+    const c=['#c0392b','#2980b9','#8e44ad','#16a085','#d35400','#2c3e50','#e67e22','#1abc9c'];
+    $('resultsMeta').textContent=(briefing.themes?.length||0)+' themes across '+files.length+' sources';
+    $('themesGrid').innerHTML=(briefing.themes||[]).map((t,i)=>'<div class="theme-card" style="border-top:3px solid '+c[i%8]+'"><div class="theme-card-title">'+t.title+'</div><div class="theme-card-meta">'+(t.stats?.length?t.stats.length+' data points':'')+(t.sources?.length?' &middot; '+t.sources.length+' sources':'')+'</div></div>').join('');
+    showStage('results');
+  }catch(err){eb.innerHTML='<div class="error-box">'+err.message+'</div>';showStage('upload')}
 });
 
 function showStage(s){$('stage-upload').style.display=s==='upload'?'block':'none';$('stage-processing').style.display=s==='processing'?'block':'none';$('stage-results').style.display=s==='results'?'block':'none'}
-function setProgress(t,s){$('procTitle').textContent=t||'';$('procSub').textContent=s||''}
-function showError(m){errorBox.innerHTML=m?'<div class="error-box">'+m+'</div>':''}
-function showResults(){
-  const c=['#c0392b','#2980b9','#8e44ad','#16a085','#d35400','#2c3e50','#e67e22','#1abc9c'];
-  $('resultsMeta').textContent=(briefing.themes?.length||0)+' themes across '+files.length+' sources';
-  $('themesGrid').innerHTML=(briefing.themes||[]).map((t,i)=>'<div class="theme-card" style="border-top:3px solid '+c[i%8]+'"><div class="theme-card-title">'+t.title+'</div><div class="theme-card-meta">'+(t.stats?.length?t.stats.length+' data points':'')+(t.sources?.length?' &middot; '+t.sources.length+' sources':'')+'</div></div>').join('');
-  showStage('results');
-}
 
 // ── DOCX ──
 $('dlDocx').addEventListener('click',async()=>{
@@ -213,22 +207,22 @@ $('dlDocx').addEventListener('click',async()=>{
     ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,spacing:{before:360,after:200},children:[new TextRun({text:t.title,font:'Arial',size:32,bold:true,color:a})]}));
     ch.push(new Paragraph({spacing:{after:200,line:276},children:[new TextRun({text:t.analysis,font:'Arial',size:22,color:'2C3E50'})]}));
     if(t.stats&&t.stats.length){const cw=Math.floor(9360/Math.min(t.stats.length,4)),b={style:BorderStyle.SINGLE,size:1,color:'CCCCCC'},bs={top:b,bottom:b,left:b,right:b};
-      ch.push(new Table({width:{size:9360,type:WidthType.DXA},columnWidths:t.stats.slice(0,4).map(()=>cw),rows:[new TableRow({children:t.stats.slice(0,4).map(s=>new TableCell({borders:bs,width:{size:cw,type:WidthType.DXA},shading:{fill:al,type:ShadingType.CLEAR},margins:{top:80,bottom:80,left:120,right:120},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:40},children:[new TextRun({text:s.value,font:'Arial',size:28,color:a,bold:true})]}),new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:0},children:[new TextRun({text:s.label,font:'Arial',size:18,color:'566573'})]})]}))})]
-      }));ch.push(new Paragraph({spacing:{after:120},children:[]}));}
+    ch.push(new Table({width:{size:9360,type:WidthType.DXA},columnWidths:t.stats.slice(0,4).map(()=>cw),rows:[new TableRow({children:t.stats.slice(0,4).map(s=>new TableCell({borders:bs,width:{size:cw,type:WidthType.DXA},shading:{fill:al,type:ShadingType.CLEAR},margins:{top:80,bottom:80,left:120,right:120},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:40},children:[new TextRun({text:s.value,font:'Arial',size:28,color:a,bold:true})]}),new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:0},children:[new TextRun({text:s.label,font:'Arial',size:18,color:'566573'})]})]}))})]
+    }));ch.push(new Paragraph({spacing:{after:120},children:[]}));}
     if(t.watch_this){ch.push(new Table({width:{size:9360,type:WidthType.DXA},columnWidths:[9360],rows:[new TableRow({children:[new TableCell({borders:{top:{style:BorderStyle.SINGLE,size:4,color:'E74C3C'},bottom:{style:BorderStyle.SINGLE,size:4,color:'E74C3C'},left:nb,right:nb},shading:{fill:'FDEDEC',type:ShadingType.CLEAR},margins:{top:100,bottom:100,left:200,right:200},width:{size:9360,type:WidthType.DXA},children:[new Paragraph({spacing:{after:60},children:[new TextRun({text:'WATCH THIS',font:'Arial',size:20,color:'E74C3C',bold:true})]}),new Paragraph({spacing:{after:0,line:260},children:[new TextRun({text:t.watch_this,font:'Arial',size:20,color:'2C3E50'})]})]})]})]
     }));}ch.push(new Paragraph({spacing:{after:160},children:[]}));
   });
   ch.push(new Paragraph({children:[new PageBreak()]}));
   ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'What to Watch',font:'Arial',size:32,bold:true,color:a})]}));
-  (briefing.watch_list||[]).forEach(w=>{ch.push(new Paragraph({numbering:{reference:'bul',level:0},spacing:{after:100,line:260},children:[new TextRun({text:w.item+': ',font:'Arial',size:21,color:'2C3E50',bold:true}),new TextRun({text:w.detail,font:'Arial',size:21,color:'2C3E50'})]}))});
+  (briefing.watch_list||[]).forEach(w=>ch.push(new Paragraph({numbering:{reference:'bul',level:0},spacing:{after:100,line:260},children:[new TextRun({text:w.item+': ',font:'Arial',size:21,color:'2C3E50',bold:true}),new TextRun({text:w.detail,font:'Arial',size:21,color:'2C3E50'})]})));
   ch.push(new Paragraph({children:[new PageBreak()]}));
   ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'Closing',font:'Arial',size:32,bold:true,color:a})]}));
   ch.push(new Paragraph({spacing:{after:200,line:276},children:[new TextRun({text:briefing.closing||'',font:'Arial',size:22,color:'2C3E50'})]}));
   if(podcastScript){ch.push(new Paragraph({children:[new PageBreak()]}));ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'Podcast Script',font:'Arial',size:32,bold:true,color:a})]}));
-    podcastScript.split('\n').forEach(l=>{const d=l.trim().startsWith('[')&&l.trim().endsWith(']');ch.push(new Paragraph({spacing:{after:d?80:160,line:276},children:[new TextRun({text:l,font:'Arial',size:d?20:22,color:d?'95A5A6':'2C3E50',italics:d})]}))});}
+  podcastScript.split('\n').forEach(l=>{const d=l.trim().startsWith('[')&&l.trim().endsWith(']');ch.push(new Paragraph({spacing:{after:d?80:160,line:276},children:[new TextRun({text:l,font:'Arial',size:d?20:22,color:d?'95A5A6':'2C3E50',italics:d})]}))});}
   const doc=new Document({styles:{default:{document:{run:{font:'Arial',size:22}}},paragraphStyles:[{id:'Heading1',name:'Heading 1',basedOn:'Normal',next:'Normal',quickFormat:true,run:{size:32,bold:true,font:'Arial',color:a},paragraph:{spacing:{before:360,after:200},outlineLevel:0}}]},numbering:{config:[{reference:'bul',levels:[{level:0,format:LevelFormat.BULLET,text:'\u2022',alignment:AlignmentType.LEFT,style:{paragraph:{indent:{left:720,hanging:360}}}}]}]},sections:[{properties:{page:{size:{width:12240,height:15840},margin:{top:1440,right:1440,bottom:1440,left:1440}}},headers:{default:new Header({children:[new Paragraph({spacing:{after:0},border:{bottom:{style:BorderStyle.SINGLE,size:2,color:a,space:4}},children:[new TextRun({text:briefing.title||'Briefing',font:'Arial',size:16,color:'95A5A6',italics:true})]})]})},footers:{default:new Footer({children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:'Page ',font:'Arial',size:16,color:'95A5A6'}),new TextRun({children:[PageNumber.CURRENT],font:'Arial',size:16,color:'95A5A6'})]})]})}
   ,children:ch}]});
-  const blob=await Packer.toBlob(doc);dl(blob,'News_Intelligence_Briefing.docx');$('dlProgress').textContent='';
+  const blob=await Packer.toBlob(doc);const u=URL.createObjectURL(blob),aa=document.createElement('a');aa.href=u;aa.download='News_Intelligence_Briefing.docx';aa.click();URL.revokeObjectURL(u);$('dlProgress').textContent='';
 });
 
 // ── PPTX ──
@@ -238,7 +232,7 @@ $('dlPptx').addEventListener('click',()=>{
   const B='0B1120',C='172032',BL='3498DB',R='E74C3C',W='F0EDE8',D='8899AA',M='566A7F';
   const cs=['C0392B','2980B9','8E44AD','16A085','D35400','2C3E50','E67E22','1ABC9C'];
   const mk=()=>({type:'outer',color:'000000',blur:8,offset:3,angle:135,opacity:0.25});
-  let s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:0.04,fill:{color:R}});
+  let s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});
   s.addText('NEWS INTELLIGENCE BRIEFING',{x:.8,y:1.3,w:8,h:.4,fontFace:'Trebuchet MS',fontSize:13,color:R,charSpacing:6,bold:true,margin:0});
   s.addText(briefing.title||'Analysis',{x:.8,y:1.8,w:8,h:1.2,fontFace:'Georgia',fontSize:44,color:W,bold:true,margin:0});
   s.addText(briefing.subtitle||'',{x:.8,y:3.2,w:6,h:.6,fontFace:'Calibri',fontSize:16,color:D,margin:0});
@@ -252,24 +246,19 @@ $('dlPptx').addEventListener('click',()=>{
     s.addShape(p.shapes.RECTANGLE,{x:4.5,y:4,w:1,h:.04,fill:{color:c}});
     s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:c}});
     const hs=t.stats&&t.stats.length>0;s.addText((t.analysis||'').slice(0,600),{x:.8,y:.5,w:hs?5.5:8.4,h:4.5,fontFace:'Calibri',fontSize:13,color:D,lineSpacingMultiple:1.5,margin:0});
-    if(hs){t.stats.slice(0,4).forEach((st,si)=>{const cy=.5+si*1.1;s.addShape(p.shapes.RECTANGLE,{x:6.6,y:cy,w:3,h:.95,fill:{color:C},shadow:mk()});
-    s.addText(st.value,{x:6.8,y:cy+.1,w:1.2,h:.75,fontFace:'Georgia',fontSize:22,color:BL,bold:true,valign:'middle',margin:0});
-    s.addText(st.label,{x:8.05,y:cy+.1,w:1.35,h:.75,fontFace:'Calibri',fontSize:11,color:D,valign:'middle',margin:0})})}
+    if(hs)t.stats.slice(0,4).forEach((st,si)=>{const cy=.5+si*1.1;s.addShape(p.shapes.RECTANGLE,{x:6.6,y:cy,w:3,h:.95,fill:{color:C},shadow:mk()});s.addText(st.value,{x:6.8,y:cy+.1,w:1.2,h:.75,fontFace:'Georgia',fontSize:22,color:BL,bold:true,valign:'middle',margin:0});s.addText(st.label,{x:8.05,y:cy+.1,w:1.35,h:.75,fontFace:'Calibri',fontSize:11,color:D,valign:'middle',margin:0})});
   });
   s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});
   s.addText('WHAT TO WATCH',{x:.8,y:.4,w:8,h:.3,fontFace:'Consolas',fontSize:10,color:R,charSpacing:5,margin:0});
   s.addText('Looking Ahead',{x:.8,y:.8,w:8,h:.5,fontFace:'Georgia',fontSize:28,color:W,bold:true,margin:0});
-  (briefing.watch_list||[]).slice(0,6).forEach((w,i)=>{const cy=1.5+i*.62;s.addShape(p.shapes.RECTANGLE,{x:.8,y:cy,w:8.4,h:.52,fill:{color:i%2===0?C:B}});
-  s.addText(''+(i+1),{x:.9,y:cy,w:.5,h:.52,fontFace:'Georgia',fontSize:16,color:BL,bold:true,valign:'middle',margin:0});
-  s.addText(w.item,{x:1.5,y:cy,w:7.5,h:.52,fontFace:'Calibri',fontSize:13,color:D,valign:'middle',margin:0})});
+  (briefing.watch_list||[]).slice(0,6).forEach((w,i)=>{const cy=1.5+i*.62;s.addShape(p.shapes.RECTANGLE,{x:.8,y:cy,w:8.4,h:.52,fill:{color:i%2===0?C:B}});s.addText(''+(i+1),{x:.9,y:cy,w:.5,h:.52,fontFace:'Georgia',fontSize:16,color:BL,bold:true,valign:'middle',margin:0});s.addText(w.item,{x:1.5,y:cy,w:7.5,h:.52,fontFace:'Calibri',fontSize:13,color:D,valign:'middle',margin:0})});
   s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});
   s.addText(briefing.title||'Briefing',{x:0,y:2,w:10,h:.9,fontFace:'Georgia',fontSize:42,color:W,bold:true,align:'center',margin:0});
   s.addText(briefing.date_range||'',{x:0,y:3,w:10,h:.4,fontFace:'Calibri',fontSize:16,color:D,align:'center',margin:0});
   p.writeFile({fileName:'News_Intelligence_Briefing.pptx'});$('dlProgress').textContent='';
 });
 
-$('resetBtn').addEventListener('click',()=>{files=[];briefing=null;podcastScript=null;fileListEl.innerHTML='';renderFiles();setStep(1);showStage('upload')});
-function dl(b,n){const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=n;a.click();URL.revokeObjectURL(u)}
+$('resetBtn').addEventListener('click',()=>{files=[];briefing=null;podcastScript=null;fl.innerHTML='';renderFiles();setStep(1);showStage('upload')});
 </script>
 </body>
 </html>
