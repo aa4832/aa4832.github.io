@@ -17,48 +17,53 @@ body{min-height:100vh;font-family:'Outfit',sans-serif;background:linear-gradient
 .back-link:hover{color:rgba(255,255,255,.6)}
 .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:5px;color:#e74c3c;text-transform:uppercase;margin-bottom:12px}
 h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.15;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,#7f8c9a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.subtitle{font-size:16px;color:rgba(255,255,255,.4);line-height:1.6;max-width:560px;margin-bottom:8px}
-.api-note{font-size:13px;color:rgba(255,255,255,.25);line-height:1.5;max-width:560px;margin-bottom:32px}
-.api-note a{color:#3498db;text-decoration:none}
-.api-note a:hover{text-decoration:underline}
-.step-badges{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
-.step-badge{font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.3)}
-.step-badge.active{border-color:rgba(52,152,219,.3);color:#3498db;background:rgba(52,152,219,.08)}
-.step-badge.done{border-color:rgba(39,174,96,.3);color:#27ae60;background:rgba(39,174,96,.08)}
+.subtitle{font-size:16px;color:rgba(255,255,255,.4);line-height:1.6;max-width:600px;margin-bottom:32px}
+.subtitle a{color:#3498db;text-decoration:none}
+.subtitle a:hover{text-decoration:underline}
 .api-input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:#e8e6e3;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none;transition:border-color .2s;margin-bottom:24px}
 .api-input:focus{border-color:rgba(52,152,219,.4)}
 .api-input::placeholder{color:rgba(255,255,255,.2)}
-.dropzone{border:2px dashed rgba(255,255,255,.1);border-radius:16px;padding:48px 32px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(255,255,255,.02);margin-bottom:16px}
+.dropzone{border:2px dashed rgba(255,255,255,.1);border-radius:16px;padding:52px 32px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(255,255,255,.02);margin-bottom:16px}
 .dropzone:hover,.dropzone.drag-over{border-color:rgba(52,152,219,.4);background:rgba(52,152,219,.04)}
-.file-item{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;margin-bottom:8px}
-.file-info{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.file-badge{font-family:'JetBrains Mono';font-size:11px;color:#3498db;background:rgba(52,152,219,.12);padding:3px 8px;border-radius:4px}
-.file-name{font-size:14px;color:rgba(255,255,255,.6)}
-.file-tokens{font-family:'JetBrains Mono';font-size:11px;color:rgba(255,255,255,.25)}
-.file-remove{background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:18px;padding:0 4px;flex-shrink:0}
+.dz-icon{font-size:44px;margin-bottom:14px}
+.dz-title{font-size:17px;font-weight:500;color:rgba(255,255,255,.6);margin-bottom:6px}
+.dz-sub{font-size:13px;color:rgba(255,255,255,.25)}
+.dz-formats{margin-top:12px;display:flex;justify-content:center;gap:8px}
+.dz-fmt{font-family:'JetBrains Mono';font-size:11px;padding:3px 10px;border-radius:5px;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.3)}
+
+.file-item{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;margin-bottom:6px}
+.file-info{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.file-badge{font-family:'JetBrains Mono';font-size:10px;padding:3px 8px;border-radius:4px;flex-shrink:0}
+.badge-pdf{color:#e74c3c;background:rgba(231,76,60,.12)}
+.badge-txt{color:#3498db;background:rgba(52,152,219,.12)}
+.file-name{font-size:13px;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-tokens{font-family:'JetBrains Mono';font-size:10px;color:rgba(255,255,255,.2);flex-shrink:0}
+.file-status{font-size:11px;flex-shrink:0;margin-left:6px}
+.file-remove{background:none;border:none;color:rgba(255,255,255,.2);cursor:pointer;font-size:18px;padding:0 4px;flex-shrink:0;margin-left:8px}
 .file-remove:hover{color:rgba(255,255,255,.5)}
 
-/* Token summary bar */
-.token-bar{padding:14px 18px;border-radius:10px;margin-bottom:24px;font-size:13px;line-height:1.6}
-.token-bar.ok{background:rgba(52,152,219,.08);border:1px solid rgba(52,152,219,.15);color:rgba(255,255,255,.5)}
-.token-bar.warn{background:rgba(243,156,18,.1);border:1px solid rgba(243,156,18,.2);color:#f39c12}
-.token-bar.over{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2);color:#e74c3c}
-.token-bar strong{color:inherit;font-weight:600}
-.token-bar .cost{float:right;font-family:'JetBrains Mono';font-size:12px}
-.token-meter{height:4px;border-radius:2px;background:rgba(255,255,255,.06);margin-top:8px;overflow:hidden}
+.token-bar{padding:12px 16px;border-radius:10px;margin:12px 0 20px;font-size:13px;line-height:1.6}
+.token-bar.ok{background:rgba(52,152,219,.06);border:1px solid rgba(52,152,219,.12);color:rgba(255,255,255,.45)}
+.token-bar.warn{background:rgba(243,156,18,.08);border:1px solid rgba(243,156,18,.15);color:#f39c12}
+.token-bar strong{font-weight:600}
+.token-cost{font-family:'JetBrains Mono';font-size:11px;color:rgba(255,255,255,.25);margin-left:12px}
+.token-meter{height:3px;border-radius:2px;background:rgba(255,255,255,.05);margin-top:8px;overflow:hidden}
 .token-meter-fill{height:100%;border-radius:2px;transition:width .3s}
 
 .btn-primary{width:100%;padding:16px 24px;border-radius:12px;border:none;font-size:16px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .3s}
 .btn-primary.active{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;box-shadow:0 4px 24px rgba(231,76,60,.25)}
-.btn-primary.active:hover{box-shadow:0 6px 32px rgba(231,76,60,.35)}
+.btn-primary.active:hover{box-shadow:0 6px 32px rgba(231,76,60,.35);transform:translateY(-1px)}
 .btn-primary.disabled{background:rgba(255,255,255,.05);color:rgba(255,255,255,.2);cursor:default}
+
 .processing{text-align:center;padding:60px 0}
 .spinner{width:48px;height:48px;border:3px solid rgba(255,255,255,.08);border-top-color:#3498db;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 24px}
 .proc-title{font-size:18px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:8px}
-.proc-sub{font-size:14px;color:rgba(255,255,255,.3);max-width:440px;margin:0 auto}
+.proc-sub{font-size:14px;color:rgba(255,255,255,.3);max-width:440px;margin:0 auto;line-height:1.5}
 .shimmer-bar{margin:32px auto 0;height:3px;border-radius:2px;background:rgba(255,255,255,.06);max-width:300px;overflow:hidden}
 .shimmer-fill{height:100%;background:linear-gradient(90deg,transparent,#3498db,transparent);background-size:200% 100%;animation:shimmer 1.5s infinite}
-.error-box{padding:14px 18px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2);border-radius:10px;color:#e74c3c;font-size:14px;margin-bottom:24px;line-height:1.5}
+
+.error-box{padding:14px 18px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2);border-radius:10px;color:#e74c3c;font-size:14px;margin-bottom:20px;line-height:1.5}
+
 .success-banner{padding:20px 24px;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.2);border-radius:12px;margin-bottom:32px;display:flex;align-items:center;gap:14px}
 .success-title{font-size:16px;font-weight:600;color:#27ae60;margin-bottom:2px}
 .success-sub{font-size:13px;color:rgba(255,255,255,.4)}
@@ -66,7 +71,7 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .themes-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px}
 .theme-card{padding:16px 18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px}
 .theme-card-title{font-size:15px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:4px}
-.theme-card-meta{font-size:12px;color:rgba(255,255,255,.3);line-height:1.5}
+.theme-card-meta{font-size:12px;color:rgba(255,255,255,.3)}
 .dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
 .dl-btn{padding:20px;border-radius:12px;border:1px solid;cursor:pointer;text-align:left;transition:all .3s;background:transparent}
 .dl-btn.docx{border-color:rgba(52,152,219,.3);background:rgba(52,152,219,.08)}
@@ -76,36 +81,15 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .dl-icon{font-size:28px;margin-bottom:8px}
 .dl-title{font-size:16px;font-weight:600;margin-bottom:4px}
 .dl-sub{font-size:12px;color:rgba(255,255,255,.3)}
-.btn-reset{width:100%;padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;font-family:'Outfit',sans-serif}
+.btn-reset{width:100%;padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;font-family:'Outfit',sans-serif;transition:background .2s}
 .btn-reset:hover{background:rgba(255,255,255,.06)}
 .progress-text{font-size:13px;color:rgba(255,255,255,.3);text-align:center;margin-bottom:16px}
-.powered-by{margin-top:48px;text-align:center;font-size:12px;color:rgba(255,255,255,.15);padding-bottom:32px}
-.powered-by a{color:rgba(255,255,255,.25);text-decoration:none}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-/* Prep section */
-.prep-section{margin-bottom:28px;border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden;background:rgba(255,255,255,.015)}
-.prep-header{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;transition:background .2s}
-.prep-header:hover{background:rgba(255,255,255,.03)}
-.prep-icon{font-size:10px;color:rgba(255,255,255,.3);transition:transform .2s;display:inline-block}
-.prep-icon.open{transform:rotate(90deg)}
-.prep-title{font-size:14px;font-weight:500;color:rgba(255,255,255,.5)}
-.prep-badge{font-family:'JetBrains Mono';font-size:10px;padding:2px 8px;border-radius:4px;background:rgba(52,152,219,.1);color:#3498db;margin-left:auto}
-.prep-body{padding:0 18px 18px}
-.prep-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.6;margin-bottom:16px}
-.prep-desc a{color:#3498db;text-decoration:none}
-.prep-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
-.prep-step-card{padding:12px 16px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:8px}
-.prep-card-step{font-family:'JetBrains Mono';font-size:10px;letter-spacing:2px;color:#e74c3c;margin-bottom:4px}
-.prep-card-desc{font-size:13px;color:rgba(255,255,255,.35);line-height:1.5}
-.prep-dl-section{padding:16px;background:rgba(52,152,219,.04);border:1px solid rgba(52,152,219,.1);border-radius:10px}
-.prep-dl-label{font-size:13px;font-weight:500;color:rgba(255,255,255,.5);margin-bottom:10px}
-.prep-dl-row{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap}
-.prep-dl-btn{padding:10px 20px;border-radius:8px;border:1px solid rgba(52,152,219,.25);background:rgba(52,152,219,.08);color:#3498db;font-size:14px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;display:flex;align-items:center;gap:6px}
-.prep-dl-btn:hover{background:rgba(52,152,219,.18)}
-.prep-dl-note{font-size:11px;color:rgba(255,255,255,.2);line-height:1.5}
+.powered-by{margin-top:48px;text-align:center;font-size:12px;color:rgba(255,255,255,.12);padding-bottom:32px}
+.powered-by a{color:rgba(255,255,255,.2);text-decoration:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@media(max-width:600px){h1{font-size:30px}.themes-grid,.dl-grid{grid-template-columns:1fr}.container{padding:32px 16px}.token-bar .cost{float:none;display:block;margin-top:4px}}
+@media(max-width:600px){h1{font-size:30px}.themes-grid,.dl-grid{grid-template-columns:1fr}.container{padding:32px 16px}}
 </style>
 </head>
 <body>
@@ -114,65 +98,27 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
   <a href="/" class="back-link">&#8592; abhiadhikari.com</a>
   <div class="label">NEWS INTELLIGENCE AGENT</div>
   <h1>Upload sources. Get briefings.</h1>
-  <p class="subtitle">Drop your .txt news files below. Claude analyzes them and generates a comprehensive briefing (.docx) and slide deck (.pptx). You'll need a <a href="https://console.anthropic.com/" target="_blank" style="color:#3498db;text-decoration:none">Claude API key</a>.</p>
-
-  <!-- FILE PREP SECTION -->
-  <div class="prep-section" id="prepSection">
-    <div class="prep-header" onclick="togglePrep()">
-      <span class="prep-icon" id="prepIcon">&#9654;</span>
-      <span class="prep-title">Have PDFs? Prep your files first</span>
-      <span class="prep-badge">download tools</span>
-    </div>
-    <div class="prep-body" id="prepBody" style="display:none">
-      <p class="prep-desc">Download the tool for your computer. It converts your PDFs to .txt files you can upload here. Just double-click to run &mdash; no coding needed. (Requires <a href="https://www.python.org/downloads/" target="_blank" style="color:#3498db">Python</a> to be installed.)</p>
-      
-      <div class="prep-steps">
-        <div class="prep-step-card">
-          <div class="prep-card-step">STEP 1 &mdash; Convert PDFs to text</div>
-          <div class="prep-card-desc">Double-click the app. It asks you to drag in your PDF folder. Creates a new folder with .txt versions of every PDF.</div>
-        </div>
-        <div class="prep-step-card">
-          <div class="prep-card-step">STEP 2 &mdash; Combine by source</div>
-          <div class="prep-card-desc">Double-click the second app. Drag in the .txt folder from Step 1. It merges files by source name (e.g. Bloomberg_Mar + Bloomberg_Apr &rarr; Bloomberg_All.txt).</div>
-        </div>
-        <div class="prep-step-card">
-          <div class="prep-card-step">STEP 3 &mdash; Upload combined files here</div>
-          <div class="prep-card-desc">Take the combined .txt files and upload them below. Done!</div>
-        </div>
-      </div>
-
-      <div class="prep-dl-section">
-        <div class="prep-dl-label">Download for your platform:</div>
-        <div class="prep-dl-row">
-          <button class="prep-dl-btn" onclick="downloadScript('mac')">&#63743; Mac</button>
-          <button class="prep-dl-btn" onclick="downloadScript('windows')">&#9109; Windows</button>
-          <button class="prep-dl-btn" onclick="downloadScript('linux')">&#128039; Linux</button>
-        </div>
-        <div class="prep-dl-note">Each download contains two small apps: <strong>PDF_to_TXT</strong> and <strong>Combine_TXT</strong>. Run them in order.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="step-badges"><span class="step-badge active" id="step1">1. API KEY</span><span class="step-badge" id="step2">2. UPLOAD</span><span class="step-badge" id="step3">3. ANALYZE</span><span class="step-badge" id="step4">4. DOWNLOAD</span></div>
+  <p class="subtitle">Drop your news articles below &mdash; PDFs or text files. The agent reads everything, identifies the big themes, and generates a polished briefing document and slide deck. You'll need a <a href="https://console.anthropic.com/" target="_blank">Claude API key</a>.</p>
 
   <div id="stage-upload">
-    <input type="password" id="apiKey" class="api-input" placeholder="sk-ant-... (your Claude API key)">
+    <input type="password" id="apiKey" class="api-input" placeholder="Paste your Claude API key here...">
     <div class="dropzone" id="dropzone">
-      <div style="font-size:40px;margin-bottom:12px">&#128196;</div>
-      <div style="font-size:16px;font-weight:500;color:rgba(255,255,255,.6);margin-bottom:6px">Drop .txt files here or click to browse</div>
-      <div style="font-size:13px;color:rgba(255,255,255,.25)">Supports multiple files from different news sources</div>
-      <input type="file" id="fileInput" accept=".txt" multiple style="display:none">
+      <div class="dz-icon">&#128206;</div>
+      <div class="dz-title">Drop files here or click to browse</div>
+      <div class="dz-sub">PDFs are converted to text automatically in your browser</div>
+      <div class="dz-formats"><span class="dz-fmt">.pdf</span><span class="dz-fmt">.txt</span></div>
+      <input type="file" id="fileInput" accept=".txt,.pdf" multiple style="display:none">
     </div>
     <div id="fileList"></div>
     <div id="tokenBar"></div>
     <div id="errorBox"></div>
-    <button class="btn-primary disabled" id="analyzeBtn" disabled>Upload files to begin</button>
+    <button class="btn-primary disabled" id="analyzeBtn" disabled>Add files to get started</button>
   </div>
 
   <div id="stage-processing" style="display:none">
     <div class="processing">
       <div class="spinner"></div>
-      <div class="proc-title" id="procTitle">Analyzing sources...</div>
+      <div class="proc-title" id="procTitle">Working...</div>
       <div class="proc-sub" id="procSub"></div>
       <div class="shimmer-bar"><div class="shimmer-fill"></div></div>
     </div>
@@ -195,432 +141,274 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
   <div class="powered-by">Powered by <a href="https://anthropic.com" target="_blank">Claude</a> &middot; Built by <a href="/">Abhi Adhikari</a></div>
 </div>
 
+<!-- PDF.js for browser-side PDF reading -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.9.155/pdf.min.mjs" type="module"></script>
 <script src="https://cdn.jsdelivr.net/npm/docx@9.1.1/build/index.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgenjs.bundle.js"></script>
-<script>
+
+<script type="module">
+// Load PDF.js
+const pdfjsLib = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.9.155/pdf.min.mjs');
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.9.155/pdf.worker.min.mjs';
+
 // ── STATE ──
-let files=[],fileTexts={},briefing=null,podcastScript=null;
+let entries = []; // {name, type:'pdf'|'txt', file, text:null, tokens:0, status:'pending'|'ready'|'error'}
+let briefing = null, podcastScript = null;
+const $ = id => document.getElementById(id);
+const dz = $('dropzone'), fi = $('fileInput'), fl = $('fileList'), ab = $('analyzeBtn'), eb = $('errorBox'), tb = $('tokenBar');
+const estTokens = t => Math.ceil(t.length / 4);
+const fmtTokens = n => n >= 1000 ? (n/1000).toFixed(1)+'K' : ''+n;
 
-// ── PREP SECTION ──
-function togglePrep(){
-  const body=$('prepBody'),icon=$('prepIcon');
-  if(body.style.display==='none'){body.style.display='block';icon.classList.add('open')}
-  else{body.style.display='none';icon.classList.remove('open')}
-}
-
-const MAC_CMD_1=`#!/bin/bash
-clear
-echo "PDF to TXT Converter"
-echo "===================="
-echo ""
-if ! command -v python3 &> /dev/null; then
-    echo "Python 3 is not installed."
-    echo "Download from: https://www.python.org/downloads/"
-    read -p "Press Enter to exit..."
-    exit 1
-fi
-python3 -c "import fitz" 2>/dev/null
-if [ $? -ne 0 ]; then
-    echo "Installing PDF reader (one-time)..."
-    python3 -m pip install pymupdf --quiet --break-system-packages 2>/dev/null || python3 -m pip install pymupdf --quiet
-    echo "Done!"
-    echo ""
-fi
-echo "Drag your PDF folder into this window and press Enter:"
-read -p "> " SOURCE_DIR
-SOURCE_DIR=$(echo "$SOURCE_DIR" | sed "s/^'//" | sed "s/'$//" | sed 's/^ *//' | sed 's/ *$//' | sed 's/\\\\//g')
-if [ ! -d "$SOURCE_DIR" ]; then
-    echo "Folder not found: $SOURCE_DIR"
-    read -p "Press Enter to exit..."
-    exit 1
-fi
-OUTPUT_DIR="\${SOURCE_DIR}_TXT"
-echo ""
-echo "Converting PDFs..."
-echo "From: $SOURCE_DIR"
-echo "To:   $OUTPUT_DIR"
-echo ""
-python3 << 'PYEOF'
-import sys,os
-from pathlib import Path
-import fitz
-source=Path(os.environ.get("SOURCE_DIR",sys.argv[1] if len(sys.argv)>1 else "."))
-PYEOF
-
-python3 -c "
-import os
-from pathlib import Path
-import fitz
-source=Path('''$SOURCE_DIR''')
-output=Path('''$OUTPUT_DIR''')
-count=errors=0
-for pdf in sorted(source.rglob('*.pdf')):
-    rel=pdf.relative_to(source)
-    txt=output/rel.with_suffix('.txt')
-    txt.parent.mkdir(parents=True,exist_ok=True)
-    try:
-        doc=fitz.open(pdf)
-        text='\\n\\n'.join(p.get_text() for p in doc)
-        doc.close()
-        txt.write_text(text,encoding='utf-8')
-        count+=1
-        print(f'  OK  {rel}')
-    except Exception as e:
-        errors+=1
-        print(f'  ERR {rel} -- {e}')
-print(f'\\nDone! {count} converted' + (f', {errors} errors' if errors else ''))
-print(f'Output: {output}')
-"
-echo ""
-echo "Next: run Combine_TXT on the output folder"
-read -p "Press Enter to exit..."
-`;
-
-const MAC_CMD_2=`#!/bin/bash
-clear
-echo "TXT Combiner"
-echo "============"
-echo ""
-if ! command -v python3 &> /dev/null; then
-    echo "Python 3 is not installed."
-    echo "Download from: https://www.python.org/downloads/"
-    read -p "Press Enter to exit..."
-    exit 1
-fi
-echo "Drag your TXT folder into this window and press Enter:"
-echo "(the folder from the PDF converter)"
-read -p "> " SOURCE_DIR
-SOURCE_DIR=$(echo "$SOURCE_DIR" | sed "s/^'//" | sed "s/'$//" | sed 's/^ *//' | sed 's/ *$//' | sed 's/\\\\//g')
-if [ ! -d "$SOURCE_DIR" ]; then
-    echo "Folder not found: $SOURCE_DIR"
-    read -p "Press Enter to exit..."
-    exit 1
-fi
-OUTPUT_DIR="\${SOURCE_DIR}/Combined"
-echo ""
-echo "Combining..."
-python3 -c "
-from pathlib import Path
-source=Path('''$SOURCE_DIR''')
-output=Path('''$OUTPUT_DIR''')
-output.mkdir(parents=True,exist_ok=True)
-sm={}
-for sf in sorted(source.iterdir()):
-    if not sf.is_dir() or sf.name=='Combined':continue
-    n=sf.name;p=None
-    for s in ['_Jan','_Feb','_Mar','_Apr','_May','_Jun','_Jul','_Aug','_Sep','_Oct','_Nov','_Dec','_2']:
-        i=n.find(s)
-        if i>0:p=n[:i];break
-    if p is None:p=n
-    sm.setdefault(p,[]).append(sf)
-if not sm:
-    tf=sorted(source.glob('*.txt'))
-    if tf:
-        tx=[]
-        for f in tf:
-            c=f.read_text(encoding='utf-8').strip()
-            tx.append('='*80+'\\nSOURCE: '+f.name+'\\n'+'='*80+'\\n\\n'+c)
-            print(f'  OK {f.name}')
-        (output/'All_Combined.txt').write_text('\\n\\n\\n'.join(tx),encoding='utf-8')
-        print(f'\\nWrote All_Combined.txt ({len(tx)} files)')
-else:
-    for pr,fds in sorted(sm.items()):
-        tx=[]
-        for fd in sorted(fds):
-            for tf in sorted(fd.glob('*.txt')):
-                c=tf.read_text(encoding='utf-8').strip()
-                tx.append('='*80+'\\nSOURCE: '+fd.name+' / '+tf.name+'\\n'+'='*80+'\\n\\n'+c)
-                print(f'  OK {fd.name}/{tf.name} -> {pr}')
-        if tx:
-            (output/f'{pr}_All.txt').write_text('\\n\\n\\n'.join(tx),encoding='utf-8')
-            print(f'  -> {pr}_All.txt ({len(tx)} articles)')
-print(f'\\nOutput: {output}')
-print('Upload the Combined .txt files to abhiadhikari.com/newsagent')
-"
-echo ""
-read -p "Press Enter to exit..."
-`;
-
-function downloadScript(platform){
-  if(platform==='mac'){
-    downloadTwo('PDF_to_TXT.command',MAC_CMD_1,'Combine_TXT.command',MAC_CMD_2);
-  } else if(platform==='linux'){
-    downloadTwo('pdf_to_txt.sh',MAC_CMD_1,'combine_txt.sh',MAC_CMD_2);
-  } else {
-    // Windows - create simpler .bat wrappers
-    const bat1=`@echo off
-title PDF to TXT Converter
-echo PDF to TXT Converter
-echo ====================
-echo.
-python --version >nul 2>&1
-if errorlevel 1 (echo Python not installed. Get it from python.org/downloads & pause & exit /b)
-python -c "import fitz" >nul 2>&1
-if errorlevel 1 (echo Installing PDF reader... & python -m pip install pymupdf --quiet)
-echo Drag your PDF folder here and press Enter:
-set /p SRC=">"
-set SRC=%SRC:"=%
-set OUT=%SRC%_TXT
-echo Converting...
-python -c "from pathlib import Path;import fitz;s=Path(r'%SRC%');o=Path(r'%OUT%');c=e=0;[(None) for _ in [0]];exec(\\"for p in sorted(s.rglob('*.pdf')):\\n r=p.relative_to(s);t=o/r.with_suffix('.txt');t.parent.mkdir(parents=True,exist_ok=True)\\n try:\\n  d=fitz.open(p);x=chr(10)*2;t.write_text(x.join(pg.get_text() for pg in d),encoding='utf-8');d.close();c+=1;print(f'  OK {r}')\\n except Exception as ex:\\n  e+=1;print(f'  ERR {r}')\\n\\");print(f'Done! {c} converted');print(f'Output: {o}')"
-echo.
-echo Next: run Combine_TXT on the output folder
-pause`;
-    const bat2=`@echo off
-title TXT Combiner
-echo TXT Combiner
-echo ============
-echo.
-python --version >nul 2>&1
-if errorlevel 1 (echo Python not installed. Get it from python.org/downloads & pause & exit /b)
-echo Drag your TXT folder here and press Enter:
-set /p SRC=">"
-set SRC=%SRC:"=%
-set OUT=%SRC%\\Combined
-echo Combining...
-python -c "from pathlib import Path;s=Path(r'%SRC%');o=Path(r'%OUT%');o.mkdir(parents=True,exist_ok=True);sm={};[sm.setdefault(next((n[:n.find(x)] for x in ['_Jan','_Feb','_Mar','_Apr','_May','_Jun','_Jul','_Aug','_Sep','_Oct','_Nov','_Dec','_2'] if n.find(x)>0),n),[]).append(sf) for sf in sorted(s.iterdir()) if sf.is_dir() and sf.name!='Combined' for n in [sf.name]];exec(\\"for pr,fds in sorted(sm.items()):\\n tx=[]\\n for fd in sorted(fds):\\n  for tf in sorted(fd.glob('*.txt')):\\n   tx.append('='*80+chr(10)+'SOURCE: '+fd.name+' / '+tf.name+chr(10)+'='*80+chr(10)*2+tf.read_text(encoding='utf-8').strip())\\n   print(f'  OK {fd.name}/{tf.name}')\\n if tx:(o/f'{pr}_All.txt').write_text((chr(10)*3).join(tx),encoding='utf-8');print(f'  -> {pr}_All.txt')\\n\\");print(f'Output: {o}');print('Upload Combined files to abhiadhikari.com/newsagent')"
-echo.
-pause`;
-    downloadTwo('PDF_to_TXT.bat',bat1,'Combine_TXT.bat',bat2);
+// ── PDF TEXT EXTRACTION ──
+async function extractPdfText(file) {
+  const buf = await file.arrayBuffer();
+  const doc = await pdfjsLib.getDocument({ data: buf }).promise;
+  let text = '';
+  for (let i = 1; i <= doc.numPages; i++) {
+    const page = await doc.getPage(i);
+    const content = await page.getTextContent();
+    const pageText = content.items.map(item => item.str).join(' ');
+    text += pageText + '\n\n';
   }
+  return text;
 }
 
-function downloadTwo(name1,content1,name2,content2){
-  dl(new Blob([content1],{type:'text/plain'}),name1);
-  setTimeout(()=>dl(new Blob([content2],{type:'text/plain'}),name2),500);
-}
-function dl(blob,name){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
-const $=id=>document.getElementById(id),dz=$('dropzone'),fi=$('fileInput'),fl=$('fileList'),ab=$('analyzeBtn'),eb=$('errorBox'),tb=$('tokenBar');
-const RATE_LIMIT=30000; // free tier tokens/min
-const SONNET_INPUT_PRICE=3; // $/M tokens
-const SONNET_OUTPUT_PRICE=15;
-const SYSTEM_TOKENS=500; // approx tokens for system prompt
+// ── FILE HANDLING ──
+dz.addEventListener('click', () => fi.click());
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); addFiles(e.dataTransfer.files); });
+fi.addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
+$('apiKey').addEventListener('input', render);
 
-// Rough token estimator: ~4 chars per token for English text
-function estimateTokens(text){return Math.ceil(text.length/4)}
-function formatTokens(n){return n>=1000?(n/1000).toFixed(1)+'K':n.toString()}
-
-// ── STEPS ──
-function setStep(n){for(let i=1;i<=4;i++)$('step'+i).className='step-badge'+(i<n?' done':i===n?' active':'')}
-
-// ── FILES ──
-dz.addEventListener('click',()=>fi.click());
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over')});
-dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');addFiles(e.dataTransfer.files)});
-fi.addEventListener('change',e=>{addFiles(e.target.files);e.target.value=''});
-$('apiKey').addEventListener('input',renderFiles);
-
-async function addFiles(inp){
-  for(const f of inp){
-    if(!f.name.endsWith('.txt'))continue;
-    files.push(f);
-    const text=await f.text();
-    fileTexts[f.name+f.size]=text; // key by name+size
+async function addFiles(fileList) {
+  for (const f of fileList) {
+    const ext = f.name.split('.').pop().toLowerCase();
+    if (ext !== 'pdf' && ext !== 'txt') continue;
+    entries.push({ name: f.name, type: ext, file: f, text: null, tokens: 0, status: 'pending' });
   }
-  renderFiles();
-}
-function removeFile(i){
-  const f=files[i];
-  delete fileTexts[f.name+f.size];
-  files.splice(i,1);
-  renderFiles();
-}
-
-function renderFiles(){
-  let totalTokens=SYSTEM_TOKENS;
-  fl.innerHTML=files.map((f,i)=>{
-    const text=fileTexts[f.name+f.size]||'';
-    const tokens=estimateTokens(text);
-    totalTokens+=tokens;
-    return '<div class="file-item"><div class="file-info"><span class="file-badge">.txt</span><span class="file-name">'+f.name+'</span><span class="file-tokens">~'+formatTokens(tokens)+' tokens</span></div><button class="file-remove" onclick="removeFile('+i+')">&#215;</button></div>';
-  }).join('');
-  
-  // Token summary bar
-  if(files.length>0){
-    const pct=Math.min((totalTokens/RATE_LIMIT)*100,100);
-    const estCostInput=(totalTokens/1e6)*SONNET_INPUT_PRICE;
-    const estCostOutput=(8000/1e6)*SONNET_OUTPUT_PRICE; // assume ~8K output tokens
-    const estCost=(estCostInput+estCostOutput)*2; // 2 API calls (analysis + script)
-    let cls='ok',msg='',meterColor='#3498db';
-    if(totalTokens>RATE_LIMIT){
-      cls='over';msg='<strong>Over free-tier rate limit</strong> ('+formatTokens(totalTokens)+' / '+formatTokens(RATE_LIMIT)+' per min). Remove files or the request will be split into chunks with waits between them.';meterColor='#e74c3c';
-    } else if(totalTokens>RATE_LIMIT*0.8){
-      cls='warn';msg='<strong>Near rate limit</strong> ('+formatTokens(totalTokens)+' / '+formatTokens(RATE_LIMIT)+'). Consider removing a file if you hit 429 errors.';meterColor='#f39c12';
-    } else {
-      msg='<strong>'+formatTokens(totalTokens)+'</strong> est. input tokens (limit: '+formatTokens(RATE_LIMIT)+'/min)';meterColor='#3498db';
+  render();
+  // Process PDFs and TXTs in background
+  for (const entry of entries) {
+    if (entry.status !== 'pending') continue;
+    try {
+      if (entry.type === 'pdf') {
+        entry.text = await extractPdfText(entry.file);
+      } else {
+        entry.text = await entry.file.text();
+      }
+      entry.tokens = estTokens(entry.text);
+      entry.status = 'ready';
+    } catch (e) {
+      entry.status = 'error';
+      entry.text = '';
+      entry.tokens = 0;
     }
-    msg+='<span class="cost">Est. cost: ~$'+estCost.toFixed(2)+'</span>';
-    tb.innerHTML='<div class="token-bar '+cls+'">'+msg+'<div class="token-meter"><div class="token-meter-fill" style="width:'+pct+'%;background:'+meterColor+'"></div></div></div>';
-  } else {
-    tb.innerHTML='';
+    render();
   }
-
-  const k=$('apiKey').value.trim(),ready=files.length>0&&k;
-  if(k&&files.length)setStep(3);else if(k)setStep(2);else setStep(1);
-  ab.textContent=!files.length?'Upload files to begin':!k?'Enter API key above':'Analyze '+files.length+' source'+(files.length>1?'s':'')+' (~'+formatTokens(totalTokens)+' tokens) \u2192';
-  ab.className='btn-primary '+(ready?'active':'disabled');ab.disabled=!ready;
 }
 
-// ── API ──
-async function callClaude(sys,usr,key){
-  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:8000,system:sys,messages:[{role:'user',content:usr}]})});
-  if(!r.ok){const e=await r.text();if(r.status===401)throw new Error('Invalid API key or billing not enabled.');if(r.status===403)throw new Error('Enable "direct browser access" on your API key in the Anthropic Console.');if(r.status===429)throw new Error('Rate limited (30K tokens/min on free tier). Wait 60 seconds and try again, or remove files to reduce token count.');throw new Error('Claude error '+r.status+': '+e.slice(0,300))}
-  const d=await r.json();return d.content.map(c=>c.text||'').join('\n');
+window.removeFile = function(i) { entries.splice(i, 1); render(); };
+
+function render() {
+  const key = $('apiKey').value.trim();
+  const readyCount = entries.filter(e => e.status === 'ready').length;
+  const pendingCount = entries.filter(e => e.status === 'pending').length;
+
+  fl.innerHTML = entries.map((e, i) => {
+    const badge = e.type === 'pdf' ? '<span class="file-badge badge-pdf">.pdf</span>' : '<span class="file-badge badge-txt">.txt</span>';
+    const statusHtml = e.status === 'pending' ? '<span class="file-status" style="color:#f39c12">reading...</span>'
+      : e.status === 'error' ? '<span class="file-status" style="color:#e74c3c">error</span>'
+      : '<span class="file-tokens">~' + fmtTokens(e.tokens) + ' tokens</span>';
+    return '<div class="file-item">' +
+      '<div class="file-info">' + badge + '<span class="file-name">' + e.name + '</span></div>' +
+      statusHtml +
+      '<button class="file-remove" onclick="removeFile(' + i + ')">&#215;</button></div>';
+  }).join('');
+
+  // Token bar
+  if (entries.length > 0 && readyCount > 0) {
+    const total = entries.reduce((s, e) => s + e.tokens, 0) + 500;
+    const costInput = (total / 1e6) * 3;
+    const costOutput = (8000 / 1e6) * 15;
+    const est = ((costInput + costOutput) * 2);
+    const limit = 30000;
+    const pct = Math.min((total / limit) * 100, 100);
+    const over = total > limit;
+    tb.innerHTML = '<div class="token-bar ' + (over ? 'warn' : 'ok') + '">' +
+      '<strong>' + fmtTokens(total) + '</strong> estimated input tokens' +
+      (over ? ' &mdash; large input, will be sent in chunks' : '') +
+      '<span class="token-cost">~$' + est.toFixed(2) + ' est.</span>' +
+      '<div class="token-meter"><div class="token-meter-fill" style="width:' + pct + '%;background:' + (over ? '#f39c12' : '#3498db') + '"></div></div></div>';
+  } else { tb.innerHTML = ''; }
+
+  const canGo = readyCount > 0 && pendingCount === 0 && key;
+  ab.textContent = !entries.length ? 'Add files to get started'
+    : pendingCount > 0 ? 'Reading files... (' + pendingCount + ' remaining)'
+    : !key ? 'Enter API key above'
+    : 'Analyze ' + readyCount + ' file' + (readyCount > 1 ? 's' : '') + ' \u2192';
+  ab.className = 'btn-primary ' + (canGo ? 'active' : 'disabled');
+  ab.disabled = !canGo;
 }
 
-// Chunked calling: if over rate limit, split files into batches, summarize each, then synthesize
-async function analyzeWithChunking(key,texts,totalTokens){
-  if(totalTokens<=RATE_LIMIT){
-    // Single call
-    const combined=texts.join('\n\n');
-    const raw=await callClaude(ANALYSIS,
-      'Analyze these '+files.length+' news sources and produce the briefing JSON:\n\n'+combined,key);
-    return parseJSON(raw);
+// ── CLAUDE API ──
+async function callClaude(sys, usr, key) {
+  const r = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+    body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 8000, system: sys, messages: [{ role: 'user', content: usr }] })
+  });
+  if (!r.ok) {
+    const e = await r.text();
+    if (r.status === 401) throw new Error('Invalid API key. Check that billing is enabled at console.anthropic.com.');
+    if (r.status === 403) throw new Error('Your API key needs "direct browser access" enabled. Go to console.anthropic.com → API Keys → click your key → enable it.');
+    if (r.status === 429) throw new Error('Rate limited. Wait 60 seconds and try again, or remove some files to reduce size.');
+    throw new Error('Error ' + r.status + ': ' + e.slice(0, 200));
   }
-  
-  // Chunked: summarize each file separately, then synthesize
-  const summaries=[];
-  for(let i=0;i<texts.length;i++){
-    $('procTitle').textContent='Summarizing file '+(i+1)+'/'+texts.length+'...';
-    $('procSub').textContent=files[i].name+' \u2014 waiting 60s between calls for rate limit';
-    if(i>0) await sleep(62000); // wait for rate limit reset
-    const summary=await callClaude(
-      'You are a news analyst. Summarize the key themes, data points, and insights from this news source. Be comprehensive but concise. Respond in plain text, 500-800 words.',
-      texts[i],key);
-    summaries.push('===== '+files[i].name+' =====\n'+summary);
-  }
-  
-  // Synthesize
-  $('procTitle').textContent='Synthesizing across all sources...';
-  $('procSub').textContent='Final analysis pass...';
-  await sleep(62000);
-  const raw=await callClaude(ANALYSIS,
-    'Synthesize these '+summaries.length+' source summaries into the briefing JSON:\n\n'+summaries.join('\n\n'),key);
-  return parseJSON(raw);
+  return (await r.json()).content.map(c => c.text || '').join('\n');
 }
 
-function parseJSON(raw){
-  let j=raw.trim();
-  if(j.startsWith('```'))j=j.replace(/^```(?:json)?\s*\n?/,'').replace(/\n?```\s*$/,'');
-  try{return JSON.parse(j)}catch(e){const m=j.match(/\{[\s\S]*\}/);if(m)return JSON.parse(m[0]);throw new Error('JSON parse failed. Try again.')}
-}
-
-function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
-
-const ANALYSIS=`You are a senior intelligence analyst. Analyze the provided news articles and produce a structured briefing.
-1. Identify 4-8 macro-themes with 2-3 paragraph analysis each, key stats, source attributions, and forward-looking insights
-2. 3-5 cross-cutting commonalities (each a full paragraph)
-3. 5-7 watch list items for the months ahead
-4. Executive summary and closing synthesis
-
-CRITICAL: Respond ONLY with valid JSON. No markdown, no backticks, no preamble.
+const ANALYSIS = `You are a senior intelligence analyst. Analyze the provided news articles and produce a structured briefing.
+Identify 4-8 macro-themes with 2-3 paragraph analysis each, key stats, source attributions, and forward-looking insights.
+Include 3-5 cross-cutting commonalities, 5-7 watch list items, executive summary, and closing synthesis.
+Respond ONLY with valid JSON. No markdown, no backticks, no preamble.
 Schema: {"title":"string","subtitle":"string","date_range":"string","executive_summary":"string","themes":[{"title":"string","analysis":"string","stats":[{"value":"string","label":"string"}],"sources":["string"],"watch_this":"string"}],"commonalities":["string"],"watch_list":[{"item":"string","detail":"string"}],"closing":"string"}`;
 
-const SCRIPT=`You are a podcast scriptwriter. Write a 15-20 minute solo podcast script from the briefing JSON. Conversational but authoritative. Cold open with vivid details, one act per theme, transitions, closing that ties feedback loops together. Include [stage directions]. Respond with ONLY the script text, no JSON.`;
+const SCRIPT = `You are a podcast scriptwriter. Write a 15-20 minute solo podcast script from the briefing JSON. Conversational but authoritative. Cold open with vivid details, one act per theme, transitions, closing that ties feedback loops together. Include [stage directions]. Respond with ONLY the script text.`;
+
+function parseJSON(raw) {
+  let j = raw.trim();
+  if (j.startsWith('```')) j = j.replace(/^```(?:json)?\s*\n?/, '').replace(/\n?```\s*$/, '');
+  try { return JSON.parse(j); } catch (e) {
+    const m = j.match(/\{[\s\S]*\}/);
+    if (m) return JSON.parse(m[0]);
+    throw new Error('Could not parse the response. Please try again.');
+  }
+}
+
+// ── CHUNKED ANALYSIS ──
+async function analyzeChunked(key, texts, totalTokens) {
+  const LIMIT = 28000; // stay under 30K with margin
+  if (totalTokens <= LIMIT) {
+    const raw = await callClaude(ANALYSIS, 'Analyze these news sources:\n\n' + texts.join('\n\n'), key);
+    return parseJSON(raw);
+  }
+  // Summarize each file, then synthesize
+  const summaries = [];
+  for (let i = 0; i < texts.length; i++) {
+    $('procTitle').textContent = 'Reading source ' + (i + 1) + ' of ' + texts.length + '...';
+    $('procSub').textContent = entries[i].name + (i > 0 ? ' (pausing between calls for rate limit)' : '');
+    if (i > 0) await new Promise(r => setTimeout(r, 62000));
+    const s = await callClaude('Summarize the key themes, data, and insights from this news source. 500-800 words, plain text.', texts[i], key);
+    summaries.push('=== ' + entries[i].name + ' ===\n' + s);
+  }
+  $('procTitle').textContent = 'Synthesizing all sources...';
+  $('procSub').textContent = 'Final analysis...';
+  await new Promise(r => setTimeout(r, 62000));
+  return parseJSON(await callClaude(ANALYSIS, 'Synthesize these summaries:\n\n' + summaries.join('\n\n'), key));
+}
 
 // ── RUN ──
-ab.addEventListener('click',async()=>{
-  const key=$('apiKey').value.trim();if(!key||!files.length)return;
-  showStage('processing');eb.innerHTML='';
-  try{
-    $('procTitle').textContent='Reading files...';$('procSub').textContent='';
-    const texts=files.map(f=>{const t=fileTexts[f.name+f.size]||'';return'===== SOURCE: '+f.name+' =====\n'+t.slice(0,100000)+'\n'});
-    const totalTokens=SYSTEM_TOKENS+texts.reduce((s,t)=>s+estimateTokens(t),0);
-    
-    setStep(3);
-    $('procTitle').textContent='Analyzing with Claude...';
-    $('procSub').textContent=formatTokens(totalTokens)+' input tokens'+(totalTokens>RATE_LIMIT?' (chunked mode \u2014 will take several minutes)':'');
-    
-    briefing=await analyzeWithChunking(key,texts,totalTokens);
-    
-    // Script call
-    $('procTitle').textContent='Generating podcast script...';
-    $('procSub').textContent='Almost done...';
-    const briefingTokens=estimateTokens(JSON.stringify(briefing));
-    if(totalTokens>RATE_LIMIT) await sleep(62000); // rate limit buffer
-    podcastScript=(await callClaude(SCRIPT,'Briefing:\n\n'+JSON.stringify(briefing,null,2),key)).trim();
-    if(podcastScript.startsWith('```'))podcastScript=podcastScript.replace(/^```\w*\s*\n?/,'').replace(/\n?```\s*$/,'');
-    
-    setStep(4);
-    const c=['#c0392b','#2980b9','#8e44ad','#16a085','#d35400','#2c3e50','#e67e22','#1abc9c'];
-    $('resultsMeta').textContent=(briefing.themes?.length||0)+' themes across '+files.length+' sources';
-    $('themesGrid').innerHTML=(briefing.themes||[]).map((t,i)=>'<div class="theme-card" style="border-top:3px solid '+c[i%8]+'"><div class="theme-card-title">'+t.title+'</div><div class="theme-card-meta">'+(t.stats?.length?t.stats.length+' data points':'')+(t.sources?.length?' &middot; '+t.sources.length+' sources':'')+'</div></div>').join('');
+ab.addEventListener('click', async () => {
+  const key = $('apiKey').value.trim();
+  if (!key || !entries.filter(e => e.status === 'ready').length) return;
+  showStage('processing');
+  eb.innerHTML = '';
+  try {
+    const ready = entries.filter(e => e.status === 'ready');
+    const texts = ready.map(e => '===== SOURCE: ' + e.name + ' =====\n' + e.text.slice(0, 100000));
+    const totalTokens = texts.reduce((s, t) => s + estTokens(t), 0) + 500;
+
+    $('procTitle').textContent = 'Analyzing with Claude...';
+    $('procSub').textContent = fmtTokens(totalTokens) + ' tokens across ' + ready.length + ' files. This takes 1\u20132 minutes.';
+
+    briefing = await analyzeChunked(key, texts, totalTokens);
+
+    $('procTitle').textContent = 'Writing podcast script...';
+    $('procSub').textContent = 'Almost done...';
+    if (totalTokens > 28000) await new Promise(r => setTimeout(r, 62000));
+    podcastScript = (await callClaude(SCRIPT, 'Briefing:\n\n' + JSON.stringify(briefing, null, 2), key)).trim();
+    if (podcastScript.startsWith('```')) podcastScript = podcastScript.replace(/^```\w*\s*\n?/, '').replace(/\n?```\s*$/, '');
+
+    const colors = ['#c0392b','#2980b9','#8e44ad','#16a085','#d35400','#2c3e50','#e67e22','#1abc9c'];
+    $('resultsMeta').textContent = (briefing.themes?.length || 0) + ' themes across ' + ready.length + ' sources';
+    $('themesGrid').innerHTML = (briefing.themes || []).map((t, i) =>
+      '<div class="theme-card" style="border-top:3px solid ' + colors[i % 8] + '"><div class="theme-card-title">' + t.title + '</div><div class="theme-card-meta">' + (t.stats?.length ? t.stats.length + ' data points' : '') + (t.sources?.length ? ' &middot; ' + t.sources.length + ' sources' : '') + '</div></div>'
+    ).join('');
     showStage('results');
-  }catch(err){eb.innerHTML='<div class="error-box">'+err.message+'</div>';showStage('upload')}
+  } catch (err) {
+    eb.innerHTML = '<div class="error-box">' + err.message + '</div>';
+    showStage('upload');
+  }
 });
 
-function showStage(s){$('stage-upload').style.display=s==='upload'?'block':'none';$('stage-processing').style.display=s==='processing'?'block':'none';$('stage-results').style.display=s==='results'?'block':'none'}
+function showStage(s) {
+  $('stage-upload').style.display = s === 'upload' ? 'block' : 'none';
+  $('stage-processing').style.display = s === 'processing' ? 'block' : 'none';
+  $('stage-results').style.display = s === 'results' ? 'block' : 'none';
+}
 
 // ── DOCX ──
-$('dlDocx').addEventListener('click',async()=>{
-  if(!briefing)return;$('dlProgress').textContent='Building .docx...';
-  const{Document,Packer,Paragraph,TextRun,Table,TableRow,TableCell,HeadingLevel,BorderStyle,WidthType,ShadingType,AlignmentType,Header,Footer,PageNumber,PageBreak,LevelFormat}=docx;
-  const a='1B4F72',al='D6EAF8',nb={style:BorderStyle.NONE,size:0},ch=[];
-  ch.push(new Paragraph({spacing:{before:2400,after:80},alignment:AlignmentType.CENTER,children:[new TextRun({text:'NEWS INTELLIGENCE BRIEFING',font:'Arial',size:20,color:'7F8C8D',bold:true})]}));
-  ch.push(new Paragraph({spacing:{after:200},alignment:AlignmentType.CENTER,border:{bottom:{style:BorderStyle.SINGLE,size:6,color:a,space:8}},children:[new TextRun({text:briefing.title||'Analysis',font:'Arial',size:48,color:a,bold:true})]}));
-  ch.push(new Paragraph({spacing:{after:120},alignment:AlignmentType.CENTER,children:[new TextRun({text:briefing.subtitle||'',font:'Arial',size:24,color:'566573'})]}));
-  ch.push(new Paragraph({spacing:{after:600},alignment:AlignmentType.CENTER,children:[new TextRun({text:briefing.date_range||'',font:'Arial',size:20,color:'95A5A6'})]}));
-  ch.push(new Paragraph({children:[new PageBreak()]}));
-  ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'Executive Summary',font:'Arial',size:32,bold:true,color:a})]}));
-  ch.push(new Paragraph({spacing:{after:200,line:276},children:[new TextRun({text:briefing.executive_summary||'',font:'Arial',size:22,color:'2C3E50'})]}));
-  ch.push(new Paragraph({children:[new PageBreak()]}));
-  (briefing.themes||[]).forEach(t=>{
-    ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,spacing:{before:360,after:200},children:[new TextRun({text:t.title,font:'Arial',size:32,bold:true,color:a})]}));
-    ch.push(new Paragraph({spacing:{after:200,line:276},children:[new TextRun({text:t.analysis,font:'Arial',size:22,color:'2C3E50'})]}));
-    if(t.stats&&t.stats.length){const cw=Math.floor(9360/Math.min(t.stats.length,4)),b={style:BorderStyle.SINGLE,size:1,color:'CCCCCC'},bs={top:b,bottom:b,left:b,right:b};
-    ch.push(new Table({width:{size:9360,type:WidthType.DXA},columnWidths:t.stats.slice(0,4).map(()=>cw),rows:[new TableRow({children:t.stats.slice(0,4).map(s=>new TableCell({borders:bs,width:{size:cw,type:WidthType.DXA},shading:{fill:al,type:ShadingType.CLEAR},margins:{top:80,bottom:80,left:120,right:120},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:40},children:[new TextRun({text:s.value,font:'Arial',size:28,color:a,bold:true})]}),new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:0},children:[new TextRun({text:s.label,font:'Arial',size:18,color:'566573'})]})]}))})]
-    }));ch.push(new Paragraph({spacing:{after:120},children:[]}));}
-    if(t.watch_this){ch.push(new Table({width:{size:9360,type:WidthType.DXA},columnWidths:[9360],rows:[new TableRow({children:[new TableCell({borders:{top:{style:BorderStyle.SINGLE,size:4,color:'E74C3C'},bottom:{style:BorderStyle.SINGLE,size:4,color:'E74C3C'},left:nb,right:nb},shading:{fill:'FDEDEC',type:ShadingType.CLEAR},margins:{top:100,bottom:100,left:200,right:200},width:{size:9360,type:WidthType.DXA},children:[new Paragraph({spacing:{after:60},children:[new TextRun({text:'WATCH THIS',font:'Arial',size:20,color:'E74C3C',bold:true})]}),new Paragraph({spacing:{after:0,line:260},children:[new TextRun({text:t.watch_this,font:'Arial',size:20,color:'2C3E50'})]})]})]})]
-    }));}ch.push(new Paragraph({spacing:{after:160},children:[]}));
+$('dlDocx').addEventListener('click', async () => {
+  if (!briefing) return;
+  $('dlProgress').textContent = 'Building document...';
+  const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, HeadingLevel, BorderStyle, WidthType, ShadingType, AlignmentType, Header, Footer, PageNumber, PageBreak, LevelFormat } = docx;
+  const a = '1B4F72', al = 'D6EAF8', nb = { style: BorderStyle.NONE, size: 0 }, ch = [];
+  ch.push(new Paragraph({ spacing: { before: 2400, after: 80 }, alignment: AlignmentType.CENTER, children: [new TextRun({ text: 'NEWS INTELLIGENCE BRIEFING', font: 'Arial', size: 20, color: '7F8C8D', bold: true })] }));
+  ch.push(new Paragraph({ spacing: { after: 200 }, alignment: AlignmentType.CENTER, border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: a, space: 8 } }, children: [new TextRun({ text: briefing.title || 'Analysis', font: 'Arial', size: 48, color: a, bold: true })] }));
+  ch.push(new Paragraph({ spacing: { after: 120 }, alignment: AlignmentType.CENTER, children: [new TextRun({ text: briefing.subtitle || '', font: 'Arial', size: 24, color: '566573' })] }));
+  ch.push(new Paragraph({ spacing: { after: 600 }, alignment: AlignmentType.CENTER, children: [new TextRun({ text: briefing.date_range || '', font: 'Arial', size: 20, color: '95A5A6' })] }));
+  ch.push(new Paragraph({ children: [new PageBreak()] }));
+  ch.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun({ text: 'Executive Summary', font: 'Arial', size: 32, bold: true, color: a })] }));
+  ch.push(new Paragraph({ spacing: { after: 200, line: 276 }, children: [new TextRun({ text: briefing.executive_summary || '', font: 'Arial', size: 22, color: '2C3E50' })] }));
+  ch.push(new Paragraph({ children: [new PageBreak()] }));
+  (briefing.themes || []).forEach(t => {
+    ch.push(new Paragraph({ heading: HeadingLevel.HEADING_1, spacing: { before: 360, after: 200 }, children: [new TextRun({ text: t.title, font: 'Arial', size: 32, bold: true, color: a })] }));
+    ch.push(new Paragraph({ spacing: { after: 200, line: 276 }, children: [new TextRun({ text: t.analysis, font: 'Arial', size: 22, color: '2C3E50' })] }));
+    if (t.stats && t.stats.length) { const cw = Math.floor(9360 / Math.min(t.stats.length, 4)), b = { style: BorderStyle.SINGLE, size: 1, color: 'CCCCCC' }, bs = { top: b, bottom: b, left: b, right: b }; ch.push(new Table({ width: { size: 9360, type: WidthType.DXA }, columnWidths: t.stats.slice(0, 4).map(() => cw), rows: [new TableRow({ children: t.stats.slice(0, 4).map(s => new TableCell({ borders: bs, width: { size: cw, type: WidthType.DXA }, shading: { fill: al, type: ShadingType.CLEAR }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 40 }, children: [new TextRun({ text: s.value, font: 'Arial', size: 28, color: a, bold: true })] }), new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 0 }, children: [new TextRun({ text: s.label, font: 'Arial', size: 18, color: '566573' })] })] })) })] })); ch.push(new Paragraph({ spacing: { after: 120 }, children: [] })); }
+    if (t.watch_this) { ch.push(new Table({ width: { size: 9360, type: WidthType.DXA }, columnWidths: [9360], rows: [new TableRow({ children: [new TableCell({ borders: { top: { style: BorderStyle.SINGLE, size: 4, color: 'E74C3C' }, bottom: { style: BorderStyle.SINGLE, size: 4, color: 'E74C3C' }, left: nb, right: nb }, shading: { fill: 'FDEDEC', type: ShadingType.CLEAR }, margins: { top: 100, bottom: 100, left: 200, right: 200 }, width: { size: 9360, type: WidthType.DXA }, children: [new Paragraph({ spacing: { after: 60 }, children: [new TextRun({ text: 'WATCH THIS', font: 'Arial', size: 20, color: 'E74C3C', bold: true })] }), new Paragraph({ spacing: { after: 0, line: 260 }, children: [new TextRun({ text: t.watch_this, font: 'Arial', size: 20, color: '2C3E50' })] })] })] })] })); }
+    ch.push(new Paragraph({ spacing: { after: 160 }, children: [] }));
   });
-  ch.push(new Paragraph({children:[new PageBreak()]}));
-  ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'What to Watch',font:'Arial',size:32,bold:true,color:a})]}));
-  (briefing.watch_list||[]).forEach(w=>ch.push(new Paragraph({numbering:{reference:'bul',level:0},spacing:{after:100,line:260},children:[new TextRun({text:w.item+': ',font:'Arial',size:21,color:'2C3E50',bold:true}),new TextRun({text:w.detail,font:'Arial',size:21,color:'2C3E50'})]})));
-  ch.push(new Paragraph({children:[new PageBreak()]}));
-  ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'Closing',font:'Arial',size:32,bold:true,color:a})]}));
-  ch.push(new Paragraph({spacing:{after:200,line:276},children:[new TextRun({text:briefing.closing||'',font:'Arial',size:22,color:'2C3E50'})]}));
-  if(podcastScript){ch.push(new Paragraph({children:[new PageBreak()]}));ch.push(new Paragraph({heading:HeadingLevel.HEADING_1,children:[new TextRun({text:'Podcast Script',font:'Arial',size:32,bold:true,color:a})]}));
-  podcastScript.split('\n').forEach(l=>{const d=l.trim().startsWith('[')&&l.trim().endsWith(']');ch.push(new Paragraph({spacing:{after:d?80:160,line:276},children:[new TextRun({text:l,font:'Arial',size:d?20:22,color:d?'95A5A6':'2C3E50',italics:d})]}))});}
-  const doc=new Document({styles:{default:{document:{run:{font:'Arial',size:22}}},paragraphStyles:[{id:'Heading1',name:'Heading 1',basedOn:'Normal',next:'Normal',quickFormat:true,run:{size:32,bold:true,font:'Arial',color:a},paragraph:{spacing:{before:360,after:200},outlineLevel:0}}]},numbering:{config:[{reference:'bul',levels:[{level:0,format:LevelFormat.BULLET,text:'\u2022',alignment:AlignmentType.LEFT,style:{paragraph:{indent:{left:720,hanging:360}}}}]}]},sections:[{properties:{page:{size:{width:12240,height:15840},margin:{top:1440,right:1440,bottom:1440,left:1440}}},headers:{default:new Header({children:[new Paragraph({spacing:{after:0},border:{bottom:{style:BorderStyle.SINGLE,size:2,color:a,space:4}},children:[new TextRun({text:briefing.title||'Briefing',font:'Arial',size:16,color:'95A5A6',italics:true})]})]})},footers:{default:new Footer({children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:'Page ',font:'Arial',size:16,color:'95A5A6'}),new TextRun({children:[PageNumber.CURRENT],font:'Arial',size:16,color:'95A5A6'})]})]})}
-  ,children:ch}]});
-  const blob=await Packer.toBlob(doc);const u=URL.createObjectURL(blob),aa=document.createElement('a');aa.href=u;aa.download='News_Intelligence_Briefing.docx';aa.click();URL.revokeObjectURL(u);$('dlProgress').textContent='';
+  ch.push(new Paragraph({ children: [new PageBreak()] }));
+  ch.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun({ text: 'What to Watch', font: 'Arial', size: 32, bold: true, color: a })] }));
+  (briefing.watch_list || []).forEach(w => ch.push(new Paragraph({ numbering: { reference: 'bul', level: 0 }, spacing: { after: 100, line: 260 }, children: [new TextRun({ text: w.item + ': ', font: 'Arial', size: 21, color: '2C3E50', bold: true }), new TextRun({ text: w.detail, font: 'Arial', size: 21, color: '2C3E50' })] })));
+  ch.push(new Paragraph({ children: [new PageBreak()] }));
+  ch.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun({ text: 'Closing', font: 'Arial', size: 32, bold: true, color: a })] }));
+  ch.push(new Paragraph({ spacing: { after: 200, line: 276 }, children: [new TextRun({ text: briefing.closing || '', font: 'Arial', size: 22, color: '2C3E50' })] }));
+  if (podcastScript) { ch.push(new Paragraph({ children: [new PageBreak()] })); ch.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun({ text: 'Podcast Script', font: 'Arial', size: 32, bold: true, color: a })] })); podcastScript.split('\n').forEach(l => { const d = l.trim().startsWith('[') && l.trim().endsWith(']'); ch.push(new Paragraph({ spacing: { after: d ? 80 : 160, line: 276 }, children: [new TextRun({ text: l, font: 'Arial', size: d ? 20 : 22, color: d ? '95A5A6' : '2C3E50', italics: d })] })); }); }
+  const doc = new Document({ styles: { default: { document: { run: { font: 'Arial', size: 22 } } }, paragraphStyles: [{ id: 'Heading1', name: 'Heading 1', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { size: 32, bold: true, font: 'Arial', color: a }, paragraph: { spacing: { before: 360, after: 200 }, outlineLevel: 0 } }] }, numbering: { config: [{ reference: 'bul', levels: [{ level: 0, format: LevelFormat.BULLET, text: '\u2022', alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 720, hanging: 360 } } } }] }] }, sections: [{ properties: { page: { size: { width: 12240, height: 15840 }, margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 } } }, headers: { default: new Header({ children: [new Paragraph({ spacing: { after: 0 }, border: { bottom: { style: BorderStyle.SINGLE, size: 2, color: a, space: 4 } }, children: [new TextRun({ text: briefing.title || 'Briefing', font: 'Arial', size: 16, color: '95A5A6', italics: true })] })] }) }, footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: 'Page ', font: 'Arial', size: 16, color: '95A5A6' }), new TextRun({ children: [PageNumber.CURRENT], font: 'Arial', size: 16, color: '95A5A6' })] })] }) }, children: ch }] });
+  const blob = await Packer.toBlob(doc);
+  const u = URL.createObjectURL(blob), aa = document.createElement('a'); aa.href = u; aa.download = 'News_Intelligence_Briefing.docx'; aa.click(); URL.revokeObjectURL(u);
+  $('dlProgress').textContent = '';
 });
 
 // ── PPTX ──
-$('dlPptx').addEventListener('click',()=>{
-  if(!briefing)return;$('dlProgress').textContent='Building .pptx...';
-  const p=new PptxGenJS();p.layout='LAYOUT_16x9';
-  const B='0B1120',C='172032',BL='3498DB',R='E74C3C',W='F0EDE8',D='8899AA',M='566A7F';
-  const cs=['C0392B','2980B9','8E44AD','16A085','D35400','2C3E50','E67E22','1ABC9C'];
-  const mk=()=>({type:'outer',color:'000000',blur:8,offset:3,angle:135,opacity:0.25});
-  let s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});
-  s.addText('NEWS INTELLIGENCE BRIEFING',{x:.8,y:1.3,w:8,h:.4,fontFace:'Trebuchet MS',fontSize:13,color:R,charSpacing:6,bold:true,margin:0});
-  s.addText(briefing.title||'Analysis',{x:.8,y:1.8,w:8,h:1.2,fontFace:'Georgia',fontSize:44,color:W,bold:true,margin:0});
-  s.addText(briefing.subtitle||'',{x:.8,y:3.2,w:6,h:.6,fontFace:'Calibri',fontSize:16,color:D,margin:0});
-  s.addText(briefing.date_range||'',{x:.8,y:4.8,w:8,h:.3,fontFace:'Consolas',fontSize:10,color:M,margin:0});
-  s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:BL}});
-  s.addText('EXECUTIVE SUMMARY',{x:.8,y:.4,w:8,h:.3,fontFace:'Consolas',fontSize:10,color:BL,charSpacing:5,margin:0});
-  s.addText((briefing.executive_summary||'').slice(0,800),{x:.8,y:1,w:8.4,h:4,fontFace:'Calibri',fontSize:13,color:D,lineSpacingMultiple:1.5,margin:0});
-  (briefing.themes||[]).forEach((t,i)=>{const c=cs[i%8];
-    s=p.addSlide();s.background={color:B};s.addText('THEME '+(i+1),{x:0,y:2,w:10,h:.4,fontFace:'Consolas',fontSize:12,color:c,align:'center',charSpacing:6,margin:0});
-    s.addText(t.title,{x:1,y:2.5,w:8,h:1.2,fontFace:'Georgia',fontSize:36,color:W,bold:true,align:'center',margin:0});
-    s.addShape(p.shapes.RECTANGLE,{x:4.5,y:4,w:1,h:.04,fill:{color:c}});
-    s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:c}});
-    const hs=t.stats&&t.stats.length>0;s.addText((t.analysis||'').slice(0,600),{x:.8,y:.5,w:hs?5.5:8.4,h:4.5,fontFace:'Calibri',fontSize:13,color:D,lineSpacingMultiple:1.5,margin:0});
-    if(hs)t.stats.slice(0,4).forEach((st,si)=>{const cy=.5+si*1.1;s.addShape(p.shapes.RECTANGLE,{x:6.6,y:cy,w:3,h:.95,fill:{color:C},shadow:mk()});s.addText(st.value,{x:6.8,y:cy+.1,w:1.2,h:.75,fontFace:'Georgia',fontSize:22,color:BL,bold:true,valign:'middle',margin:0});s.addText(st.label,{x:8.05,y:cy+.1,w:1.35,h:.75,fontFace:'Calibri',fontSize:11,color:D,valign:'middle',margin:0})});
-  });
-  s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});
-  s.addText('WHAT TO WATCH',{x:.8,y:.4,w:8,h:.3,fontFace:'Consolas',fontSize:10,color:R,charSpacing:5,margin:0});
-  s.addText('Looking Ahead',{x:.8,y:.8,w:8,h:.5,fontFace:'Georgia',fontSize:28,color:W,bold:true,margin:0});
-  (briefing.watch_list||[]).slice(0,6).forEach((w,i)=>{const cy=1.5+i*.62;s.addShape(p.shapes.RECTANGLE,{x:.8,y:cy,w:8.4,h:.52,fill:{color:i%2===0?C:B}});s.addText(''+(i+1),{x:.9,y:cy,w:.5,h:.52,fontFace:'Georgia',fontSize:16,color:BL,bold:true,valign:'middle',margin:0});s.addText(w.item,{x:1.5,y:cy,w:7.5,h:.52,fontFace:'Calibri',fontSize:13,color:D,valign:'middle',margin:0})});
-  s=p.addSlide();s.background={color:B};s.addShape(p.shapes.RECTANGLE,{x:0,y:0,w:10,h:.04,fill:{color:R}});
-  s.addText(briefing.title||'Briefing',{x:0,y:2,w:10,h:.9,fontFace:'Georgia',fontSize:42,color:W,bold:true,align:'center',margin:0});
-  s.addText(briefing.date_range||'',{x:0,y:3,w:10,h:.4,fontFace:'Calibri',fontSize:16,color:D,align:'center',margin:0});
-  p.writeFile({fileName:'News_Intelligence_Briefing.pptx'});$('dlProgress').textContent='';
+$('dlPptx').addEventListener('click', () => {
+  if (!briefing) return; $('dlProgress').textContent = 'Building slides...';
+  const p = new PptxGenJS(); p.layout = 'LAYOUT_16x9';
+  const B = '0B1120', C = '172032', BL = '3498DB', R = 'E74C3C', W = 'F0EDE8', D = '8899AA', M = '566A7F';
+  const cs = ['C0392B', '2980B9', '8E44AD', '16A085', 'D35400', '2C3E50', 'E67E22', '1ABC9C'];
+  const mk = () => ({ type: 'outer', color: '000000', blur: 8, offset: 3, angle: 135, opacity: 0.25 });
+  let s = p.addSlide(); s.background = { color: B }; s.addShape(p.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: .04, fill: { color: R } });
+  s.addText('NEWS INTELLIGENCE BRIEFING', { x: .8, y: 1.3, w: 8, h: .4, fontFace: 'Trebuchet MS', fontSize: 13, color: R, charSpacing: 6, bold: true, margin: 0 });
+  s.addText(briefing.title || 'Analysis', { x: .8, y: 1.8, w: 8, h: 1.2, fontFace: 'Georgia', fontSize: 44, color: W, bold: true, margin: 0 });
+  s.addText(briefing.subtitle || '', { x: .8, y: 3.2, w: 6, h: .6, fontFace: 'Calibri', fontSize: 16, color: D, margin: 0 });
+  s.addText(briefing.date_range || '', { x: .8, y: 4.8, w: 8, h: .3, fontFace: 'Consolas', fontSize: 10, color: M, margin: 0 });
+  s = p.addSlide(); s.background = { color: B }; s.addShape(p.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: .04, fill: { color: BL } });
+  s.addText('EXECUTIVE SUMMARY', { x: .8, y: .4, w: 8, h: .3, fontFace: 'Consolas', fontSize: 10, color: BL, charSpacing: 5, margin: 0 });
+  s.addText((briefing.executive_summary || '').slice(0, 800), { x: .8, y: 1, w: 8.4, h: 4, fontFace: 'Calibri', fontSize: 13, color: D, lineSpacingMultiple: 1.5, margin: 0 });
+  (briefing.themes || []).forEach((t, i) => { const c = cs[i % 8]; s = p.addSlide(); s.background = { color: B }; s.addText('THEME ' + (i + 1), { x: 0, y: 2, w: 10, h: .4, fontFace: 'Consolas', fontSize: 12, color: c, align: 'center', charSpacing: 6, margin: 0 }); s.addText(t.title, { x: 1, y: 2.5, w: 8, h: 1.2, fontFace: 'Georgia', fontSize: 36, color: W, bold: true, align: 'center', margin: 0 }); s.addShape(p.shapes.RECTANGLE, { x: 4.5, y: 4, w: 1, h: .04, fill: { color: c } }); s = p.addSlide(); s.background = { color: B }; s.addShape(p.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: .04, fill: { color: c } }); const hs = t.stats && t.stats.length > 0; s.addText((t.analysis || '').slice(0, 600), { x: .8, y: .5, w: hs ? 5.5 : 8.4, h: 4.5, fontFace: 'Calibri', fontSize: 13, color: D, lineSpacingMultiple: 1.5, margin: 0 }); if (hs) t.stats.slice(0, 4).forEach((st, si) => { const cy = .5 + si * 1.1; s.addShape(p.shapes.RECTANGLE, { x: 6.6, y: cy, w: 3, h: .95, fill: { color: C }, shadow: mk() }); s.addText(st.value, { x: 6.8, y: cy + .1, w: 1.2, h: .75, fontFace: 'Georgia', fontSize: 22, color: BL, bold: true, valign: 'middle', margin: 0 }); s.addText(st.label, { x: 8.05, y: cy + .1, w: 1.35, h: .75, fontFace: 'Calibri', fontSize: 11, color: D, valign: 'middle', margin: 0 }); }); });
+  s = p.addSlide(); s.background = { color: B }; s.addShape(p.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: .04, fill: { color: R } });
+  s.addText('WHAT TO WATCH', { x: .8, y: .4, w: 8, h: .3, fontFace: 'Consolas', fontSize: 10, color: R, charSpacing: 5, margin: 0 });
+  s.addText('Looking Ahead', { x: .8, y: .8, w: 8, h: .5, fontFace: 'Georgia', fontSize: 28, color: W, bold: true, margin: 0 });
+  (briefing.watch_list || []).slice(0, 6).forEach((w, i) => { const cy = 1.5 + i * .62; s.addShape(p.shapes.RECTANGLE, { x: .8, y: cy, w: 8.4, h: .52, fill: { color: i % 2 === 0 ? C : B } }); s.addText('' + (i + 1), { x: .9, y: cy, w: .5, h: .52, fontFace: 'Georgia', fontSize: 16, color: BL, bold: true, valign: 'middle', margin: 0 }); s.addText(w.item, { x: 1.5, y: cy, w: 7.5, h: .52, fontFace: 'Calibri', fontSize: 13, color: D, valign: 'middle', margin: 0 }); });
+  s = p.addSlide(); s.background = { color: B }; s.addShape(p.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: .04, fill: { color: R } });
+  s.addText(briefing.title || 'Briefing', { x: 0, y: 2, w: 10, h: .9, fontFace: 'Georgia', fontSize: 42, color: W, bold: true, align: 'center', margin: 0 });
+  s.addText(briefing.date_range || '', { x: 0, y: 3, w: 10, h: .4, fontFace: 'Calibri', fontSize: 16, color: D, align: 'center', margin: 0 });
+  p.writeFile({ fileName: 'News_Intelligence_Briefing.pptx' });
+  $('dlProgress').textContent = '';
 });
 
-$('resetBtn').addEventListener('click',()=>{files=[];fileTexts={};briefing=null;podcastScript=null;fl.innerHTML='';tb.innerHTML='';renderFiles();setStep(1);showStage('upload')});
+$('resetBtn').addEventListener('click', () => { entries = []; briefing = null; podcastScript = null; fl.innerHTML = ''; tb.innerHTML = ''; render(); showStage('upload'); });
 </script>
 </body>
 </html>
