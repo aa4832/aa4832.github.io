@@ -28,15 +28,26 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .api-input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:#e8e6e3;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none;transition:border-color .2s;margin-bottom:24px}
 .api-input:focus{border-color:rgba(52,152,219,.4)}
 .api-input::placeholder{color:rgba(255,255,255,.2)}
-.dropzone{border:2px dashed rgba(255,255,255,.1);border-radius:16px;padding:48px 32px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(255,255,255,.02);margin-bottom:24px}
+.dropzone{border:2px dashed rgba(255,255,255,.1);border-radius:16px;padding:48px 32px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(255,255,255,.02);margin-bottom:16px}
 .dropzone:hover,.dropzone.drag-over{border-color:rgba(52,152,219,.4);background:rgba(52,152,219,.04)}
-.file-item{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;margin-bottom:8px;animation:fadeUp .3s both}
-.file-info{display:flex;align-items:center;gap:12px}
+.file-item{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;margin-bottom:8px}
+.file-info{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .file-badge{font-family:'JetBrains Mono';font-size:11px;color:#3498db;background:rgba(52,152,219,.12);padding:3px 8px;border-radius:4px}
 .file-name{font-size:14px;color:rgba(255,255,255,.6)}
-.file-size{font-size:12px;color:rgba(255,255,255,.2)}
-.file-remove{background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:18px;padding:0 4px}
+.file-tokens{font-family:'JetBrains Mono';font-size:11px;color:rgba(255,255,255,.25)}
+.file-remove{background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:18px;padding:0 4px;flex-shrink:0}
 .file-remove:hover{color:rgba(255,255,255,.5)}
+
+/* Token summary bar */
+.token-bar{padding:14px 18px;border-radius:10px;margin-bottom:24px;font-size:13px;line-height:1.6}
+.token-bar.ok{background:rgba(52,152,219,.08);border:1px solid rgba(52,152,219,.15);color:rgba(255,255,255,.5)}
+.token-bar.warn{background:rgba(243,156,18,.1);border:1px solid rgba(243,156,18,.2);color:#f39c12}
+.token-bar.over{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2);color:#e74c3c}
+.token-bar strong{color:inherit;font-weight:600}
+.token-bar .cost{float:right;font-family:'JetBrains Mono';font-size:12px}
+.token-meter{height:4px;border-radius:2px;background:rgba(255,255,255,.06);margin-top:8px;overflow:hidden}
+.token-meter-fill{height:100%;border-radius:2px;transition:width .3s}
+
 .btn-primary{width:100%;padding:16px 24px;border-radius:12px;border:none;font-size:16px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .3s}
 .btn-primary.active{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;box-shadow:0 4px 24px rgba(231,76,60,.25)}
 .btn-primary.active:hover{box-shadow:0 6px 32px rgba(231,76,60,.35)}
@@ -44,7 +55,7 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .processing{text-align:center;padding:60px 0}
 .spinner{width:48px;height:48px;border:3px solid rgba(255,255,255,.08);border-top-color:#3498db;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 24px}
 .proc-title{font-size:18px;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:8px}
-.proc-sub{font-size:14px;color:rgba(255,255,255,.3);max-width:400px;margin:0 auto}
+.proc-sub{font-size:14px;color:rgba(255,255,255,.3);max-width:440px;margin:0 auto}
 .shimmer-bar{margin:32px auto 0;height:3px;border-radius:2px;background:rgba(255,255,255,.06);max-width:300px;overflow:hidden}
 .shimmer-fill{height:100%;background:linear-gradient(90deg,transparent,#3498db,transparent);background-size:200% 100%;animation:shimmer 1.5s infinite}
 .error-box{padding:14px 18px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2);border-radius:10px;color:#e74c3c;font-size:14px;margin-bottom:24px;line-height:1.5}
@@ -71,9 +82,30 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 .powered-by{margin-top:48px;text-align:center;font-size:12px;color:rgba(255,255,255,.15);padding-bottom:32px}
 .powered-by a{color:rgba(255,255,255,.25);text-decoration:none}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+/* Prep section */
+.prep-section{margin-bottom:28px;border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden;background:rgba(255,255,255,.015)}
+.prep-header{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;transition:background .2s}
+.prep-header:hover{background:rgba(255,255,255,.03)}
+.prep-icon{font-size:10px;color:rgba(255,255,255,.3);transition:transform .2s;display:inline-block}
+.prep-icon.open{transform:rotate(90deg)}
+.prep-title{font-size:14px;font-weight:500;color:rgba(255,255,255,.5)}
+.prep-badge{font-family:'JetBrains Mono';font-size:10px;padding:2px 8px;border-radius:4px;background:rgba(52,152,219,.1);color:#3498db;margin-left:auto}
+.prep-body{padding:0 18px 18px}
+.prep-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.6;margin-bottom:16px}
+.prep-desc a{color:#3498db;text-decoration:none}
+.prep-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.prep-step-card{padding:12px 16px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:8px}
+.prep-card-step{font-family:'JetBrains Mono';font-size:10px;letter-spacing:2px;color:#e74c3c;margin-bottom:4px}
+.prep-card-desc{font-size:13px;color:rgba(255,255,255,.35);line-height:1.5}
+.prep-dl-section{padding:16px;background:rgba(52,152,219,.04);border:1px solid rgba(52,152,219,.1);border-radius:10px}
+.prep-dl-label{font-size:13px;font-weight:500;color:rgba(255,255,255,.5);margin-bottom:10px}
+.prep-dl-row{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.prep-dl-btn{padding:10px 20px;border-radius:8px;border:1px solid rgba(52,152,219,.25);background:rgba(52,152,219,.08);color:#3498db;font-size:14px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;display:flex;align-items:center;gap:6px}
+.prep-dl-btn:hover{background:rgba(52,152,219,.18)}
+.prep-dl-note{font-size:11px;color:rgba(255,255,255,.2);line-height:1.5}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@media(max-width:600px){h1{font-size:30px}.themes-grid,.dl-grid{grid-template-columns:1fr}.container{padding:32px 16px}}
+@media(max-width:600px){h1{font-size:30px}.themes-grid,.dl-grid{grid-template-columns:1fr}.container{padding:32px 16px}.token-bar .cost{float:none;display:block;margin-top:4px}}
 </style>
 </head>
 <body>
@@ -82,8 +114,45 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
   <a href="/" class="back-link">&#8592; abhiadhikari.com</a>
   <div class="label">NEWS INTELLIGENCE AGENT</div>
   <h1>Upload sources. Get briefings.</h1>
-  <p class="subtitle">Drop your .txt news files below. Claude analyzes them and generates a comprehensive briefing (.docx) and slide deck (.pptx).</p>
-  <p class="api-note">Requires a <a href="https://console.anthropic.com/" target="_blank">Claude API key</a> with billing enabled and <em>direct browser access</em> turned on.</p>
+  <p class="subtitle">Drop your .txt news files below. Claude analyzes them and generates a comprehensive briefing (.docx) and slide deck (.pptx). You'll need a <a href="https://console.anthropic.com/" target="_blank" style="color:#3498db;text-decoration:none">Claude API key</a>.</p>
+
+  <!-- FILE PREP SECTION -->
+  <div class="prep-section" id="prepSection">
+    <div class="prep-header" onclick="togglePrep()">
+      <span class="prep-icon" id="prepIcon">&#9654;</span>
+      <span class="prep-title">Have PDFs? Prep your files first</span>
+      <span class="prep-badge">download tools</span>
+    </div>
+    <div class="prep-body" id="prepBody" style="display:none">
+      <p class="prep-desc">Download the tool for your computer. It converts your PDFs to .txt files you can upload here. Just double-click to run &mdash; no coding needed. (Requires <a href="https://www.python.org/downloads/" target="_blank" style="color:#3498db">Python</a> to be installed.)</p>
+      
+      <div class="prep-steps">
+        <div class="prep-step-card">
+          <div class="prep-card-step">STEP 1 &mdash; Convert PDFs to text</div>
+          <div class="prep-card-desc">Double-click the app. It asks you to drag in your PDF folder. Creates a new folder with .txt versions of every PDF.</div>
+        </div>
+        <div class="prep-step-card">
+          <div class="prep-card-step">STEP 2 &mdash; Combine by source</div>
+          <div class="prep-card-desc">Double-click the second app. Drag in the .txt folder from Step 1. It merges files by source name (e.g. Bloomberg_Mar + Bloomberg_Apr &rarr; Bloomberg_All.txt).</div>
+        </div>
+        <div class="prep-step-card">
+          <div class="prep-card-step">STEP 3 &mdash; Upload combined files here</div>
+          <div class="prep-card-desc">Take the combined .txt files and upload them below. Done!</div>
+        </div>
+      </div>
+
+      <div class="prep-dl-section">
+        <div class="prep-dl-label">Download for your platform:</div>
+        <div class="prep-dl-row">
+          <button class="prep-dl-btn" onclick="downloadScript('mac')">&#63743; Mac</button>
+          <button class="prep-dl-btn" onclick="downloadScript('windows')">&#9109; Windows</button>
+          <button class="prep-dl-btn" onclick="downloadScript('linux')">&#128039; Linux</button>
+        </div>
+        <div class="prep-dl-note">Each download contains two small apps: <strong>PDF_to_TXT</strong> and <strong>Combine_TXT</strong>. Run them in order.</div>
+      </div>
+    </div>
+  </div>
+
   <div class="step-badges"><span class="step-badge active" id="step1">1. API KEY</span><span class="step-badge" id="step2">2. UPLOAD</span><span class="step-badge" id="step3">3. ANALYZE</span><span class="step-badge" id="step4">4. DOWNLOAD</span></div>
 
   <div id="stage-upload">
@@ -95,6 +164,7 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
       <input type="file" id="fileInput" accept=".txt" multiple style="display:none">
     </div>
     <div id="fileList"></div>
+    <div id="tokenBar"></div>
     <div id="errorBox"></div>
     <button class="btn-primary disabled" id="analyzeBtn" disabled>Upload files to begin</button>
   </div>
@@ -128,10 +198,212 @@ h1{font-family:'Newsreader',serif;font-size:42px;font-weight:700;line-height:1.1
 <script src="https://cdn.jsdelivr.net/npm/docx@9.1.1/build/index.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgenjs.bundle.js"></script>
 <script>
-let files=[],briefing=null,podcastScript=null;
-const $=id=>document.getElementById(id),dz=$('dropzone'),fi=$('fileInput'),fl=$('fileList'),ab=$('analyzeBtn'),eb=$('errorBox');
+// ── STATE ──
+let files=[],fileTexts={},briefing=null,podcastScript=null;
 
+// ── PREP SECTION ──
+function togglePrep(){
+  const body=$('prepBody'),icon=$('prepIcon');
+  if(body.style.display==='none'){body.style.display='block';icon.classList.add('open')}
+  else{body.style.display='none';icon.classList.remove('open')}
+}
+
+const MAC_CMD_1=`#!/bin/bash
+clear
+echo "PDF to TXT Converter"
+echo "===================="
+echo ""
+if ! command -v python3 &> /dev/null; then
+    echo "Python 3 is not installed."
+    echo "Download from: https://www.python.org/downloads/"
+    read -p "Press Enter to exit..."
+    exit 1
+fi
+python3 -c "import fitz" 2>/dev/null
+if [ $? -ne 0 ]; then
+    echo "Installing PDF reader (one-time)..."
+    python3 -m pip install pymupdf --quiet --break-system-packages 2>/dev/null || python3 -m pip install pymupdf --quiet
+    echo "Done!"
+    echo ""
+fi
+echo "Drag your PDF folder into this window and press Enter:"
+read -p "> " SOURCE_DIR
+SOURCE_DIR=$(echo "$SOURCE_DIR" | sed "s/^'//" | sed "s/'$//" | sed 's/^ *//' | sed 's/ *$//' | sed 's/\\\\//g')
+if [ ! -d "$SOURCE_DIR" ]; then
+    echo "Folder not found: $SOURCE_DIR"
+    read -p "Press Enter to exit..."
+    exit 1
+fi
+OUTPUT_DIR="\${SOURCE_DIR}_TXT"
+echo ""
+echo "Converting PDFs..."
+echo "From: $SOURCE_DIR"
+echo "To:   $OUTPUT_DIR"
+echo ""
+python3 << 'PYEOF'
+import sys,os
+from pathlib import Path
+import fitz
+source=Path(os.environ.get("SOURCE_DIR",sys.argv[1] if len(sys.argv)>1 else "."))
+PYEOF
+
+python3 -c "
+import os
+from pathlib import Path
+import fitz
+source=Path('''$SOURCE_DIR''')
+output=Path('''$OUTPUT_DIR''')
+count=errors=0
+for pdf in sorted(source.rglob('*.pdf')):
+    rel=pdf.relative_to(source)
+    txt=output/rel.with_suffix('.txt')
+    txt.parent.mkdir(parents=True,exist_ok=True)
+    try:
+        doc=fitz.open(pdf)
+        text='\\n\\n'.join(p.get_text() for p in doc)
+        doc.close()
+        txt.write_text(text,encoding='utf-8')
+        count+=1
+        print(f'  OK  {rel}')
+    except Exception as e:
+        errors+=1
+        print(f'  ERR {rel} -- {e}')
+print(f'\\nDone! {count} converted' + (f', {errors} errors' if errors else ''))
+print(f'Output: {output}')
+"
+echo ""
+echo "Next: run Combine_TXT on the output folder"
+read -p "Press Enter to exit..."
+`;
+
+const MAC_CMD_2=`#!/bin/bash
+clear
+echo "TXT Combiner"
+echo "============"
+echo ""
+if ! command -v python3 &> /dev/null; then
+    echo "Python 3 is not installed."
+    echo "Download from: https://www.python.org/downloads/"
+    read -p "Press Enter to exit..."
+    exit 1
+fi
+echo "Drag your TXT folder into this window and press Enter:"
+echo "(the folder from the PDF converter)"
+read -p "> " SOURCE_DIR
+SOURCE_DIR=$(echo "$SOURCE_DIR" | sed "s/^'//" | sed "s/'$//" | sed 's/^ *//' | sed 's/ *$//' | sed 's/\\\\//g')
+if [ ! -d "$SOURCE_DIR" ]; then
+    echo "Folder not found: $SOURCE_DIR"
+    read -p "Press Enter to exit..."
+    exit 1
+fi
+OUTPUT_DIR="\${SOURCE_DIR}/Combined"
+echo ""
+echo "Combining..."
+python3 -c "
+from pathlib import Path
+source=Path('''$SOURCE_DIR''')
+output=Path('''$OUTPUT_DIR''')
+output.mkdir(parents=True,exist_ok=True)
+sm={}
+for sf in sorted(source.iterdir()):
+    if not sf.is_dir() or sf.name=='Combined':continue
+    n=sf.name;p=None
+    for s in ['_Jan','_Feb','_Mar','_Apr','_May','_Jun','_Jul','_Aug','_Sep','_Oct','_Nov','_Dec','_2']:
+        i=n.find(s)
+        if i>0:p=n[:i];break
+    if p is None:p=n
+    sm.setdefault(p,[]).append(sf)
+if not sm:
+    tf=sorted(source.glob('*.txt'))
+    if tf:
+        tx=[]
+        for f in tf:
+            c=f.read_text(encoding='utf-8').strip()
+            tx.append('='*80+'\\nSOURCE: '+f.name+'\\n'+'='*80+'\\n\\n'+c)
+            print(f'  OK {f.name}')
+        (output/'All_Combined.txt').write_text('\\n\\n\\n'.join(tx),encoding='utf-8')
+        print(f'\\nWrote All_Combined.txt ({len(tx)} files)')
+else:
+    for pr,fds in sorted(sm.items()):
+        tx=[]
+        for fd in sorted(fds):
+            for tf in sorted(fd.glob('*.txt')):
+                c=tf.read_text(encoding='utf-8').strip()
+                tx.append('='*80+'\\nSOURCE: '+fd.name+' / '+tf.name+'\\n'+'='*80+'\\n\\n'+c)
+                print(f'  OK {fd.name}/{tf.name} -> {pr}')
+        if tx:
+            (output/f'{pr}_All.txt').write_text('\\n\\n\\n'.join(tx),encoding='utf-8')
+            print(f'  -> {pr}_All.txt ({len(tx)} articles)')
+print(f'\\nOutput: {output}')
+print('Upload the Combined .txt files to abhiadhikari.com/newsagent')
+"
+echo ""
+read -p "Press Enter to exit..."
+`;
+
+function downloadScript(platform){
+  if(platform==='mac'){
+    downloadTwo('PDF_to_TXT.command',MAC_CMD_1,'Combine_TXT.command',MAC_CMD_2);
+  } else if(platform==='linux'){
+    downloadTwo('pdf_to_txt.sh',MAC_CMD_1,'combine_txt.sh',MAC_CMD_2);
+  } else {
+    // Windows - create simpler .bat wrappers
+    const bat1=`@echo off
+title PDF to TXT Converter
+echo PDF to TXT Converter
+echo ====================
+echo.
+python --version >nul 2>&1
+if errorlevel 1 (echo Python not installed. Get it from python.org/downloads & pause & exit /b)
+python -c "import fitz" >nul 2>&1
+if errorlevel 1 (echo Installing PDF reader... & python -m pip install pymupdf --quiet)
+echo Drag your PDF folder here and press Enter:
+set /p SRC=">"
+set SRC=%SRC:"=%
+set OUT=%SRC%_TXT
+echo Converting...
+python -c "from pathlib import Path;import fitz;s=Path(r'%SRC%');o=Path(r'%OUT%');c=e=0;[(None) for _ in [0]];exec(\\"for p in sorted(s.rglob('*.pdf')):\\n r=p.relative_to(s);t=o/r.with_suffix('.txt');t.parent.mkdir(parents=True,exist_ok=True)\\n try:\\n  d=fitz.open(p);x=chr(10)*2;t.write_text(x.join(pg.get_text() for pg in d),encoding='utf-8');d.close();c+=1;print(f'  OK {r}')\\n except Exception as ex:\\n  e+=1;print(f'  ERR {r}')\\n\\");print(f'Done! {c} converted');print(f'Output: {o}')"
+echo.
+echo Next: run Combine_TXT on the output folder
+pause`;
+    const bat2=`@echo off
+title TXT Combiner
+echo TXT Combiner
+echo ============
+echo.
+python --version >nul 2>&1
+if errorlevel 1 (echo Python not installed. Get it from python.org/downloads & pause & exit /b)
+echo Drag your TXT folder here and press Enter:
+set /p SRC=">"
+set SRC=%SRC:"=%
+set OUT=%SRC%\\Combined
+echo Combining...
+python -c "from pathlib import Path;s=Path(r'%SRC%');o=Path(r'%OUT%');o.mkdir(parents=True,exist_ok=True);sm={};[sm.setdefault(next((n[:n.find(x)] for x in ['_Jan','_Feb','_Mar','_Apr','_May','_Jun','_Jul','_Aug','_Sep','_Oct','_Nov','_Dec','_2'] if n.find(x)>0),n),[]).append(sf) for sf in sorted(s.iterdir()) if sf.is_dir() and sf.name!='Combined' for n in [sf.name]];exec(\\"for pr,fds in sorted(sm.items()):\\n tx=[]\\n for fd in sorted(fds):\\n  for tf in sorted(fd.glob('*.txt')):\\n   tx.append('='*80+chr(10)+'SOURCE: '+fd.name+' / '+tf.name+chr(10)+'='*80+chr(10)*2+tf.read_text(encoding='utf-8').strip())\\n   print(f'  OK {fd.name}/{tf.name}')\\n if tx:(o/f'{pr}_All.txt').write_text((chr(10)*3).join(tx),encoding='utf-8');print(f'  -> {pr}_All.txt')\\n\\");print(f'Output: {o}');print('Upload Combined files to abhiadhikari.com/newsagent')"
+echo.
+pause`;
+    downloadTwo('PDF_to_TXT.bat',bat1,'Combine_TXT.bat',bat2);
+  }
+}
+
+function downloadTwo(name1,content1,name2,content2){
+  dl(new Blob([content1],{type:'text/plain'}),name1);
+  setTimeout(()=>dl(new Blob([content2],{type:'text/plain'}),name2),500);
+}
+function dl(blob,name){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
+const $=id=>document.getElementById(id),dz=$('dropzone'),fi=$('fileInput'),fl=$('fileList'),ab=$('analyzeBtn'),eb=$('errorBox'),tb=$('tokenBar');
+const RATE_LIMIT=30000; // free tier tokens/min
+const SONNET_INPUT_PRICE=3; // $/M tokens
+const SONNET_OUTPUT_PRICE=15;
+const SYSTEM_TOKENS=500; // approx tokens for system prompt
+
+// Rough token estimator: ~4 chars per token for English text
+function estimateTokens(text){return Math.ceil(text.length/4)}
+function formatTokens(n){return n>=1000?(n/1000).toFixed(1)+'K':n.toString()}
+
+// ── STEPS ──
 function setStep(n){for(let i=1;i<=4;i++)$('step'+i).className='step-badge'+(i<n?' done':i===n?' active':'')}
+
+// ── FILES ──
 dz.addEventListener('click',()=>fi.click());
 dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over')});
 dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
@@ -139,21 +411,102 @@ dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over
 fi.addEventListener('change',e=>{addFiles(e.target.files);e.target.value=''});
 $('apiKey').addEventListener('input',renderFiles);
 
-function addFiles(inp){for(const f of inp)if(f.name.endsWith('.txt'))files.push(f);renderFiles()}
-function removeFile(i){files.splice(i,1);renderFiles()}
+async function addFiles(inp){
+  for(const f of inp){
+    if(!f.name.endsWith('.txt'))continue;
+    files.push(f);
+    const text=await f.text();
+    fileTexts[f.name+f.size]=text; // key by name+size
+  }
+  renderFiles();
+}
+function removeFile(i){
+  const f=files[i];
+  delete fileTexts[f.name+f.size];
+  files.splice(i,1);
+  renderFiles();
+}
+
 function renderFiles(){
-  fl.innerHTML=files.map((f,i)=>'<div class="file-item"><div class="file-info"><span class="file-badge">.txt</span><span class="file-name">'+f.name+'</span><span class="file-size">'+(f.size/1024).toFixed(0)+' KB</span></div><button class="file-remove" onclick="removeFile('+i+')">&#215;</button></div>').join('');
+  let totalTokens=SYSTEM_TOKENS;
+  fl.innerHTML=files.map((f,i)=>{
+    const text=fileTexts[f.name+f.size]||'';
+    const tokens=estimateTokens(text);
+    totalTokens+=tokens;
+    return '<div class="file-item"><div class="file-info"><span class="file-badge">.txt</span><span class="file-name">'+f.name+'</span><span class="file-tokens">~'+formatTokens(tokens)+' tokens</span></div><button class="file-remove" onclick="removeFile('+i+')">&#215;</button></div>';
+  }).join('');
+  
+  // Token summary bar
+  if(files.length>0){
+    const pct=Math.min((totalTokens/RATE_LIMIT)*100,100);
+    const estCostInput=(totalTokens/1e6)*SONNET_INPUT_PRICE;
+    const estCostOutput=(8000/1e6)*SONNET_OUTPUT_PRICE; // assume ~8K output tokens
+    const estCost=(estCostInput+estCostOutput)*2; // 2 API calls (analysis + script)
+    let cls='ok',msg='',meterColor='#3498db';
+    if(totalTokens>RATE_LIMIT){
+      cls='over';msg='<strong>Over free-tier rate limit</strong> ('+formatTokens(totalTokens)+' / '+formatTokens(RATE_LIMIT)+' per min). Remove files or the request will be split into chunks with waits between them.';meterColor='#e74c3c';
+    } else if(totalTokens>RATE_LIMIT*0.8){
+      cls='warn';msg='<strong>Near rate limit</strong> ('+formatTokens(totalTokens)+' / '+formatTokens(RATE_LIMIT)+'). Consider removing a file if you hit 429 errors.';meterColor='#f39c12';
+    } else {
+      msg='<strong>'+formatTokens(totalTokens)+'</strong> est. input tokens (limit: '+formatTokens(RATE_LIMIT)+'/min)';meterColor='#3498db';
+    }
+    msg+='<span class="cost">Est. cost: ~$'+estCost.toFixed(2)+'</span>';
+    tb.innerHTML='<div class="token-bar '+cls+'">'+msg+'<div class="token-meter"><div class="token-meter-fill" style="width:'+pct+'%;background:'+meterColor+'"></div></div></div>';
+  } else {
+    tb.innerHTML='';
+  }
+
   const k=$('apiKey').value.trim(),ready=files.length>0&&k;
   if(k&&files.length)setStep(3);else if(k)setStep(2);else setStep(1);
-  ab.textContent=!files.length?'Upload files to begin':!k?'Enter API key above':'Analyze '+files.length+' source'+(files.length>1?'s':'')+' \u2192';
+  ab.textContent=!files.length?'Upload files to begin':!k?'Enter API key above':'Analyze '+files.length+' source'+(files.length>1?'s':'')+' (~'+formatTokens(totalTokens)+' tokens) \u2192';
   ab.className='btn-primary '+(ready?'active':'disabled');ab.disabled=!ready;
 }
 
+// ── API ──
 async function callClaude(sys,usr,key){
   const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:8000,system:sys,messages:[{role:'user',content:usr}]})});
-  if(!r.ok){const e=await r.text();if(r.status===401)throw new Error('Invalid API key or billing not enabled.');if(r.status===403)throw new Error('Enable "direct browser access" on your API key in the Anthropic Console under API Keys settings.');throw new Error('Claude error '+r.status+': '+e.slice(0,300))}
+  if(!r.ok){const e=await r.text();if(r.status===401)throw new Error('Invalid API key or billing not enabled.');if(r.status===403)throw new Error('Enable "direct browser access" on your API key in the Anthropic Console.');if(r.status===429)throw new Error('Rate limited (30K tokens/min on free tier). Wait 60 seconds and try again, or remove files to reduce token count.');throw new Error('Claude error '+r.status+': '+e.slice(0,300))}
   const d=await r.json();return d.content.map(c=>c.text||'').join('\n');
 }
+
+// Chunked calling: if over rate limit, split files into batches, summarize each, then synthesize
+async function analyzeWithChunking(key,texts,totalTokens){
+  if(totalTokens<=RATE_LIMIT){
+    // Single call
+    const combined=texts.join('\n\n');
+    const raw=await callClaude(ANALYSIS,
+      'Analyze these '+files.length+' news sources and produce the briefing JSON:\n\n'+combined,key);
+    return parseJSON(raw);
+  }
+  
+  // Chunked: summarize each file separately, then synthesize
+  const summaries=[];
+  for(let i=0;i<texts.length;i++){
+    $('procTitle').textContent='Summarizing file '+(i+1)+'/'+texts.length+'...';
+    $('procSub').textContent=files[i].name+' \u2014 waiting 60s between calls for rate limit';
+    if(i>0) await sleep(62000); // wait for rate limit reset
+    const summary=await callClaude(
+      'You are a news analyst. Summarize the key themes, data points, and insights from this news source. Be comprehensive but concise. Respond in plain text, 500-800 words.',
+      texts[i],key);
+    summaries.push('===== '+files[i].name+' =====\n'+summary);
+  }
+  
+  // Synthesize
+  $('procTitle').textContent='Synthesizing across all sources...';
+  $('procSub').textContent='Final analysis pass...';
+  await sleep(62000);
+  const raw=await callClaude(ANALYSIS,
+    'Synthesize these '+summaries.length+' source summaries into the briefing JSON:\n\n'+summaries.join('\n\n'),key);
+  return parseJSON(raw);
+}
+
+function parseJSON(raw){
+  let j=raw.trim();
+  if(j.startsWith('```'))j=j.replace(/^```(?:json)?\s*\n?/,'').replace(/\n?```\s*$/,'');
+  try{return JSON.parse(j)}catch(e){const m=j.match(/\{[\s\S]*\}/);if(m)return JSON.parse(m[0]);throw new Error('JSON parse failed. Try again.')}
+}
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 
 const ANALYSIS=`You are a senior intelligence analyst. Analyze the provided news articles and produce a structured briefing.
 1. Identify 4-8 macro-themes with 2-3 paragraph analysis each, key stats, source attributions, and forward-looking insights
@@ -166,20 +519,29 @@ Schema: {"title":"string","subtitle":"string","date_range":"string","executive_s
 
 const SCRIPT=`You are a podcast scriptwriter. Write a 15-20 minute solo podcast script from the briefing JSON. Conversational but authoritative. Cold open with vivid details, one act per theme, transitions, closing that ties feedback loops together. Include [stage directions]. Respond with ONLY the script text, no JSON.`;
 
+// ── RUN ──
 ab.addEventListener('click',async()=>{
   const key=$('apiKey').value.trim();if(!key||!files.length)return;
   showStage('processing');eb.innerHTML='';
   try{
     $('procTitle').textContent='Reading files...';$('procSub').textContent='';
-    const texts=await Promise.all(files.map(async f=>'===== SOURCE: '+f.name+' =====\n'+(await f.text()).slice(0,100000)+'\n'));
-    const combined=texts.join('\n\n');
-    setStep(3);$('procTitle').textContent='Analyzing with Claude...';$('procSub').textContent=(combined.length/1000).toFixed(0)+'K chars. Takes 1-2 minutes.';
-    const raw=await callClaude(ANALYSIS,'Analyze these '+files.length+' sources:\n\n'+combined,key);
-    let j=raw.trim();if(j.startsWith('```'))j=j.replace(/^```(?:json)?\s*\n?/,'').replace(/\n?```\s*$/,'');
-    try{briefing=JSON.parse(j)}catch(e){const m=j.match(/\{[\s\S]*\}/);if(m)briefing=JSON.parse(m[0]);else throw new Error('JSON parse failed. Try again.')}
-    $('procTitle').textContent='Generating podcast script...';$('procSub').textContent='Almost done...';
+    const texts=files.map(f=>{const t=fileTexts[f.name+f.size]||'';return'===== SOURCE: '+f.name+' =====\n'+t.slice(0,100000)+'\n'});
+    const totalTokens=SYSTEM_TOKENS+texts.reduce((s,t)=>s+estimateTokens(t),0);
+    
+    setStep(3);
+    $('procTitle').textContent='Analyzing with Claude...';
+    $('procSub').textContent=formatTokens(totalTokens)+' input tokens'+(totalTokens>RATE_LIMIT?' (chunked mode \u2014 will take several minutes)':'');
+    
+    briefing=await analyzeWithChunking(key,texts,totalTokens);
+    
+    // Script call
+    $('procTitle').textContent='Generating podcast script...';
+    $('procSub').textContent='Almost done...';
+    const briefingTokens=estimateTokens(JSON.stringify(briefing));
+    if(totalTokens>RATE_LIMIT) await sleep(62000); // rate limit buffer
     podcastScript=(await callClaude(SCRIPT,'Briefing:\n\n'+JSON.stringify(briefing,null,2),key)).trim();
     if(podcastScript.startsWith('```'))podcastScript=podcastScript.replace(/^```\w*\s*\n?/,'').replace(/\n?```\s*$/,'');
+    
     setStep(4);
     const c=['#c0392b','#2980b9','#8e44ad','#16a085','#d35400','#2c3e50','#e67e22','#1abc9c'];
     $('resultsMeta').textContent=(briefing.themes?.length||0)+' themes across '+files.length+' sources';
@@ -258,7 +620,7 @@ $('dlPptx').addEventListener('click',()=>{
   p.writeFile({fileName:'News_Intelligence_Briefing.pptx'});$('dlProgress').textContent='';
 });
 
-$('resetBtn').addEventListener('click',()=>{files=[];briefing=null;podcastScript=null;fl.innerHTML='';renderFiles();setStep(1);showStage('upload')});
+$('resetBtn').addEventListener('click',()=>{files=[];fileTexts={};briefing=null;podcastScript=null;fl.innerHTML='';tb.innerHTML='';renderFiles();setStep(1);showStage('upload')});
 </script>
 </body>
 </html>
