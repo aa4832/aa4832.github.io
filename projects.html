@@ -22,6 +22,20 @@
     <h1 class="text-3xl font-bold mt-4 mb-4">Projects</h1>
     <div class="space-y-4">
       <div class="border border-gray-300 dark:border-gray-700 rounded-lg">
+        <input type="checkbox" id="project0" class="peer hidden">
+        <label for="project0" class="block p-4 cursor-pointer">
+          <h2 class="text-2xl font-semibold">PDF Summary</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400">March 2026</p>
+          <p class="mt-2">A mobile app that turns PDFs and text files into structured reports using AI. Upload documents, get theme extraction, statistics, and cross-document patterns. Export as .docx or .pptx.</p>
+        </label>
+        <div class="hidden peer-checked:block p-4 bg-gray-50 dark:bg-gray-800">
+          <p>PDF Summary is a privacy-first iOS and Android app built with React Native and Expo. Users upload PDFs or text files, which are sent directly from the device to Gemini or Claude for analysis — the app has no backend server. The AI identifies themes, extracts key statistics, detects cross-document patterns, and produces a structured JSON report rendered in-app. Reports can be exported as professional Word documents or dark-themed PowerPoint decks. The app supports chunked processing for large document sets and includes rate-limit handling with automatic retry.</p>
+          <p class="mt-2">
+            <a href="https://pdfsummary.app" class="text-blue-600 hover:underline" target="_blank">pdfsummary.app</a>
+          </p>
+        </div>
+      </div>
+      <div class="border border-gray-300 dark:border-gray-700 rounded-lg">
         <input type="checkbox" id="project1" class="peer hidden">
         <label for="project1" class="block p-4 cursor-pointer">
           <h2 class="text-2xl font-semibold">MediaPad</h2>
