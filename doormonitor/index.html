@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    // Apply saved theme before Tailwind loads (matches your other pages)
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Door Monitor - Abhi Adhikari</title>
+  <style>
+    .chart-container { position: relative; width: 100%; height: 280px; }
+    #chart { width: 100%; height: 100%; display: block; }
+  </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+  <div class="max-w-4xl mx-auto p-6">
+
+    <!-- Nav -->
+    <div class="flex items-center justify-between mb-4">
+      <a href="../index.html" class="text-blue-600 dark:text-blue-400 hover:underline">← Home</a>
+      <button id="theme-toggle" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+        <span class="dark:hidden">🌙 Dark</span>
+        <span class="hidden dark:inline">☀ Light</span>
+      </button>
+    </div>
+
+    <!-- Header -->
+    <div class="flex items-baseline justify-between flex-wrap gap-2 mb-2">
+      <h1 class="text-3xl font-bold">Door Monitor</h1>
+      <div class="flex items-center gap-2 text-sm">
+        <span id="conn-dot" class="inline-block w-2 h-2 rounded-full bg-gray-400"></span>
+        <span id="conn-text" class="font-mono text-xs text-gray-600 dark:text-gray-400">offline</span>
+      </div>
+    </div>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+      Live mmWave detections from my room door. A detection is recorded when the measured distance changes by more than 3&nbsp;cm.
+    </p>
+
+    <!-- Connection -->
+    <div id="setup" class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded p-3 mb-6">
+      <div class="flex items-center gap-2 flex-wrap">
+        <label class="text-xs text-gray-600 dark:text-gray-400 font-mono">Sensor URL:</label>
+        <input id="pi-url" type="text" placeholder="https://your-tunnel.trycloudflare.com"
+               class="flex-1 min-w-[220px] text-xs font-mono bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded px-2 py-1"/>
+        <button onclick="connect()" class="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700">Connect</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+      <div class="border border-gray-200 dark:border-gray-700 rounded p-3">
+        <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Detections today</div>
+        <div class="text-2xl font-semibold font-mono mt-1" id="s-count">—</div>
+      </div>
+      <div class="border border-gray-200 dark:border-gray-700 rounded p-3">
+        <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Last detection</div>
+        <div class="text-2xl font-semibold font-mono mt-1" id="s-last">—</div>
+      </div>
+      <div class="border border-gray-200 dark:border-gray-700 rounded p-3">
+        <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Current range</div>
+        <div class="text-2xl font-semibold font-mono mt-1" id="s-range">—</div>
+      </div>
+      <div class="border border-gray-200 dark:border-gray-700 rounded p-3">
+        <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Viewing</div>
+        <div class="text-2xl font-semibold font-mono mt-1" id="s-date">—</div>
+      </div>
+    </div>
+
+    <!-- Day selector -->
+    <div class="flex items-center gap-2 mb-3 flex-wrap">
+      <span class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Day:</span>
+      <div id="day-list" class="flex flex-wrap gap-1"></div>
+    </div>
+
+    <!-- 24h chart -->
+    <div class="border border-gray-200 dark:border-gray-700 rounded p-4 mb-6">
+      <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
+        24-hour timeline · Eastern Time · range (cm)
+      </div>
+      <div class="chart-container">
+        <canvas id="chart"></canvas>
+      </div>
+      <div class="text-xs font-mono text-gray-500 dark:text-gray-400 mt-2 flex justify-between">
+        <span>12 AM</span><span>6 AM</span><span>12 PM</span><span>6 PM</span><span>12 AM</span>
+      </div>
+    </div>
+
+    <!-- Detection list -->
+    <div class="mb-6">
+      <h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Detections</h2>
+      <div id="det-list" class="border border-gray-200 dark:border-gray-700 rounded overflow-hidden max-h-96 overflow-y-auto">
+        <div class="p-4 text-sm text-gray-500 dark:text-gray-400 text-center">Connect to see detections</div>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 pt-4">
+      <p class="mb-1"><strong class="text-gray-700 dark:text-gray-300">How it works:</strong> A 60&nbsp;GHz mmWave radar (HMMD S3KM1110) measures the distance to the nearest moving object in front of my door. A &ldquo;detection&rdquo; is recorded whenever that distance shifts by more than 3&nbsp;cm from the previous recorded value. The chart shows every detection for the current day; at midnight ET, the day&rsquo;s detections are saved to a .txt log file on the sensor.</p>
+      <p><strong class="text-gray-700 dark:text-gray-300">Why:</strong> (1) How often do I actually use my door? (2) When do I use it? (3) Did it open at a time I wasn&rsquo;t there?</p>
+    </div>
+
+  </div>
+
+<script>
+// ==================================================================
+// CONFIG — paste your sensor URL here if you want auto-connect,
+// otherwise leave empty and type it into the "Sensor URL" field.
+// Example: "https://abc-xyz.trycloudflare.com"
+// ==================================================================
+const DEFAULT_SENSOR_URL = "";
+
+// ------ Theme toggle (matches your site) ------
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const isDark = document.documentElement.classList.toggle('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  drawChart();
+});
+
+// ------ State ------
+let es = null;
+let sensorUrl = "";
+let viewingDate = null;   // YYYY-MM-DD in ET
+let todayDate = null;     // YYYY-MM-DD in ET (live)
+let detections = [];
+let days = [];
+
+// Get today's date in ET (for display even without server)
+function etToday() {
+  const fmt = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/New_York',
+    year: 'numeric', month: '2-digit', day: '2-digit'
+  });
+  return fmt.format(new Date()); // "YYYY-MM-DD"
+}
+function etTimeStr(unix) {
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+  }).format(new Date(unix * 1000));
+}
+function etDateTimeStr(unix) {
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false,
+  }).format(new Date(unix * 1000));
+}
+
+// ------ Chart ------
+const canvas = document.getElementById('chart');
+const ctx = canvas.getContext('2d');
+
+function drawChart() {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(dpr, dpr);
+
+  const w = rect.width, h = rect.height;
+  const isDark = document.documentElement.classList.contains('dark');
+  const gridColor = isDark ? '#374151' : '#e5e7eb';
+  const labelColor = isDark ? '#9ca3af' : '#6b7280';
+  const pointColor = isDark ? '#60a5fa' : '#2563eb';
+  const textColor = isDark ? '#f3f4f6' : '#111827';
+
+  ctx.clearRect(0, 0, w, h);
+
+  // Layout
+  const pad = { left: 45, right: 12, top: 10, bottom: 22 };
+  const plotW = w - pad.left - pad.right;
+  const plotH = h - pad.top - pad.bottom;
+
+  // Y axis range
+  let maxCm = 300;
+  if (detections.length) {
+    const mx = Math.max(...detections.map(d => d.cm));
+    maxCm = Math.max(100, Math.ceil(mx / 50) * 50 + 50);
+  }
+
+  // Grid: 6 x-lines (every 4 hours), 5 y-lines
+  ctx.strokeStyle = gridColor;
+  ctx.lineWidth = 1;
+  ctx.setLineDash([2, 3]);
+  for (let i = 1; i < 6; i++) {
+    const x = pad.left + (i / 6) * plotW;
+    ctx.beginPath();
+    ctx.moveTo(x, pad.top);
+    ctx.lineTo(x, pad.top + plotH);
+    ctx.stroke();
+  }
+  for (let i = 1; i < 5; i++) {
+    const y = pad.top + (i / 5) * plotH;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(pad.left + plotW, y);
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+
+  // Axes
+  ctx.strokeStyle = gridColor;
+  ctx.beginPath();
+  ctx.moveTo(pad.left, pad.top);
+  ctx.lineTo(pad.left, pad.top + plotH);
+  ctx.lineTo(pad.left + plotW, pad.top + plotH);
+  ctx.stroke();
+
+  // Y axis labels
+  ctx.fillStyle = labelColor;
+  ctx.font = '10px ui-monospace, Menlo, Consolas, monospace';
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'middle';
+  for (let i = 0; i <= 5; i++) {
+    const val = Math.round(maxCm - (i / 5) * maxCm);
+    const y = pad.top + (i / 5) * plotH;
+    ctx.fillText(val + 'cm', pad.left - 4, y);
+  }
+
+  // Data points
+  if (detections.length) {
+    ctx.fillStyle = pointColor;
+    detections.forEach(d => {
+      const hour = d.hour !== undefined ? d.hour : (d.ts_unix ? hourFromUnix(d.ts_unix) : 0);
+      const x = pad.left + (hour / 24) * plotW;
+      const y = pad.top + plotH - Math.min(d.cm / maxCm, 1) * plotH;
+      ctx.beginPath();
+      ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  // "Now" marker (only for today's date)
+  if (viewingDate === todayDate) {
+    const nowHour = nowHourFractionalET();
+    const x = pad.left + (nowHour / 24) * plotW;
+    ctx.strokeStyle = isDark ? '#f87171' : '#dc2626';
+    ctx.globalAlpha = 0.6;
+    ctx.beginPath();
+    ctx.moveTo(x, pad.top);
+    ctx.lineTo(x, pad.top + plotH);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function hourFromUnix(unix) {
+  const fmt = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+  });
+  const parts = fmt.formatToParts(new Date(unix * 1000));
+  let h = 0, m = 0, s = 0;
+  parts.forEach(p => {
+    if (p.type === 'hour') h = parseInt(p.value) % 24;
+    if (p.type === 'minute') m = parseInt(p.value);
+    if (p.type === 'second') s = parseInt(p.value);
+  });
+  return h + m / 60 + s / 3600;
+}
+function nowHourFractionalET() {
+  return hourFromUnix(Date.now() / 1000);
+}
+
+// ------ Stats ------
+function updateStats() {
+  document.getElementById('s-count').textContent = detections.length;
+  document.getElementById('s-date').textContent = viewingDate || '—';
+  if (detections.length) {
+    const last = detections[detections.length - 1];
+    document.getElementById('s-last').innerHTML = etTimeStr(last.ts_unix);
+  } else {
+    document.getElementById('s-last').textContent = '—';
+  }
+}
+
+function renderDetectionList() {
+  const list = document.getElementById('det-list');
+  if (!detections.length) {
+    list.innerHTML = '<div class="p-4 text-sm text-gray-500 dark:text-gray-400 text-center">No detections for ' + (viewingDate || 'this day') + '</div>';
+    return;
+  }
+  const sorted = [...detections].sort((a, b) => b.ts_unix - a.ts_unix);
+  const rows = sorted.slice(0, 500).map(d => {
+    return '<div class="flex items-center justify-between px-4 py-2 border-b border-gray-100 dark:border-gray-800 last:border-b-0 text-sm font-mono">' +
+      '<span class="text-gray-500 dark:text-gray-400">' + etTimeStr(d.ts_unix) + '</span>' +
+      '<span class="text-gray-900 dark:text-gray-100">' + d.cm + ' cm</span>' +
+      '</div>';
+  }).join('');
+  list.innerHTML = rows;
+}
+
+function renderDays() {
+  const list = document.getElementById('day-list');
+  if (!days.length) { list.innerHTML = ''; return; }
+  list.innerHTML = days.map(d => {
+    const active = d.date === viewingDate;
+    const todayMark = d.is_today ? ' · today' : '';
+    const base = 'px-2.5 py-1 text-xs font-mono rounded border';
+    const styles = active
+      ? 'bg-blue-600 text-white border-blue-600'
+      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-gray-500';
+    return '<button onclick="viewDay(\'' + d.date + '\')" class="' + base + ' ' + styles + '">' +
+             d.date + ' <span class="opacity-60">(' + d.count + ')</span>' +
+           '</button>';
+  }).join('');
+}
+
+async function viewDay(date) {
+  viewingDate = date;
+  if (date === todayDate) {
+    // Today uses the live data already in `detections`... but reload in case we were viewing a past day
+    try {
+      const r = await fetch(sensorUrl + '/api/detections?date=' + date);
+      const d = await r.json();
+      detections = d.detections || [];
+    } catch {}
+  } else {
+    try {
+      const r = await fetch(sensorUrl + '/api/detections?date=' + date);
+      const d = await r.json();
+      detections = d.detections || [];
+    } catch (e) {
+      detections = [];
+    }
+  }
+  updateStats();
+  renderDetectionList();
+  drawChart();
+  renderDays();
+}
+
+async function loadDays() {
+  try {
+    const r = await fetch(sensorUrl + '/api/days');
+    const d = await r.json();
+    days = d.days || [];
+    renderDays();
+  } catch {}
+}
+
+// ------ SSE ------
+function connect() {
+  const url = document.getElementById('pi-url').value.replace(/\/+$/, '');
+  if (!url) return;
+  sensorUrl = url;
+  localStorage.setItem('doormonitor_url', url);
+  if (es) es.close();
+
+  document.getElementById('conn-text').textContent = 'connecting';
+  document.getElementById('conn-dot').className = 'inline-block w-2 h-2 rounded-full bg-yellow-500';
+
+  es = new EventSource(url + '/api/stream');
+
+  es.addEventListener('init', e => {
+    const d = JSON.parse(e.data);
+    todayDate = d.date;
+    viewingDate = d.date;
+    detections = d.detections || [];
+    updateStats();
+    renderDetectionList();
+    drawChart();
+    loadDays();
+    document.getElementById('conn-text').textContent = 'live';
+    document.getElementById('conn-dot').className = 'inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse';
+  });
+
+  es.addEventListener('tick', e => {
+    const d = JSON.parse(e.data);
+    const r = (d.distance != null ? d.distance + ' cm' : '—');
+    document.getElementById('s-range').innerHTML = r + ' <span class="text-xs text-gray-400">· ' + d.sample_rate.toFixed(0) + ' sps</span>';
+  });
+
+  es.addEventListener('detection', e => {
+    const d = JSON.parse(e.data);
+    // Only append if still viewing today
+    if (viewingDate === todayDate) {
+      detections.push(d);
+      updateStats();
+      renderDetectionList();
+      drawChart();
+    }
+    // Update day counts
+    loadDays();
+  });
+
+  es.addEventListener('rollover', e => {
+    const d = JSON.parse(e.data);
+    todayDate = d.new_date;
+    viewingDate = d.new_date;
+    detections = [];
+    updateStats();
+    renderDetectionList();
+    drawChart();
+    loadDays();
+  });
+
+  es.onerror = () => {
+    document.getElementById('conn-text').textContent = 'reconnecting';
+    document.getElementById('conn-dot').className = 'inline-block w-2 h-2 rounded-full bg-red-500';
+  };
+}
+
+// ------ Init ------
+window.addEventListener('resize', drawChart);
+setInterval(drawChart, 60000); // redraw every minute to move "now" marker
+
+const saved = localStorage.getItem('doormonitor_url') || DEFAULT_SENSOR_URL;
+if (saved) {
+  document.getElementById('pi-url').value = saved;
+  connect();
+}
+</script>
+</body>
+</html>
