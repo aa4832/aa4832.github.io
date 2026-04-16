@@ -124,7 +124,6 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
 });
 
 // ------ State ------
-let es = null;
 let sensorUrl = "";
 let viewingDate = null;   // YYYY-MM-DD in ET
 let todayDate = null;     // YYYY-MM-DD in ET (live)
@@ -315,21 +314,18 @@ function renderDays() {
 
 async function viewDay(date) {
   viewingDate = date;
-  if (date === todayDate) {
-    // Today uses the live data already in `detections`... but reload in case we were viewing a past day
-    try {
-      const r = await fetch(sensorUrl + '/api/detections?date=' + date);
-      const d = await r.json();
-      detections = d.detections || [];
-    } catch {}
-  } else {
-    try {
-      const r = await fetch(sensorUrl + '/api/detections?date=' + date);
-      const d = await r.json();
-      detections = d.detections || [];
-    } catch (e) {
-      detections = [];
+  try {
+    const r = await fetch(sensorUrl + '/api/detections?date=' + date, { cache: 'no-store' });
+    const d = await r.json();
+    detections = d.detections || [];
+    if (detections.length) {
+      lastDetectionTs = detections[detections.length - 1].ts_unix;
+    } else {
+      lastDetectionTs = 0;
     }
+  } catch (e) {
+    detections = [];
+    lastDetectionTs = 0;
   }
   updateStats();
   renderDetectionList();
@@ -337,19 +333,9 @@ async function viewDay(date) {
   renderDays();
 }
 
-async function loadDays() {
-  try {
-    const r = await fetch(sensorUrl + '/api/days');
-    const d = await r.json();
-    days = d.days || [];
-    renderDays();
-  } catch {}
-}
-
-// ------ SSE ------
-let reconnectTimer = null;
-let lastEventTime = 0;
-let staleCheckInterval = null;
+// ------ Polling (simpler and more reliable than SSE through tunnels) ------
+let pollTimer = null;
+let lastDetectionTs = 0;
 
 function setStatus(text, color) {
   document.getElementById('conn-text').textContent = text;
@@ -362,112 +348,132 @@ function connect() {
   if (!url) return;
   sensorUrl = url;
   localStorage.setItem('doormonitor_url', url);
-  openStream();
+  if (pollTimer) clearTimeout(pollTimer);
+  detections = [];
+  lastDetectionTs = 0;
+  setStatus('connecting', 'bg-yellow-500');
+  bootstrap();
 }
 
-function openStream() {
-  if (reconnectTimer) { clearTimeout(reconnectTimer); reconnectTimer = null; }
-  if (es) { try { es.close(); } catch {} }
-
-  setStatus('connecting', 'bg-yellow-500');
-  console.log('[sse] opening', sensorUrl + '/api/stream');
-
+async function bootstrap() {
+  // 1. Get current status + date
   try {
-    es = new EventSource(sensorUrl + '/api/stream');
-  } catch (err) {
-    console.error('[sse] construct failed', err);
-    scheduleReconnect(3000);
+    const r = await fetch(sensorUrl + '/api/status', { cache: 'no-store' });
+    if (!r.ok) throw new Error('status ' + r.status);
+    const s = await r.json();
+    todayDate = s.date;
+    viewingDate = s.date;
+    setStatus('live', 'bg-green-500 animate-pulse');
+    applyStatus(s);
+  } catch (e) {
+    console.error('[bootstrap] status failed:', e);
+    setStatus('unreachable', 'bg-red-500');
+    pollTimer = setTimeout(bootstrap, 5000);
     return;
   }
 
-  es.addEventListener('open', () => {
-    console.log('[sse] open');
-    lastEventTime = Date.now();
-    setStatus('live', 'bg-green-500 animate-pulse');
-  });
-
-  es.addEventListener('init', e => {
-    lastEventTime = Date.now();
-    const d = JSON.parse(e.data);
-    todayDate = d.date;
-    viewingDate = d.date;
+  // 2. Load today's detections
+  try {
+    const r = await fetch(sensorUrl + '/api/detections?date=' + viewingDate, { cache: 'no-store' });
+    const d = await r.json();
     detections = d.detections || [];
-    updateStats();
-    renderDetectionList();
-    drawChart();
-    loadDays();
-    setStatus('live', 'bg-green-500 animate-pulse');
-  });
-
-  es.addEventListener('tick', e => {
-    lastEventTime = Date.now();
-    const d = JSON.parse(e.data);
-    const r = (d.distance != null ? d.distance + ' cm' : '—');
-    document.getElementById('s-range').innerHTML = r + ' <span class="text-xs text-gray-400">· ' + d.sample_rate.toFixed(0) + ' sps</span>';
-    // Also update detections_today count here since ticks arrive more often
-    if (d.detections_today != null && viewingDate === todayDate) {
-      document.getElementById('s-count').textContent = d.detections_today;
+    if (detections.length) {
+      lastDetectionTs = detections[detections.length - 1].ts_unix;
     }
-  });
+  } catch (e) {
+    console.error('[bootstrap] detections failed:', e);
+  }
 
-  es.addEventListener('ping', () => {
-    lastEventTime = Date.now();
-  });
+  // 3. Load list of days
+  try {
+    const r = await fetch(sensorUrl + '/api/days', { cache: 'no-store' });
+    const d = await r.json();
+    days = d.days || [];
+  } catch (e) {}
 
-  es.addEventListener('detection', e => {
-    lastEventTime = Date.now();
-    const d = JSON.parse(e.data);
-    if (viewingDate === todayDate) {
-      detections.push(d);
-      updateStats();
-      renderDetectionList();
-      drawChart();
-    }
-    loadDays();
-  });
+  updateStats();
+  renderDetectionList();
+  renderDays();
+  drawChart();
 
-  es.addEventListener('rollover', e => {
-    lastEventTime = Date.now();
-    const d = JSON.parse(e.data);
-    todayDate = d.new_date;
-    viewingDate = d.new_date;
-    detections = [];
-    updateStats();
-    renderDetectionList();
-    drawChart();
-    loadDays();
-  });
-
-  es.onerror = () => {
-    console.warn('[sse] error, readyState=', es && es.readyState);
-    setStatus('disconnected', 'bg-red-500');
-    // readyState 2 = CLOSED; EventSource native retry sometimes gets stuck on tunnels
-    scheduleReconnect(3000);
-  };
+  // 4. Start polling
+  startPolling();
 }
 
-function scheduleReconnect(delay) {
-  if (reconnectTimer) return;
-  setStatus('reconnecting in ' + (delay / 1000) + 's', 'bg-red-500');
-  reconnectTimer = setTimeout(() => {
-    reconnectTimer = null;
-    console.log('[sse] attempting reconnect...');
-    openStream();
-  }, delay);
+function startPolling() {
+  if (pollTimer) clearTimeout(pollTimer);
+  pollTimer = setTimeout(pollOnce, 1000);
 }
 
-// Staleness watchdog — if no event for 20s, force reconnect
-if (!staleCheckInterval) {
-  staleCheckInterval = setInterval(() => {
-    if (!es || !sensorUrl) return;
-    const age = Date.now() - lastEventTime;
-    if (age > 20000 && lastEventTime > 0) {
-      console.warn('[sse] stale (' + (age / 1000).toFixed(0) + 's), forcing reconnect');
-      lastEventTime = 0;
-      try { es.close(); } catch {}
-      scheduleReconnect(1000);
+async function pollOnce() {
+  if (!sensorUrl) return;
+  let ok = false;
+
+  // Fast poll: live status (every second)
+  try {
+    const r = await fetch(sensorUrl + '/api/status', { cache: 'no-store' });
+    if (r.ok) {
+      const s = await r.json();
+      applyStatus(s);
+      setStatus('live', 'bg-green-500 animate-pulse');
+      ok = true;
+
+      // Check for day rollover
+      if (s.date && s.date !== todayDate) {
+        console.log('[poll] day rollover:', s.date);
+        todayDate = s.date;
+        if (viewingDate === todayDate || !viewingDate) {
+          viewingDate = s.date;
+          detections = [];
+          lastDetectionTs = 0;
+        }
+        await refreshDays();
+      }
+
+      // If viewing today and server has more detections than we do, fetch the new ones
+      if (viewingDate === todayDate && s.detections_today > detections.length) {
+        const r2 = await fetch(sensorUrl + '/api/detections?date=' + todayDate + '&since=' + lastDetectionTs, { cache: 'no-store' });
+        if (r2.ok) {
+          const d2 = await r2.json();
+          if (d2.detections && d2.detections.length) {
+            detections.push(...d2.detections);
+            lastDetectionTs = detections[detections.length - 1].ts_unix;
+            updateStats();
+            renderDetectionList();
+            drawChart();
+            refreshDays(); // update counts
+          }
+        }
+      }
     }
-  }, 5000);
+  } catch (e) {
+    console.warn('[poll] failed:', e.message);
+    setStatus('reconnecting', 'bg-yellow-500');
+  }
+
+  // Schedule next poll (slower if we just failed)
+  pollTimer = setTimeout(pollOnce, ok ? 1000 : 3000);
+}
+
+function applyStatus(s) {
+  const r = (s.distance != null ? s.distance + ' cm' : '—');
+  document.getElementById('s-range').innerHTML = r + ' <span class="text-xs text-gray-400">· ' + s.sample_rate.toFixed(0) + ' sps</span>';
+  if (viewingDate === todayDate) {
+    document.getElementById('s-count').textContent = s.detections_today;
+    if (s.last_ts_unix) {
+      document.getElementById('s-last').textContent = etTimeStr(s.last_ts_unix);
+    }
+    document.getElementById('s-date').textContent = s.date;
+  }
+}
+
+async function refreshDays() {
+  try {
+    const r = await fetch(sensorUrl + '/api/days', { cache: 'no-store' });
+    const d = await r.json();
+    days = d.days || [];
+    renderDays();
+  } catch {}
 }
 
 // ------ Init ------
