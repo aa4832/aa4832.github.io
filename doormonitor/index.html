@@ -15,8 +15,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Door Monitor - Abhi Adhikari</title>
   <style>
-    .chart-container { position: relative; width: 100%; height: 280px; }
+    .chart-container { position: relative; width: 100%; height: 280px; cursor: crosshair; user-select: none; }
     #chart { width: 100%; height: 100%; display: block; }
+    .zoom-btn {
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      border: 1px solid rgb(209 213 219);
+      background: white;
+      color: rgb(75 85 99);
+      cursor: pointer;
+    }
+    .zoom-btn:hover { border-color: rgb(107 114 128); color: rgb(17 24 39); }
+    .zoom-btn.active { background: rgb(37 99 235); border-color: rgb(37 99 235); color: white; }
+    html.dark .zoom-btn { background: rgb(31 41 55); border-color: rgb(75 85 99); color: rgb(209 213 219); }
+    html.dark .zoom-btn:hover { border-color: rgb(156 163 175); color: rgb(243 244 246); }
+    html.dark .zoom-btn.active { background: rgb(37 99 235); border-color: rgb(37 99 235); color: white; }
   </style>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
@@ -81,13 +96,23 @@
 
     <!-- 24h chart -->
     <div class="border border-gray-200 dark:border-gray-700 rounded p-4 mb-6">
-      <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
-        24-hour timeline · Eastern Time · range (cm)
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+        <div class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          Timeline · Eastern Time · range (cm)
+        </div>
+        <div class="flex gap-1" id="zoom-controls">
+          <button data-hours="24" class="zoom-btn active">24h</button>
+          <button data-hours="12" class="zoom-btn">12h</button>
+          <button data-hours="3"  class="zoom-btn">3h</button>
+          <button data-hours="1"  class="zoom-btn">1h</button>
+          <button id="zoom-reset" class="zoom-btn" title="Reset zoom">⟲</button>
+        </div>
       </div>
       <div class="chart-container">
         <canvas id="chart"></canvas>
+        <div id="zoom-hint" class="absolute top-2 right-2 text-xs font-mono text-gray-500 dark:text-gray-400 pointer-events-none" style="display:none"></div>
       </div>
-      <div class="text-xs font-mono text-gray-500 dark:text-gray-400 mt-2 flex justify-between">
+      <div class="text-xs font-mono text-gray-500 dark:text-gray-400 mt-2 flex justify-between" id="axis-labels">
         <span>12 AM</span><span>6 AM</span><span>12 PM</span><span>6 PM</span><span>12 AM</span>
       </div>
     </div>
@@ -102,7 +127,7 @@
 
     <!-- Info -->
     <div class="text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 pt-4">
-      <p class="mb-1"><strong class="text-gray-700 dark:text-gray-300">How it works:</strong> A 60&nbsp;GHz mmWave radar (HMMD S3KM1110) measures the distance to the nearest moving object in front of my door. A &ldquo;detection&rdquo; is recorded whenever that distance shifts by more than 3&nbsp;cm from the previous recorded value. The chart shows every detection for the current day; at midnight ET, the day&rsquo;s detections are saved to a .txt log file on the sensor.</p>
+      <p class="mb-1"><strong class="text-gray-700 dark:text-gray-300">How it works:</strong> A 24&nbsp;GHz mmWave radar (Waveshare HMMD / S3KM1110) measures the distance to the nearest moving object in front of my door. Raw sensor readings within a 5-second window are grouped into a single &ldquo;detection&rdquo; — one per door-use event — recorded with the closest distance observed. The chart shows every detection for the current day; at midnight ET, the day&rsquo;s detections are saved to a .txt log file on the sensor.</p>
       <p><strong class="text-gray-700 dark:text-gray-300">Why:</strong> (1) How often do I actually use my door? (2) When do I use it? (3) Did it open at a time I wasn&rsquo;t there?</p>
     </div>
 
@@ -155,6 +180,28 @@ function etDateTimeStr(unix) {
 const canvas = document.getElementById('chart');
 const ctx = canvas.getContext('2d');
 
+// Chart viewport: fractional hours [0, 24]
+let viewStart = 0;
+let viewEnd = 24;
+
+// Drag-to-zoom state
+let dragStartX = null;
+let dragCurrentX = null;
+
+function setViewport(start, end) {
+  const MIN_SPAN = 5 / 60; // 5 minutes minimum zoom
+  if (end - start < MIN_SPAN) return;
+  viewStart = Math.max(0, start);
+  viewEnd = Math.min(24, end);
+  // Update active zoom button state
+  const span = viewEnd - viewStart;
+  document.querySelectorAll('.zoom-btn[data-hours]').forEach(b => {
+    const h = parseFloat(b.dataset.hours);
+    b.classList.toggle('active', Math.abs(span - h) < 0.01 && (h === 24 || viewEnd === 24 || viewEnd === nowHourFractionalET() + 0.1));
+  });
+  drawChart();
+}
+
 function drawChart() {
   const dpr = window.devicePixelRatio || 1;
   const rect = canvas.getBoundingClientRect();
@@ -168,28 +215,41 @@ function drawChart() {
   const gridColor = isDark ? '#374151' : '#e5e7eb';
   const labelColor = isDark ? '#9ca3af' : '#6b7280';
   const pointColor = isDark ? '#60a5fa' : '#2563eb';
-  const textColor = isDark ? '#f3f4f6' : '#111827';
+  const dragFill = isDark ? 'rgba(96, 165, 250, 0.15)' : 'rgba(37, 99, 235, 0.12)';
+  const dragStroke = isDark ? 'rgba(96, 165, 250, 0.5)' : 'rgba(37, 99, 235, 0.4)';
 
   ctx.clearRect(0, 0, w, h);
 
-  // Layout
   const pad = { left: 45, right: 12, top: 10, bottom: 22 };
   const plotW = w - pad.left - pad.right;
   const plotH = h - pad.top - pad.bottom;
+  const viewSpan = viewEnd - viewStart;
 
-  // Y axis range
-  let maxCm = 300;
-  if (detections.length) {
-    const mx = Math.max(...detections.map(d => d.cm));
-    maxCm = Math.max(100, Math.ceil(mx / 50) * 50 + 50);
+  // Filter to detections inside the current viewport for y-axis scaling
+  const visible = detections.filter(d => {
+    const hr = d.hour !== undefined ? d.hour : hourFromUnix(d.ts_unix);
+    return hr >= viewStart && hr <= viewEnd;
+  });
+
+  // Y axis range — auto-fit to visible data, minimum 100cm
+  let maxCm = 150;
+  if (visible.length) {
+    const mx = Math.max(...visible.map(d => d.cm));
+    maxCm = Math.max(100, Math.ceil(mx / 50) * 50 + 25);
   }
 
-  // Grid: 6 x-lines (every 4 hours), 5 y-lines
+  // Vertical gridlines: adaptive based on viewport span
+  let xDivs = 6;
+  if (viewSpan <= 1) xDivs = 6;           // every 10 min for 1h
+  else if (viewSpan <= 3) xDivs = 6;      // every 30 min for 3h
+  else if (viewSpan <= 12) xDivs = 6;     // every 2h for 12h
+  else xDivs = 6;                         // every 4h for 24h
+
   ctx.strokeStyle = gridColor;
   ctx.lineWidth = 1;
   ctx.setLineDash([2, 3]);
-  for (let i = 1; i < 6; i++) {
-    const x = pad.left + (i / 6) * plotW;
+  for (let i = 1; i < xDivs; i++) {
+    const x = pad.left + (i / xDivs) * plotW;
     ctx.beginPath();
     ctx.moveTo(x, pad.top);
     ctx.lineTo(x, pad.top + plotH);
@@ -223,32 +283,172 @@ function drawChart() {
     ctx.fillText(val + 'cm', pad.left - 4, y);
   }
 
-  // Data points
-  if (detections.length) {
+  // Data points (only those inside viewport)
+  if (visible.length) {
     ctx.fillStyle = pointColor;
-    detections.forEach(d => {
-      const hour = d.hour !== undefined ? d.hour : (d.ts_unix ? hourFromUnix(d.ts_unix) : 0);
-      const x = pad.left + (hour / 24) * plotW;
+    visible.forEach(d => {
+      const hr = d.hour !== undefined ? d.hour : hourFromUnix(d.ts_unix);
+      const x = pad.left + ((hr - viewStart) / viewSpan) * plotW;
       const y = pad.top + plotH - Math.min(d.cm / maxCm, 1) * plotH;
       ctx.beginPath();
-      ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+      ctx.arc(x, y, 3, 0, Math.PI * 2);
       ctx.fill();
     });
   }
 
-  // "Now" marker (only for today's date)
+  // "Now" marker (only for today's date and if now is in viewport)
   if (viewingDate === todayDate) {
     const nowHour = nowHourFractionalET();
-    const x = pad.left + (nowHour / 24) * plotW;
-    ctx.strokeStyle = isDark ? '#f87171' : '#dc2626';
-    ctx.globalAlpha = 0.6;
-    ctx.beginPath();
-    ctx.moveTo(x, pad.top);
-    ctx.lineTo(x, pad.top + plotH);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
+    if (nowHour >= viewStart && nowHour <= viewEnd) {
+      const x = pad.left + ((nowHour - viewStart) / viewSpan) * plotW;
+      ctx.strokeStyle = isDark ? '#f87171' : '#dc2626';
+      ctx.globalAlpha = 0.6;
+      ctx.beginPath();
+      ctx.moveTo(x, pad.top);
+      ctx.lineTo(x, pad.top + plotH);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
   }
+
+  // Drag-to-zoom overlay
+  if (dragStartX !== null && dragCurrentX !== null) {
+    const x0 = Math.min(dragStartX, dragCurrentX);
+    const x1 = Math.max(dragStartX, dragCurrentX);
+    ctx.fillStyle = dragFill;
+    ctx.fillRect(x0, pad.top, x1 - x0, plotH);
+    ctx.strokeStyle = dragStroke;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x0, pad.top); ctx.lineTo(x0, pad.top + plotH);
+    ctx.moveTo(x1, pad.top); ctx.lineTo(x1, pad.top + plotH);
+    ctx.stroke();
+  }
+
+  // Update x-axis labels to match viewport
+  updateAxisLabels();
 }
+
+function formatHourLabel(hour) {
+  const h = Math.floor(hour) % 24;
+  const m = Math.round((hour - Math.floor(hour)) * 60);
+  if (m === 0) {
+    if (h === 0) return '12 AM';
+    if (h === 12) return '12 PM';
+    if (h < 12) return h + ' AM';
+    return (h - 12) + ' PM';
+  }
+  const mm = m < 10 ? '0' + m : m;
+  const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
+  const ap = h < 12 ? 'AM' : 'PM';
+  return h12 + ':' + mm + ' ' + ap;
+}
+
+function updateAxisLabels() {
+  const el = document.getElementById('axis-labels');
+  if (!el) return;
+  const span = viewEnd - viewStart;
+  const labels = [];
+  for (let i = 0; i <= 4; i++) {
+    labels.push(formatHourLabel(viewStart + (i / 4) * span));
+  }
+  el.innerHTML = labels.map(l => '<span>' + l + '</span>').join('');
+}
+
+// ------ Chart interactions ------
+function canvasXToHour(px) {
+  const rect = canvas.getBoundingClientRect();
+  const pad = { left: 45, right: 12 };
+  const plotW = rect.width - pad.left - pad.right;
+  const clamped = Math.max(pad.left, Math.min(pad.left + plotW, px));
+  const frac = (clamped - pad.left) / plotW;
+  return viewStart + frac * (viewEnd - viewStart);
+}
+
+canvas.addEventListener('mousedown', e => {
+  const rect = canvas.getBoundingClientRect();
+  dragStartX = e.clientX - rect.left;
+  dragCurrentX = dragStartX;
+});
+canvas.addEventListener('mousemove', e => {
+  if (dragStartX === null) return;
+  const rect = canvas.getBoundingClientRect();
+  dragCurrentX = e.clientX - rect.left;
+  drawChart();
+});
+canvas.addEventListener('mouseup', e => {
+  if (dragStartX === null) return;
+  const rect = canvas.getBoundingClientRect();
+  const endX = e.clientX - rect.left;
+  const distance = Math.abs(endX - dragStartX);
+  if (distance > 5) {
+    // Zoom to selection
+    const h1 = canvasXToHour(dragStartX);
+    const h2 = canvasXToHour(endX);
+    setViewport(Math.min(h1, h2), Math.max(h1, h2));
+  }
+  dragStartX = null;
+  dragCurrentX = null;
+  drawChart();
+});
+canvas.addEventListener('mouseleave', () => {
+  if (dragStartX !== null) { dragStartX = null; dragCurrentX = null; drawChart(); }
+});
+
+// Touch support for mobile
+canvas.addEventListener('touchstart', e => {
+  if (e.touches.length !== 1) return;
+  const rect = canvas.getBoundingClientRect();
+  dragStartX = e.touches[0].clientX - rect.left;
+  dragCurrentX = dragStartX;
+}, { passive: true });
+canvas.addEventListener('touchmove', e => {
+  if (dragStartX === null || e.touches.length !== 1) return;
+  const rect = canvas.getBoundingClientRect();
+  dragCurrentX = e.touches[0].clientX - rect.left;
+  drawChart();
+}, { passive: true });
+canvas.addEventListener('touchend', e => {
+  if (dragStartX === null) return;
+  // touchend has no coordinates, use dragCurrentX
+  const distance = Math.abs(dragCurrentX - dragStartX);
+  if (distance > 5) {
+    const h1 = canvasXToHour(dragStartX);
+    const h2 = canvasXToHour(dragCurrentX);
+    setViewport(Math.min(h1, h2), Math.max(h1, h2));
+  }
+  dragStartX = null;
+  dragCurrentX = null;
+  drawChart();
+});
+
+// Double-click to reset zoom
+canvas.addEventListener('dblclick', () => {
+  setViewport(0, 24);
+});
+
+// Zoom preset buttons
+document.querySelectorAll('.zoom-btn[data-hours]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const hours = parseFloat(btn.dataset.hours);
+    if (hours >= 24) {
+      setViewport(0, 24);
+    } else {
+      // Center on "now" if viewing today, otherwise center on the last detection
+      let center = nowHourFractionalET();
+      if (viewingDate !== todayDate && detections.length) {
+        const last = detections[detections.length - 1];
+        center = last.hour !== undefined ? last.hour : hourFromUnix(last.ts_unix);
+      }
+      let start = center - hours * 0.85;  // show mostly past + small future buffer
+      let end = center + hours * 0.15;
+      if (start < 0) { end -= start; start = 0; }
+      if (end > 24) { start -= (end - 24); end = 24; }
+      setViewport(start, end);
+    }
+  });
+});
+document.getElementById('zoom-reset').addEventListener('click', () => setViewport(0, 24));
 
 function hourFromUnix(unix) {
   const fmt = new Intl.DateTimeFormat('en-US', {
