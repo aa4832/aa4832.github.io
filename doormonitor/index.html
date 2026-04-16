@@ -347,19 +347,47 @@ async function loadDays() {
 }
 
 // ------ SSE ------
+let reconnectTimer = null;
+let lastEventTime = 0;
+let staleCheckInterval = null;
+
+function setStatus(text, color) {
+  document.getElementById('conn-text').textContent = text;
+  const dot = document.getElementById('conn-dot');
+  dot.className = 'inline-block w-2 h-2 rounded-full ' + color;
+}
+
 function connect() {
   const url = document.getElementById('pi-url').value.replace(/\/+$/, '');
   if (!url) return;
   sensorUrl = url;
   localStorage.setItem('doormonitor_url', url);
-  if (es) es.close();
+  openStream();
+}
 
-  document.getElementById('conn-text').textContent = 'connecting';
-  document.getElementById('conn-dot').className = 'inline-block w-2 h-2 rounded-full bg-yellow-500';
+function openStream() {
+  if (reconnectTimer) { clearTimeout(reconnectTimer); reconnectTimer = null; }
+  if (es) { try { es.close(); } catch {} }
 
-  es = new EventSource(url + '/api/stream');
+  setStatus('connecting', 'bg-yellow-500');
+  console.log('[sse] opening', sensorUrl + '/api/stream');
+
+  try {
+    es = new EventSource(sensorUrl + '/api/stream');
+  } catch (err) {
+    console.error('[sse] construct failed', err);
+    scheduleReconnect(3000);
+    return;
+  }
+
+  es.addEventListener('open', () => {
+    console.log('[sse] open');
+    lastEventTime = Date.now();
+    setStatus('live', 'bg-green-500 animate-pulse');
+  });
 
   es.addEventListener('init', e => {
+    lastEventTime = Date.now();
     const d = JSON.parse(e.data);
     todayDate = d.date;
     viewingDate = d.date;
@@ -368,30 +396,38 @@ function connect() {
     renderDetectionList();
     drawChart();
     loadDays();
-    document.getElementById('conn-text').textContent = 'live';
-    document.getElementById('conn-dot').className = 'inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse';
+    setStatus('live', 'bg-green-500 animate-pulse');
   });
 
   es.addEventListener('tick', e => {
+    lastEventTime = Date.now();
     const d = JSON.parse(e.data);
     const r = (d.distance != null ? d.distance + ' cm' : '—');
     document.getElementById('s-range').innerHTML = r + ' <span class="text-xs text-gray-400">· ' + d.sample_rate.toFixed(0) + ' sps</span>';
+    // Also update detections_today count here since ticks arrive more often
+    if (d.detections_today != null && viewingDate === todayDate) {
+      document.getElementById('s-count').textContent = d.detections_today;
+    }
+  });
+
+  es.addEventListener('ping', () => {
+    lastEventTime = Date.now();
   });
 
   es.addEventListener('detection', e => {
+    lastEventTime = Date.now();
     const d = JSON.parse(e.data);
-    // Only append if still viewing today
     if (viewingDate === todayDate) {
       detections.push(d);
       updateStats();
       renderDetectionList();
       drawChart();
     }
-    // Update day counts
     loadDays();
   });
 
   es.addEventListener('rollover', e => {
+    lastEventTime = Date.now();
     const d = JSON.parse(e.data);
     todayDate = d.new_date;
     viewingDate = d.new_date;
@@ -403,9 +439,35 @@ function connect() {
   });
 
   es.onerror = () => {
-    document.getElementById('conn-text').textContent = 'reconnecting';
-    document.getElementById('conn-dot').className = 'inline-block w-2 h-2 rounded-full bg-red-500';
+    console.warn('[sse] error, readyState=', es && es.readyState);
+    setStatus('disconnected', 'bg-red-500');
+    // readyState 2 = CLOSED; EventSource native retry sometimes gets stuck on tunnels
+    scheduleReconnect(3000);
   };
+}
+
+function scheduleReconnect(delay) {
+  if (reconnectTimer) return;
+  setStatus('reconnecting in ' + (delay / 1000) + 's', 'bg-red-500');
+  reconnectTimer = setTimeout(() => {
+    reconnectTimer = null;
+    console.log('[sse] attempting reconnect...');
+    openStream();
+  }, delay);
+}
+
+// Staleness watchdog — if no event for 20s, force reconnect
+if (!staleCheckInterval) {
+  staleCheckInterval = setInterval(() => {
+    if (!es || !sensorUrl) return;
+    const age = Date.now() - lastEventTime;
+    if (age > 20000 && lastEventTime > 0) {
+      console.warn('[sse] stale (' + (age / 1000).toFixed(0) + 's), forcing reconnect');
+      lastEventTime = 0;
+      try { es.close(); } catch {}
+      scheduleReconnect(1000);
+    }
+  }, 5000);
 }
 
 // ------ Init ------
